@@ -22,11 +22,14 @@ class Char {
     ctx.rotate(this.angle);
     ctx.translate(-10, -10);
     
-    // corps
-    ctx.fillRect(0, 0, 20, 20);
-    // canon
-    ctx.fillRect(-10, 9, 10, 2);
-    
+    ctx.beginPath();
+    ctx.strokeStyle = "#00F";
+    ctx.moveTo(200, 0); // pick up "pen," reposition at 500 (horiz), 0 (vert)
+    ctx.lineTo(100, 100); // draw straight down by 200px (200 + 200)
+    ctx.lineTo(200, 100); // draw up toward left (100 less than 300, so left)
+    ctx.closePath(); // connect end to start
+    ctx.stroke(); // outline the shape that's been described
+
     ctx.restore();
     
     this.drawBullets(ctx);
