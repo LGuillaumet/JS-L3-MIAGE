@@ -1,11 +1,11 @@
 var canvas, ctx, width, height;
-var char1;
+var Vaisseau1;
 var mousepos = { x: 0, y: 0 };
 var inputStates = {};
 
 window.onload = init;
 
-class Char {
+class Vaisseau {
   constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes) {
     this.x = x;
     this.y = y;
@@ -20,20 +20,21 @@ class Char {
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
-    ctx.translate(0, 0);
+    ctx.translate(20, 0);
     ctx.rotate(Math.PI / -0.4455);
-    
+
     ctx.beginPath();
-    ctx.strokeStyle = "#00F";
+    ctx.strokeStyle = "red";
     ctx.moveTo(0, 0); // pick up "pen," reposition at 500 (horiz), 0 (vert)
     ctx.lineTo(70, 25); // draw straight down by 200px (200 + 200)
     ctx.lineTo(25,25); // draw up toward left (100 less than 300, so left)
     ctx.lineTo(25,70);
     ctx.closePath(); // connect end to start
     ctx.stroke(); // outline the shape that's been described
+    ctx.fill();
 
     ctx.restore();
-    
+
     this.drawBullets(ctx);
 
   }
@@ -85,10 +86,10 @@ class Char {
 }
 
 class Bullet {
-    constructor(char) {
-        this.x = char.x;
-        this.y = char.y;
-        this.angle = char.angle;
+    constructor(Vaisseau) {
+        this.x = Vaisseau.x;
+        this.y = Vaisseau.y;
+        this.angle = Vaisseau.angle;
     }
 
     draw(ctx) {
@@ -114,7 +115,7 @@ function init() {
   
     // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
     // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
-    char1 = new Char(100, 100, 0, 2, 100);
+    Vaisseau1 = new Vaisseau(100, 100, 0, 2, 1);
 
     canvas.addEventListener('mousemove', function (evt) {
         mousepos = getMousePos(canvas, evt);
@@ -122,7 +123,7 @@ function init() {
 
     window.addEventListener('click', function (evt) {
         // on passe le temps en parametres, en millisecondes
-        char1.addBullet(Date.now()); 
+        Vaisseau1.addBullet(Date.now()); 
       
         // NOTE : si tu n'utilises pas inputStates.MOUSEDOWN
         // ici, mais juste l'évébement click au lieu de mousedown
@@ -150,12 +151,12 @@ function anime() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 
-    // 2) On dessine et on déplace le char 1
-     char1.draw(ctx);
-     char1.move(mousepos);
+    // 2) On dessine et on déplace le Vaisseau 1
+     Vaisseau1.draw(ctx);
+     Vaisseau1.move(mousepos);
   
     if(inputStates.SPACE) {
-      char1.addBullet(Date.now()); 
+      Vaisseau1.addBullet(Date.now()); 
     }
   
     // On demande une nouvelle frame d'animation
@@ -189,5 +190,5 @@ function getMousePos(canvas, evt) {
 }
 
 function changeCadenceTir(value) {
-  char1.delayMinBetweenBullets = value;
+  Vaisseau1.delayMinBetweenBullets = value;
 }
