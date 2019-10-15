@@ -20,13 +20,18 @@ class Char {
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
-    ctx.translate(-10, -10);
+    ctx.translate(0, 0);
+    ctx.rotate(Math.PI / -0.4455);
     
-    // corps
-    ctx.fillRect(0, 0, 20, 20);
-    // canon
-    ctx.fillRect(-10, 9, 10, 2);
-    
+    ctx.beginPath();
+    ctx.strokeStyle = "#00F";
+    ctx.moveTo(0, 0); // pick up "pen," reposition at 500 (horiz), 0 (vert)
+    ctx.lineTo(70, 25); // draw straight down by 200px (200 + 200)
+    ctx.lineTo(25,25); // draw up toward left (100 less than 300, so left)
+    ctx.lineTo(25,70);
+    ctx.closePath(); // connect end to start
+    ctx.stroke(); // outline the shape that's been described
+
     ctx.restore();
     
     this.drawBullets(ctx);
