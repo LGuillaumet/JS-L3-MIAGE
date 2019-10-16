@@ -17,6 +17,7 @@ class Vaisseau {
     this.bullets = [];
     // cadenceTir en millisecondes = temps min entre tirs
     this.delayMinBetweenBullets = tempsMinEntreTirsEnMillisecondes;
+
   }
 
   draw(ctx) {
@@ -36,8 +37,15 @@ class Vaisseau {
     ctx.closePath(); // connect end to start
     ctx.stroke(); // outline the shape that's been described
     ctx.fill();
-
     ctx.restore();
+    if (this.x < 0)
+      	this.x = width;
+      if (this.y < 0) 
+      	this.y = height;
+      if (this.x > width)
+      	this.x = 0;
+      if (this.y > height)
+        this.y = 0;
 
     this.drawBullets(ctx);
 
@@ -48,8 +56,14 @@ class Vaisseau {
       let b = this.bullets[i];
       b.draw(ctx);
       b.move();
-      if ((b.x < 0) || (b.y < 0) || (b.x > width) || (b.y > height))
-        this.removeBullet(b)
+      if (b.x < 0)
+      	b.x = width;
+      if (b.y < 0) 
+      	b.y = height;
+      if (b.x > width)
+      	b.x = 0;
+      if (b.y > height)
+        b.y = 0;
 
     }
   }
