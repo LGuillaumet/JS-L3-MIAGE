@@ -53,19 +53,25 @@ class Vaisseau {
 
   drawBullets(ctx) {
     for (let i = 0; i < this.bullets.length; i++) {
-      let b = this.bullets[i];
-      b.draw(ctx);
-      b.move();
-      if (b.x < 0)
-      	b.x = width;
-      if (b.y < 0) 
-      	b.y = height;
-      if (b.x > width)
-      	b.x = 0;
-      if (b.y > height)
-        b.y = 0;
+      var b = this.bullets[i];
+      setTimeout(() => {
+  		delete this.bullets[i];
+  		}, 1000);
 
-    }
+      if(b != undefined) {
+	      b.draw(ctx);
+	      b.move();
+	      if (b.x < 0)
+	      	b.x = width;
+	      if (b.y < 0) 
+	      	b.y = height;
+	      if (b.x > width)
+	      	b.x = 0;
+	      if (b.y > height)
+	        b.y = 0;
+
+	    }
+	}
   }
 
   move(mousepos) {
@@ -84,7 +90,7 @@ class Vaisseau {
      Vaisseau1.y -= incrementX * Math.sin(Vaisseau1.angle);
      Vaisseau1.angle += incrementAngle;
 
-     console.log(incrementX);
+     //console.log(incrementX);
 
     /*document.onkeydown = function () {
       switch (window.event.keyCode) {
@@ -199,8 +205,11 @@ function init() {
   //anime();
 }
 
+var keysCheck = [];
+
 
 function handleKeydown(evt) {
+  keysCheck[evt.keyCode] = true;
   if (evt.keyCode === 38) {
     //up key 
     incrementX = 5;
@@ -209,15 +218,29 @@ function handleKeydown(evt) {
     incrementX = -2;
   }
 
-  else if (evt.keyCode === 37) {
-    //left key 
-   incrementAngle = -0.08;
- } else if (evt.keyCode === 39) {
-    // right key
-    incrementAngle = 0.08;
+  else if (evt.keyCode === 37 ) {  	
+  	if (keysCheck[37] && keysCheck[39]){
+ 		incrementAngle = 0; 		
+ 	}
+    // left key
+    else
+    	incrementAngle =  -0.08;
  } 
-}
+
+
+  else if (evt.keyCode === 39) {  	
+  	 if (keysCheck[37] && keysCheck[39]){
+ 		incrementAngle = 0; 		
+ 	}
+    // right key
+    else
+    incrementAngle = 0.08;
+	console.log(incrementAngle);
+ }
+ }
+
 function handleKeyup(evt) {
+	keysCheck[evt.keyCode] = false;
   if (evt.keyCode === 38) {
     //up key 
     incrementX = 1;
@@ -226,13 +249,13 @@ function handleKeyup(evt) {
     incrementX = 0;
   }
 
-  else if (evt.keyCode === 37) {
+  else if (evt.keyCode === 37 && keysCheck[39] == false) {
     //left key 
-   incrementAngle = 0;
- } else if (evt.keyCode === 39) {
+   incrementAngle = 0;   
+ } else if (evt.keyCode === 39 && keysCheck[37] == false) {
     // right key
-    incrementAngle = 0;
- } 
+    incrementAngle = 0;    
+ }  
 }
 
 function anime60fps() {
