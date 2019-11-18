@@ -4,15 +4,20 @@ var mousepos = { x: 0, y: 0 };
 var inputStates = {};
 var incrementX = 0;
 var incrementAngle = 0;
+var contexteAudio = new AudioContext();
+var contexteAudio = new (window.AudioContext || window.webkitAudioContext)();
+
+var shoot = new Audio('SoundEffect/Guns/wav/Gun4.wav');
 
 
 window.onload = init;
 
 class Vaisseau {
-  constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes) {
+  constructor(x, y, angle,velo, vitesse, tempsMinEntreTirsEnMillisecondes) {
     this.x = x;
     this.y = y;
     this.angle = angle;
+    this.velo = velo;
     this.v = vitesse;
     this.bullets = [];
     // cadenceTir en millisecondes = temps min entre tirs
@@ -74,7 +79,7 @@ class Vaisseau {
 	}
   }
 
-  move(mousepos) {
+  move() {
     // 2) On dÃ©place la balle 
     /*let dx = this.x - mousepos.x;
     let dy = this.y - mousepos.y;
@@ -161,6 +166,15 @@ function init() {
   ctx = canvas.getContext('2d');
   width = canvas.width;
   height = canvas.height;
+
+  for (i=0;i<NbAst;i++){
+    tab.push( Math.trunc(Math.random()*10) );
+    console.log(tab[i]);
+  }
+  
+ 
+
+
   window.addEventListener('keydown', handleKeydown, false);
   window.addEventListener('keyup', handleKeyup, false);
   requestAnimationFrame(anime60fps);
@@ -260,6 +274,9 @@ function handleKeyup(evt) {
 
 function anime60fps() {
 
+
+ 
+
   // 1) On efface l'Ã©cran
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -270,7 +287,24 @@ function anime60fps() {
 
   if (inputStates.SPACE == true) {
     Vaisseau1.addBullet(Date.now());
+    //shoot.play();
+    console.log('Shoooooot');
+  
   }
+
+    // For each ball in the array
+    for(var i=0; i < AstArray.length; i++) {
+      var balle = AstArray[i];
+      
+      // 1) Move the ball
+      balle.move();   
+  
+      // 2) collision test with walls
+      collisionTestWithWalls(balle);
+  
+      // 3) draw the ball
+      balle.draw();
+    }
 
   // On demande une nouvelle frame d'animation
   window.requestAnimationFrame(anime60fps);

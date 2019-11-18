@@ -1,21 +1,8 @@
-var canvas, ctx, width, height;
+
 var AstArray = [];
-var NbAst = 1;
+var NbAst = 5;
 var tab = [];
 
-function init() {
-  canvas = document.querySelector("#myCanvas");
-  ctx = canvas.getContext('2d');
-  width = canvas.width;
-  height = canvas.height;
-  
-  for (i=0;i<NbAst;i++){
-    tab.push( Math.trunc(Math.random()*10) );
-    console.log(tab[i]);
-  }
-  
-  requestAnimationFrame(mainLoop);
-}
 
   // Change this number to get more balls
 
@@ -35,29 +22,6 @@ function createBalls(numberOfBalls) {
   
 }                                
 
-function mainLoop() {
-    // vasClear the can
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // For each ball in the array
-    for(var i=0; i < AstArray.length; i++) {
-      var balle = AstArray[i];
-      
-      // 1) Move the ball
-      balle.move();   
-  
-      // 2) collision test with walls
-      collisionTestWithWalls(balle);
-  
-      // 3) draw the ball
-      balle.draw();
-  }
-  
-  collisionTestBetweenBalls();
-  
-    // Ask for new animation frame
-     window.requestAnimationFrame(mainLoop);
-}
  
 function collisionTestWithWalls(ball) {
     if (ball.x < ball.rayon) {
