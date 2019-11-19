@@ -4,75 +4,77 @@ var NbAst = 5;
 var tab = [];
 
 
-  // Change this number to get more balls
+  // Change this number to get more meteores
 
   createBalls(NbAst);
 function createBalls(numberOfBalls) {
   for(var i=0; i < numberOfBalls; i++) {
     
-    // Create a ball with random position and speed
-    var ball =  new Ball(1,
+    // Create a meteore with random position and speed
+    var meteore =  new Ball(1,
                           1,
                           (2*Math.random())-1,
                           (2*Math.random())-1); // radius, change if ou like.
     
     // Add it to the array
-    AstArray[i] = ball;
+    AstArray[i] = meteore;
   }
   
 }                                
 
+
  
-function collisionTestWithWalls(ball) {
-    if (ball.x < ball.rayon) {
-        ball.x = ball.rayon;
-        ball.vx *= -1;
+function collisionTestWithWalls(meteore) {
+
+    if (meteore.x < meteore.rayon) {
+        meteore.x = meteore.rayon;
+        meteore.vx *= -1;
     } 
-    if (ball.x > width - (ball.rayon)) {
-        ball.x = width - (ball.rayon);
-        ball.vx *= -1;
+    if (meteore.x > width - (meteore.rayon)) {
+        meteore.x = width - (meteore.rayon);
+        meteore.vx *= -1;
     }     
-    if (ball.y < ball.rayon) {
-        ball.y = ball.rayon;
-        ball.vy *= -1;
+    if (meteore.y < meteore.rayon) {
+        meteore.y = meteore.rayon;
+        meteore.vy *= -1;
     }     
-    if (ball.y > height - (ball.rayon)) {
-        ball.y = height - (ball.rayon);
-        ball.vy *= -1;
+    if (meteore.y > height - (meteore.rayon)) {
+        meteore.y = height - (meteore.rayon);
+        meteore.vy *= -1;
     }
 }
 
 // Cette collision ne fonctionne pas
 function collisionTestBetweenBalls() {  
-  var balls = AstArray;
+  var meteores = AstArray;
   
   for (var i = 0; i < AstArray.length; i++) {
         for (var j = i + 1; j < AstArray.length; j++) {
-            var dx = balls[j].x - balls[i].x;
-            var dy = balls[j].y - balls[i].y;
+            var dx = meteores[j].x - meteores[i].x;
+            var dy = meteores[j].y - meteores[i].y;
           
             var dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < (balls[j].rayon + balls[i].rayon)) {
-                // balls have contact so push back...
+            if (dist < (meteores[j].rayon + meteores[i].rayon)) {
+                // meteores have contact so push back...
                 var normalX = dx / dist;
                 var normalY = dy / dist;
-                var middleX = (balls[i].x + balls[j].x) / 2;
-                var middleY = (balls[i].y + balls[j].y) / 2;
+                var middleX = (meteores[i].x + meteores[j].x) / 2;
+                var middleY = (meteores[i].y + meteores[j].y) / 2;
               
-                balls[i].x = middleX - normalX * balls[i].rayon;
-                balls[i].y = middleY - normalY * balls[i].rayon;
-                balls[j].x = middleX + normalX * balls[j].rayon;
-                balls[j].y = middleY + normalY * balls[j].rayon;
+                meteores[i].x = middleX - normalX * meteores[i].rayon;
+                meteores[i].y = middleY - normalY * meteores[i].rayon;
+                meteores[j].x = middleX + normalX * meteores[j].rayon;
+                meteores[j].y = middleY + normalY * meteores[j].rayon;
               
-                var dVector = (balls[i].vx - balls[j].vx) * normalX;
-                dVector += (balls[i].vy - balls[j].vy) * normalY;
+                var dVector = (meteores[i].vx - meteores[j].vx) * normalX;
+                dVector += (meteores[i].vy - meteores[j].vy) * normalY;
                 var dvx = dVector * normalX;
                 var dvy = dVector * normalY;
               
-                balls[i].vx -= dvx;
-                balls[i].vy -= dvy;
-                balls[j].vx += dvx;
-                balls[j].vy += dvy;
+                meteores[i].vx -= dvx;
+                meteores[i].vy -= dvy;
+                meteores[j].vx += dvx;
+                meteores[j].vy += dvy;
             }
         }
     }

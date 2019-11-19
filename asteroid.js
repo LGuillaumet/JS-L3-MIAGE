@@ -24,6 +24,7 @@ class Vaisseau {
 
   }
 
+
   draw(ctx) {
     ctx.save();
     ctx.translate(this.x, this.y);
@@ -72,8 +73,8 @@ class Vaisseau {
 	      if (b.x > width)
 	      	b.x = 0;
 	      if (b.y > height)
-	        b.y = 0;
-
+          b.y = 0;
+          
 	    }
 	}
   }
@@ -162,7 +163,7 @@ class Bullet {
   }
 
 
-  move(maxX, maxY) {
+  move() {
     this.x -= 10 * Math.cos(this.angle);
     this.y -= 10 * Math.sin(this.angle);
   }
@@ -188,7 +189,7 @@ function init() {
 
   // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
   // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
-  Vaisseau1 = new Vaisseau(100, 100, 0, 2, 1);
+  Vaisseau1 = new Vaisseau(100, 100, 0, 2, 200);
 
   canvas.addEventListener('mousemove', function (evt) {
     mousepos = getMousePos(canvas, evt);
@@ -245,7 +246,8 @@ function handleKeydown(evt) {
  	}
     // left key
     else
-    	incrementAngle =  -0.08;
+      incrementAngle = -0.08;
+      console.log(incrementAngle);
  } 
 
 
@@ -276,8 +278,8 @@ function handleKeydown(evt) {
 function boost() {
   if(incrementX < 5) {
     //console.log(incrementX);
-     incrementX += 1;   
-     setTimeout(boost, 100);
+     incrementX += 1*2;   
+     setTimeout(boost, 200);
   }else {
     incrementX = 5;
   }
@@ -295,10 +297,11 @@ function handleKeyup(evt) {
     incrementX = 0;
   }
 
-  else if (evt.keyCode === 37 && keysCheck[39] == false) {
+  
+  else if (evt.keyCode === 37 && keysCheck[39] == false || evt.keyCode === 37) {
     //left key 
    incrementAngle = 0;   
- } else if (evt.keyCode === 39 && keysCheck[37] == false) {
+ } else if (evt.keyCode === 39 && keysCheck[37] == false || evt.keyCode === 39) {
     // right key
     incrementAngle = 0;    
  }  
@@ -308,7 +311,8 @@ function anime60fps() {
 
 
  
-
+ // Get current direction ship is facing
+  let radians = Vaisseau1.angle / Math.PI * 180;
   // 1) On efface l'Ã©cran
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -333,7 +337,6 @@ function anime60fps() {
   
       // 2) collision test with walls
       collisionTestWithWalls(balle);
-  
       // 3) draw the ball
       balle.draw();
     }
@@ -371,5 +374,7 @@ function getMousePos(canvas, evt) {
 function changeCadenceTir(value) {
   Vaisseau1.delayMinBetweenBullets = value;
 }
+
+
 
 
