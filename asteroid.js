@@ -13,11 +13,10 @@ var shoot = new Audio('SoundEffect/Guns/wav/Gun4.wav');
 window.onload = init;
 
 class Vaisseau {
-  constructor(x, y, angle,velo, vitesse, tempsMinEntreTirsEnMillisecondes) {
+  constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes) {
     this.x = x;
     this.y = y;
     this.angle = angle;
-    this.velo = velo;
     this.v = vitesse;
     this.bullets = [];
     // cadenceTir en millisecondes = temps min entre tirs
@@ -137,6 +136,14 @@ class Vaisseau {
     let position = this.bullets.indexOf(bullet);
     this.bullets.splice(position, 1);
   }
+
+  getAngle(){
+    return this.angle;
+  }
+
+  setAngle(value){
+    return this.angle = value;
+  }
 }
 
 class Bullet {
@@ -226,7 +233,7 @@ function handleKeydown(evt) {
   keysCheck[evt.keyCode] = true;
   if (evt.keyCode === 38) {
     //up key 
-    incrementX = 5;
+    boost();
   } else if (evt.keyCode === 40) {
     // down key
     incrementX = -2;
@@ -253,11 +260,36 @@ function handleKeydown(evt) {
  }
  }
 
+ function slow() {
+  if(incrementX > 0) {
+    console.log(Vaisseau1.getAngle());
+    Vaisseau1.setAngle(Vaisseau1.getAngle())
+    //console.log(incrementX);
+     incrementX -= 0.5;   
+     setTimeout(slow, 150);
+  }else {
+    incrementX = 0;
+  }
+}
+
+
+function boost() {
+  if(incrementX < 5) {
+    //console.log(incrementX);
+     incrementX += 1;   
+     setTimeout(boost, 100);
+  }else {
+    incrementX = 5;
+  }
+}
+
+
 function handleKeyup(evt) {
 	keysCheck[evt.keyCode] = false;
   if (evt.keyCode === 38) {
     //up key 
-    incrementX = 1;
+ 
+    slow();
   } else if (evt.keyCode === 40) {
     // down key
     incrementX = 0;
