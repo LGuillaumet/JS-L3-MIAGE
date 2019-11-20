@@ -55,8 +55,8 @@ function Ball(x, y, vx, vy) {
   this.boundingBox = {
     x: x,
     y: y,
-    width: 50,
-    height: 50
+    width: 40,
+    height: 40
   }
 
   this.drawBoundingBox = function(ctx) {
@@ -92,8 +92,8 @@ function Ball(x, y, vx, vy) {
     this.x += this.vx;
     this.y += this.vy;
 
-    this.boundingBox.x = this.x;
-    this.boundingBox.y = this.y;
+    this.boundingBox.x = this.x + 10;
+    this.boundingBox.y = this.y + 20;
 
   };
   

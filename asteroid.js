@@ -225,7 +225,7 @@ function init() {
 
   for (i = 0; i < NbAst; i++) {
     tab.push(Math.trunc(Math.random() * 10));
-    console.log(tab[i]);
+    //console.log(tab[i]);
   }
 
 
@@ -278,9 +278,6 @@ function handleKeydown(evt) {
   if (evt.keyCode === 38) {
     //up key 
     boost();
-  } else if (evt.keyCode === 40) {
-    // down key
-    incrementX = -2;
   } else if (evt.keyCode === 37) {
     if (keysCheck[37] && keysCheck[39]) {
       incrementAngle = 0;
@@ -288,7 +285,7 @@ function handleKeydown(evt) {
     // left key
     else
       incrementAngle = -0.08;
-    console.log(incrementAngle);
+    //console.log(incrementAngle);
   } else if (evt.keyCode === 39) {
     if (keysCheck[37] && keysCheck[39]) {
       incrementAngle = 0;
@@ -296,7 +293,7 @@ function handleKeydown(evt) {
     // right key
     else
       incrementAngle = 0.08;
-    console.log(incrementAngle);
+    //console.log(incrementAngle);
   }
 }
 
@@ -330,9 +327,6 @@ function handleKeyup(evt) {
     //up key 
 
     slow();
-  } else if (evt.keyCode === 40) {
-    // down key
-    incrementX = 0;
   } else if (evt.keyCode === 37 && keysCheck[39] == false || evt.keyCode === 37) {
     //left key 
     incrementAngle = 0;
@@ -372,6 +366,8 @@ function anime60fps() {
 
     // collision test with bullets
     collisionTestAsteroidBullets(balle, Vaisseau1.bullets);
+    //collision tets  asteroid et vaisseau
+    collisionTestAsteroidVaisseau(balle , Vaisseau1);
 
     // 3) draw the ball
     balle.draw();
@@ -394,6 +390,16 @@ function rectangleCollide(targetA, targetB) {
     (targetB.y + targetB.height) < targetA.y);
 }
 
+function collisionTestAsteroidVaisseau(asteroid, Vaisseau1){
+	AstArray.forEach((a, index) => {
+		if (rectangleCollide(a.boundingBox, Vaisseau1.boundingBox)){
+			supprimerAsteroid(a);
+			console.log("COLLISION V/A")
+			//on perd une vie 
+		}
+	})
+}
+
 function collisionTestAsteroidBullets(asteroid, bulletsArray) {
   // on teste si l'asteroide courante est en collision avec une balle
   bulletsArray.forEach((b, index) => {
@@ -403,11 +409,12 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
       // On casse l'asteroide, on change les vitesses de rotation des
       // morceaux résultants (2, 3 ou 4)
       //asteroid.casse();
+      
       supprimerAsteroid(asteroid);
-      console.log("COLLISION")
+      console.log("COLLISION B/A")
 
       // On supprime la balle de la liste
-      delete b;
+      Vaisseau1.removeBullet(b);
 
       // break; // on sort de la boucle, il ne peut y avoir de collision avec plusieurs balles en meme temps
     }
