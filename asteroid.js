@@ -1,11 +1,14 @@
 var canvas, ctx, width, height;
 var Vaisseau1;
-var mousepos = { x: 0, y: 0 };
+var mousepos = {
+  x: 0,
+  y: 0
+};
 var inputStates = {};
 var incrementX = 0;
 var incrementAngle = 0;
 var contexteAudio = new AudioContext();
-var contexteAudio = new (window.AudioContext || window.webkitAudioContext)();
+var contexteAudio = new(window.AudioContext || window.webkitAudioContext)();
 
 var shoot = new Audio('SoundEffect/Guns/wav/Gun4.wav');
 
@@ -21,11 +24,24 @@ class Vaisseau {
     this.bullets = [];
     // cadenceTir en millisecondes = temps min entre tirs
     this.delayMinBetweenBullets = tempsMinEntreTirsEnMillisecondes;
-
+    this.boundingBox = {
+      x: this.x,
+      y: this.y,
+      width: 50,
+      height: 50
+    }
   }
 
+  drawBoundingBox(ctx) {
+    ctx.save();
+    ctx.strokeStyle = 'red';
+    ctx.strokeRect(this.boundingBox.x, this.boundingBox.y,              this.boundingBox.width, this.boundingBox.height);
+    ctx.restore();
+  }
 
   draw(ctx) {
+    this.drawBoundingBox(ctx);
+
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
@@ -44,13 +60,13 @@ class Vaisseau {
     ctx.fill();
     ctx.restore();
     if (this.x < 0)
-      	this.x = width;
-      if (this.y < 0) 
-      	this.y = height;
-      if (this.x > width)
-      	this.x = 0;
-      if (this.y > height)
-        this.y = 0;
+      this.x = width;
+    if (this.y < 0)
+      this.y = height;
+    if (this.x > width)
+      this.x = 0;
+    if (this.y > height)
+      this.y = 0;
 
     this.drawBullets(ctx);
 
@@ -60,23 +76,23 @@ class Vaisseau {
     for (let i = 0; i < this.bullets.length; i++) {
       var b = this.bullets[i];
       setTimeout(() => {
-  		delete this.bullets[i];
-  		}, 1000);
+        delete this.bullets[i];
+      }, 1000);
 
-      if(b != undefined) {
-	      b.draw(ctx);
-	      b.move();
-	      if (b.x < 0)
-	      	b.x = width;
-	      if (b.y < 0) 
-	      	b.y = height;
-	      if (b.x > width)
-	      	b.x = 0;
-	      if (b.y > height)
+      if (b != undefined) {
+        b.draw(ctx);
+        b.move();
+        if (b.x < 0)
+          b.x = width;
+        if (b.y < 0)
+          b.y = height;
+        if (b.x > width)
+          b.x = 0;
+        if (b.y > height)
           b.y = 0;
-          
-	    }
-	}
+
+      }
+    }
   }
 
   move() {
@@ -91,11 +107,14 @@ class Vaisseau {
          this.y -= this.v * Math.sin(this.angle);
      }*/
 
-     Vaisseau1.x -= incrementX * Math.cos(Vaisseau1.angle);
-     Vaisseau1.y -= incrementX * Math.sin(Vaisseau1.angle);
-     Vaisseau1.angle += incrementAngle;
+    this.x -= incrementX * Math.cos(this.angle);
+    this.y -= incrementX * Math.sin(this.angle);
+    this.angle += incrementAngle;
 
-     //console.log(incrementX);
+    this.boundingBox.x = this.x-25;
+    this.boundingBox.y = this.y-25;
+
+    //console.log(incrementX);
 
     /*document.onkeydown = function () {
       switch (window.event.keyCode) {
@@ -138,11 +157,11 @@ class Vaisseau {
     this.bullets.splice(position, 1);
   }
 
-  getAngle(){
+  getAngle() {
     return this.angle;
   }
 
-  setAngle(value){
+  setAngle(value) {
     return this.angle = value;
   }
 }
@@ -152,9 +171,22 @@ class Bullet {
     this.x = Vaisseau.x;
     this.y = Vaisseau.y;
     this.angle = Vaisseau.angle;
+    this.boundingBox = {
+      x: this.x,
+      y: this.y,
+      width: 10,
+      height: 2
+    }
   }
 
+  drawBoundingBox(ctx) {
+    ctx.save();
+    ctx.strokeStyle = 'red';
+    ctx.strokeRect(this.boundingBox.x, this.boundingBox.y,              this.boundingBox.width, this.boundingBox.height);
+    ctx.restore();
+  }
   draw(ctx) {
+    this.drawBoundingBox(ctx);
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
@@ -166,8 +198,26 @@ class Bullet {
   move() {
     this.x -= 10 * Math.cos(this.angle);
     this.y -= 10 * Math.sin(this.angle);
+
+    this.boundingBox.x = this.x;
+    this.boundingBox.y = this.y;
   }
 }
+
+//Function to get the mouse position
+function getMousePos(canvas, event) {
+  var rect = canvas.getBoundingClientRect();
+  return {
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top
+  };
+}
+//Function to check whether a point is inside a rectangle
+function isInside(pos, rect) {
+  return pos.x > rect.x && pos.x < rect.x + rect.width && pos.y < rect.y + rect.height && pos.y > rect.y
+}
+//The rectangle should have x,y,width,height properties
+
 
 function init() {
   canvas = document.querySelector("#myCanvas");
@@ -175,12 +225,40 @@ function init() {
   width = canvas.width;
   height = canvas.height;
 
-  for (i=0;i<NbAst;i++){
-    tab.push( Math.trunc(Math.random()*10) );
+  var rect = {
+    x: 250,
+    y: 350,
+    width: 200,
+    height: 100
+  };
+  //Binding the click event on the canvas
+  canvas.addEventListener('click', function (evt) {
+    var mousePos = getMousePos(canvas, evt);
+
+  }, false);
+
+  ctx.beginPath();
+  ctx.rect(250, 350, 200, 100);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillStyle = 'rgba(225,225,225,0.5)';
+  ctx.fillRect(25, 72, 32, 32);
+  ctx.fill();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = '#000000';
+  ctx.stroke();
+  ctx.closePath();
+  ctx.font = '40pt Kremlin Pro Web';
+  ctx.fillStyle = '#000000';
+  ctx.fillText('Start', 345, 415);
+
+
+
+  for (i = 0; i < NbAst; i++) {
+    tab.push(Math.trunc(Math.random() * 10));
     console.log(tab[i]);
   }
-  
- 
+
+
 
 
   window.addEventListener('keydown', handleKeydown, false);
@@ -238,80 +316,69 @@ function handleKeydown(evt) {
   } else if (evt.keyCode === 40) {
     // down key
     incrementX = -2;
-  }
-
-  else if (evt.keyCode === 37 ) {  	
-  	if (keysCheck[37] && keysCheck[39]){
- 		incrementAngle = 0; 		
- 	}
+  } else if (evt.keyCode === 37) {
+    if (keysCheck[37] && keysCheck[39]) {
+      incrementAngle = 0;
+    }
     // left key
     else
       incrementAngle = -0.08;
-      console.log(incrementAngle);
- } 
-
-
-  else if (evt.keyCode === 39) {  	
-  	 if (keysCheck[37] && keysCheck[39]){
- 		incrementAngle = 0; 		
- 	}
+    console.log(incrementAngle);
+  } else if (evt.keyCode === 39) {
+    if (keysCheck[37] && keysCheck[39]) {
+      incrementAngle = 0;
+    }
     // right key
     else
-    incrementAngle = 0.08;
-	console.log(incrementAngle);
- }
- }
+      incrementAngle = 0.08;
+    console.log(incrementAngle);
+  }
+}
 
- function slow() {
-  if(incrementX > 0) {
+function slow() {
+  if (incrementX > 0) {
     console.log(Vaisseau1.getAngle());
     Vaisseau1.setAngle(Vaisseau1.getAngle())
     //console.log(incrementX);
-     incrementX -= 0.5;   
-     setTimeout(slow, 150);
-  }else {
+    incrementX -= 0.5;
+    setTimeout(slow, 150);
+  } else {
     incrementX = 0;
   }
 }
 
 
 function boost() {
-  if(incrementX < 5) {
+  if (incrementX < 5) {
     //console.log(incrementX);
-     incrementX += 1*2;   
-     setTimeout(boost, 200);
-  }else {
+    incrementX += 1 * 2;
+    setTimeout(boost, 200);
+  } else {
     incrementX = 5;
   }
 }
 
 
 function handleKeyup(evt) {
-	keysCheck[evt.keyCode] = false;
+  keysCheck[evt.keyCode] = false;
   if (evt.keyCode === 38) {
     //up key 
- 
+
     slow();
   } else if (evt.keyCode === 40) {
     // down key
     incrementX = 0;
-  }
-
-  
-  else if (evt.keyCode === 37 && keysCheck[39] == false || evt.keyCode === 37) {
+  } else if (evt.keyCode === 37 && keysCheck[39] == false || evt.keyCode === 37) {
     //left key 
-   incrementAngle = 0;   
- } else if (evt.keyCode === 39 && keysCheck[37] == false || evt.keyCode === 39) {
+    incrementAngle = 0;
+  } else if (evt.keyCode === 39 && keysCheck[37] == false || evt.keyCode === 39) {
     // right key
-    incrementAngle = 0;    
- }  
+    incrementAngle = 0;
+  }
 }
 
 function anime60fps() {
-
-
- 
- // Get current direction ship is facing
+  // Get current direction ship is facing
   let radians = Vaisseau1.angle / Math.PI * 180;
   // 1) On efface l'Ã©cran
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -325,26 +392,63 @@ function anime60fps() {
     Vaisseau1.addBullet(Date.now());
     //shoot.play();
     console.log('Shoooooot');
-  
+
   }
 
-    // For each ball in the array
-    for(var i=0; i < AstArray.length; i++) {
-      var balle = AstArray[i];
-      
-      // 1) Move the ball
-      balle.move();   
-  
-      // 2) collision test with walls
-      collisionTestWithWalls(balle);
-      // 3) draw the ball
-      balle.draw();
-    }
+  // For each ball in the array
+  for (var i = 0; i < AstArray.length; i++) {
+    var balle = AstArray[i];
+
+    // 1) Move the ball
+    balle.move();
+
+    // 2) collision test with walls
+    collisionTestWithWalls(balle);
+
+    // collision test with bullets
+    collisionTestAsteroidBullets(balle, Vaisseau1.bullets);
+
+    // 3) draw the ball
+    balle.draw();
+  }
 
   // On demande une nouvelle frame d'animation
   window.requestAnimationFrame(anime60fps);
 
 }
+
+function supprimerAsteroid(a) {
+  let pos = AstArray.indexOf(a);
+  AstArray.splice(pos, 1);
+}
+// Test for collision between an object and a point
+function rectangleCollide(targetA, targetB) {
+  return !(targetB.x > (targetA.x + targetA.width) || 
+           (targetB.x + targetB.width) < targetA.x || 
+           targetB.y > (targetA.x + targetA.height) ||
+           (targetB.y + targetB.height) < targetA.y);
+}
+
+function collisionTestAsteroidBullets(asteroid, bulletsArray) {
+  // on teste si l'asteroide courante est en collision avec une balle
+  bulletsArray.forEach((b, index) => {
+    if (rectangleCollide(asteroid.boundingBox, b.boundingBox)) {
+      // il y a collision
+
+      // On casse l'asteroide, on change les vitesses de rotation des
+      // morceaux résultants (2, 3 ou 4)
+      //asteroid.casse();
+      supprimerAsteroid(asteroid);
+      console.log("COLLISION")
+
+      // On supprime la balle de la liste
+      delete b;
+
+     // break; // on sort de la boucle, il ne peut y avoir de collision avec plusieurs balles en meme temps
+    }
+  })
+}
+
 
 function distance(x1, y1, x2, y2) {
   return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
@@ -374,7 +478,3 @@ function getMousePos(canvas, evt) {
 function changeCadenceTir(value) {
   Vaisseau1.delayMinBetweenBullets = value;
 }
-
-
-
-

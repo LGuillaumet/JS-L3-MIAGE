@@ -88,9 +88,23 @@ function Ball(x, y, vx, vy) {
   this.vx = vx;
   this.vy = vy;
   this.rayon = 20;
-  
+  this.boundingBox = {
+    x: x,
+    y: y,
+    width: 50,
+    height: 50
+  }
+
+  this.drawBoundingBox = function(ctx) {
+    ctx.save();
+    ctx.strokeStyle = 'red';
+    ctx.strokeRect(this.boundingBox.x, this.boundingBox.y,    this.boundingBox.width, this.boundingBox.height);
+    ctx.restore();
+  }
+
   //Fonction de dessin
   this.draw = function() {
+    this.drawBoundingBox(ctx);
     ctx.beginPath();
     ctx.strokeStyle = "black";
     ctx.lineWidth = 3;
@@ -113,6 +127,10 @@ function Ball(x, y, vx, vy) {
   this.move = function() {
     this.x += this.vx;
     this.y += this.vy;
+
+    this.boundingBox.x = this.x;
+    this.boundingBox.y = this.y;
+
   };
   
 }
