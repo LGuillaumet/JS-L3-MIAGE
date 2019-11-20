@@ -195,7 +195,7 @@ function init() {
   width = canvas.width;
   height = canvas.height;
 
-  var rect = {
+  /*var rect = {
     x: 250,
     y: 350,
     width: 200,
@@ -205,7 +205,7 @@ function init() {
   canvas.addEventListener('click', function (evt) {
     var mousePos = getMousePos(canvas, evt);
 
-  }, false);
+  }, false);*/
 
   ctx.beginPath();
   ctx.rect(250, 350, 200, 100);

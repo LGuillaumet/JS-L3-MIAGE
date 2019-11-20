@@ -44,42 +44,6 @@ function collisionTestWithWalls(meteore) {
     }
 }
 
-// Cette collision ne fonctionne pas
-function collisionTestBetweenBalls() {  
-  var meteores = AstArray;
-  
-  for (var i = 0; i < AstArray.length; i++) {
-        for (var j = i + 1; j < AstArray.length; j++) {
-            var dx = meteores[j].x - meteores[i].x;
-            var dy = meteores[j].y - meteores[i].y;
-          
-            var dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < (meteores[j].rayon + meteores[i].rayon)) {
-                // meteores have contact so push back...
-                var normalX = dx / dist;
-                var normalY = dy / dist;
-                var middleX = (meteores[i].x + meteores[j].x) / 2;
-                var middleY = (meteores[i].y + meteores[j].y) / 2;
-              
-                meteores[i].x = middleX - normalX * meteores[i].rayon;
-                meteores[i].y = middleY - normalY * meteores[i].rayon;
-                meteores[j].x = middleX + normalX * meteores[j].rayon;
-                meteores[j].y = middleY + normalY * meteores[j].rayon;
-              
-                var dVector = (meteores[i].vx - meteores[j].vx) * normalX;
-                dVector += (meteores[i].vy - meteores[j].vy) * normalY;
-                var dvx = dVector * normalX;
-                var dvy = dVector * normalY;
-              
-                meteores[i].vx -= dvx;
-                meteores[i].vy -= dvy;
-                meteores[j].vx += dvx;
-                meteores[j].vy += dvy;
-            }
-        }
-    }
-}
-
 
 
 function Ball(x, y, vx, vy) {
