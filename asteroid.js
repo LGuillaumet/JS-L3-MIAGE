@@ -35,7 +35,7 @@ class Vaisseau {
   drawBoundingBox(ctx) {
     ctx.save();
     ctx.strokeStyle = 'red';
-    ctx.strokeRect(this.boundingBox.x, this.boundingBox.y,              this.boundingBox.width, this.boundingBox.height);
+    ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
     ctx.restore();
   }
 
@@ -71,7 +71,6 @@ class Vaisseau {
     this.drawBullets(ctx);
 
   }
-
   drawBullets(ctx) {
     for (let i = 0; i < this.bullets.length; i++) {
       var b = this.bullets[i];
@@ -96,43 +95,14 @@ class Vaisseau {
   }
 
   move() {
-    // 2) On dÃ©place la balle 
-    /*let dx = this.x - mousepos.x;
-    let dy = this.y - mousepos.y;
-    this.angle = Math.atan2(dy, dx);*/
 
-    /* if (distance(this.x, this.y, mousepos.x, mousepos.y) >= 10) {
-         //ball.v = 0;
-         this.x -= this.v * Math.cos(this.angle);
-         this.y -= this.v * Math.sin(this.angle);
-     }*/
 
     this.x -= incrementX * Math.cos(this.angle);
     this.y -= incrementX * Math.sin(this.angle);
     this.angle += incrementAngle;
 
-    this.boundingBox.x = this.x-25;
-    this.boundingBox.y = this.y-25;
-
-    //console.log(incrementX);
-
-    /*document.onkeydown = function () {
-      switch (window.event.keyCode) {
-        case 37://gauche
-          Vaisseau1.angle -= 0.08;
-          break;
-        case 38:
-        
-          break;
-        case 39://droite
-          Vaisseau1.angle += 0.08;
-
-          break;
-        case 40://bas
-
-          break;
-      }
-    };*/
+    this.boundingBox.x = this.x - 25;
+    this.boundingBox.y = this.y - 25;
 
   }
 
@@ -182,7 +152,7 @@ class Bullet {
   drawBoundingBox(ctx) {
     ctx.save();
     ctx.strokeStyle = 'red';
-    ctx.strokeRect(this.boundingBox.x, this.boundingBox.y,              this.boundingBox.width, this.boundingBox.height);
+    ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
     ctx.restore();
   }
   draw(ctx) {
@@ -259,8 +229,6 @@ function init() {
   }
 
 
-
-
   window.addEventListener('keydown', handleKeydown, false);
   window.addEventListener('keyup', handleKeyup, false);
   requestAnimationFrame(anime60fps);
@@ -294,12 +262,9 @@ function init() {
 
   window.addEventListener('keyup', function (event) {
 
-
     if (window.event.keyCode == 32) {
       inputStates.SPACE = false;
     }
-
-
   });
 
   //anime();
@@ -423,10 +388,10 @@ function supprimerAsteroid(a) {
 }
 // Test for collision between an object and a point
 function rectangleCollide(targetA, targetB) {
-  return !(targetB.x > (targetA.x + targetA.width) || 
-           (targetB.x + targetB.width) < targetA.x || 
-           targetB.y > (targetA.x + targetA.height) ||
-           (targetB.y + targetB.height) < targetA.y);
+  return !(targetB.x > (targetA.x + targetA.width) ||
+    (targetB.x + targetB.width) < targetA.x ||
+    targetB.y > (targetA.x + targetA.height) ||
+    (targetB.y + targetB.height) < targetA.y);
 }
 
 function collisionTestAsteroidBullets(asteroid, bulletsArray) {
@@ -444,7 +409,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
       // On supprime la balle de la liste
       delete b;
 
-     // break; // on sort de la boucle, il ne peut y avoir de collision avec plusieurs balles en meme temps
+      // break; // on sort de la boucle, il ne peut y avoir de collision avec plusieurs balles en meme temps
     }
   })
 }
