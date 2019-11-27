@@ -427,7 +427,7 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1){
 			Vaisseau1.vie--;
 			if(Vaisseau1.vie == 0){
         //fin du jeu 
-        gameover = true;:*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+        gameover = true;/*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
 			}
 			//console.log("COLLISION V/A")
 
