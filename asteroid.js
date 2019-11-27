@@ -1,5 +1,6 @@
 var canvas, ctx, width, height;
 var Vaisseau1;
+var gameover = false;
 var mousepos = {
   x: 0,
   y: 0
@@ -7,8 +8,7 @@ var mousepos = {
 var inputStates = {};
 var incrementX = 0;
 var incrementAngle = 0;
-var contexteAudio = new AudioContext();
-var contexteAudio = new(window.AudioContext || window.webkitAudioContext)();
+
 
 var shoot = new Audio('SoundEffect/Guns/wav/Gun4.wav');
 
@@ -41,8 +41,25 @@ class Vaisseau {
   }
 
   draw(ctx) {
+    if(gameover == true){
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      for(var i = AstArray.length-1; i>0; i--){
+        var v = AstArray[i];
+        for(var j = 1; j <arguments.length; j++){
+           if(v == arguments[j]){
+            AstArray.splice(i,1);
+           }
+        }
+     }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = '48px serif';
+      ctx.textAlign = 'center';
+      ctx.fillText("GAMEOVER",(canvas.width/2), (canvas.height/2));
+      ctx.restore
+    }
 
-
+    if(gameover != true){
     ctx.save();
     ctx.fillText("Vie: " + Vaisseau1.vie,10,50 );
     this.drawBoundingBox(ctx);
@@ -50,6 +67,8 @@ class Vaisseau {
     ctx.rotate(this.angle);
     ctx.rotate(Math.PI / -0.4455);
     ctx.translate(-25, -25); //pour tourner sur lui même
+
+   
 
 
     ctx.beginPath();
@@ -72,6 +91,7 @@ class Vaisseau {
       this.y = 0;
 
     this.drawBullets(ctx);
+    }
 
   }
   drawBullets(ctx) {
@@ -193,22 +213,25 @@ function isInside(pos, rect) {
 
 
 function init() {
+  var backgroundMusic = new Audio('SoundEffect/space_harrier_music_main_theme.mp3');
+  var promise = backgroundMusic.play();
+
+if (promise !== undefined) {
+  promise.then(_ => {
+    // Autoplay started!
+  }).catch(error => {
+    // Autoplay was prevented.
+    // Show a "Play" button so that user can start playback.
+  });
+}
+
+
+ 
   canvas = document.querySelector("#myCanvas");
   ctx = canvas.getContext('2d');
   width = canvas.width;
   height = canvas.height;
 
-  /*var rect = {
-    x: 250,
-    y: 350,
-    width: 200,
-    height: 100
-  };
-  //Binding the click event on the canvas
-  canvas.addEventListener('click', function (evt) {
-    var mousePos = getMousePos(canvas, evt);
-
-  }, false);*/
 
   ctx.beginPath();
   ctx.rect(250, 350, 200, 100);
@@ -238,7 +261,7 @@ function init() {
 
   // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
   // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
-  Vaisseau1 = new Vaisseau(500, 500, 0, 2, 200,3);
+  Vaisseau1 = new Vaisseau(500, 500, 0, 2, 200,5);
 
   canvas.addEventListener('mousemove', function (evt) {
     mousepos = getMousePos(canvas, evt);
@@ -319,7 +342,7 @@ function boost() {
     incrementX += 1 * 2;
     setTimeout(boost, 200);
   } else {
-    incrementX = 5;
+    incrementX = 6;
   }
 }
 
@@ -357,23 +380,23 @@ function anime60fps() {
 
   }
 
-  // For each ball in the array
+  // Pour chanque meteore
   for (var i = 0; i < AstArray.length; i++) {
-    var balle = AstArray[i];
+    var meteores = AstArray[i];
 
-    // 1) Move the ball
-    balle.move();
+    // 1) On bouge les meteores
+    meteores.move();
 
     // 2) collision test with walls
-    collisionTestWithWalls(balle);
+    collisionTestWithWalls(meteores);
 
     // collision test with bullets
-    collisionTestAsteroidBullets(balle, Vaisseau1.bullets);
+    collisionTestAsteroidBullets(meteores, Vaisseau1.bullets);
     //collision tets  asteroid et vaisseau
-    collisionTestAsteroidVaisseau(balle , Vaisseau1);
+    collisionTestAsteroidVaisseau(meteores , Vaisseau1);
 
-    // 3) draw the ball
-    balle.draw();
+    // 3) On dessine les meteores
+    meteores.draw();
   }
 
   // On demande une nouvelle frame d'animation
@@ -402,9 +425,10 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1){
 			console.log(Vaisseau1.vie)
 			supprimerAsteroid(a);
 			Vaisseau1.vie--;
-			//if(Vaisseau1.vie == 0){
-				//fin du jeu 
-			//}
+			if(Vaisseau1.vie == 0){
+        //fin du jeu 
+        gameover = true;:*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+			}
 			//console.log("COLLISION V/A")
 
 		}
@@ -460,4 +484,8 @@ function getMousePos(canvas, evt) {
 
 function changeCadenceTir(value) {
   Vaisseau1.delayMinBetweenBullets = value;
+}
+
+function getGameOver(){
+  return gameover;
 }

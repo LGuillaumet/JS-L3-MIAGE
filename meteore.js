@@ -4,14 +4,15 @@ var NbAst = 5;
 var tab = [];
 
 
+
   // Change this number to get more meteores
 
-  createBalls(NbAst);
-function createBalls(numberOfBalls) {
-  for(var i=0; i < numberOfBalls; i++) {
+  createMeteore(NbAst);
+function createMeteore(numberOfMeteore) {
+  for(var i=0; i < numberOfMeteore; i++) {
     
     // Create a meteore with random position and speed
-    var meteore =  new Ball(1,
+    var meteore =  new Meteore(1,
                           1,
                           (2*Math.random())-1,
                           (2*Math.random())-1); // radius, change if ou like.
@@ -25,28 +26,27 @@ function createBalls(numberOfBalls) {
 
  
 function collisionTestWithWalls(meteore) {
-
-    if (meteore.x < meteore.rayon) {
-        meteore.x = meteore.rayon;
-        meteore.vx *= -1;
+    if (meteore.x < 0) {
+        meteore.x = width;
+        //meteore.vx *= -1;
     } 
-    if (meteore.x > width - (meteore.rayon)) {
-        meteore.x = width - (meteore.rayon);
-        meteore.vx *= -1;
+    if (meteore.x > width) {
+        meteore.x = 0;
+        //meteore.vx *= -1;
     }     
-    if (meteore.y < meteore.rayon) {
-        meteore.y = meteore.rayon;
-        meteore.vy *= -1;
+    if (meteore.y < 0) {
+        meteore.y = height;
+        //meteore.vy *= -1;
     }     
-    if (meteore.y > height - (meteore.rayon)) {
-        meteore.y = height - (meteore.rayon);
-        meteore.vy *= -1;
+    if (meteore.y > height) {
+        meteore.y = 0;
+        //meteore.vy *= -1;
     }
 }
 
 
 
-function Ball(x, y, vx, vy) {
+function Meteore(x, y, vx, vy) {
   this.x = x;
   this.y = y;
   this.vx = vx;
@@ -67,6 +67,7 @@ function Ball(x, y, vx, vy) {
   }
 
   //Fonction de dessin
+
   this.draw = function() {
     this.drawBoundingBox(ctx);
     ctx.beginPath();
@@ -87,6 +88,7 @@ function Ball(x, y, vx, vy) {
     }
     ctx.stroke();
   };
+
   
   this.move = function() {
     this.x += this.vx;
