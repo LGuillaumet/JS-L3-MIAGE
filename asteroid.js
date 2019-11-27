@@ -16,12 +16,13 @@ var shoot = new Audio('SoundEffect/Guns/wav/Gun4.wav');
 window.onload = init;
 
 class Vaisseau {
-  constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes) {
+  constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes,vie) {
     this.x = x;
     this.y = y;
     this.angle = angle;
     this.v = vitesse;
     this.bullets = [];
+    this.vie = vie;
     // cadenceTir en millisecondes = temps min entre tirs
     this.delayMinBetweenBullets = tempsMinEntreTirsEnMillisecondes;
     this.boundingBox = {
@@ -40,9 +41,11 @@ class Vaisseau {
   }
 
   draw(ctx) {
-    this.drawBoundingBox(ctx);
+
 
     ctx.save();
+    ctx.fillText("Vie: " + Vaisseau1.vie,10,50 );
+    this.drawBoundingBox(ctx);
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
     ctx.rotate(Math.PI / -0.4455);
@@ -235,7 +238,7 @@ function init() {
 
   // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
   // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
-  Vaisseau1 = new Vaisseau(100, 100, 0, 2, 200);
+  Vaisseau1 = new Vaisseau(500, 500, 0, 2, 200,3);
 
   canvas.addEventListener('mousemove', function (evt) {
     mousepos = getMousePos(canvas, evt);
@@ -391,11 +394,19 @@ function rectangleCollide(targetA, targetB) {
 }
 
 function collisionTestAsteroidVaisseau(asteroid, Vaisseau1){
+
 	AstArray.forEach((a, index) => {
 		if (rectangleCollide(a.boundingBox, Vaisseau1.boundingBox)){
+			console.log(a.boundingBox)
+			console.log(Vaisseau1.boundingBox)
+			console.log(Vaisseau1.vie)
 			supprimerAsteroid(a);
-			console.log("COLLISION V/A")
-			//on perd une vie 
+			Vaisseau1.vie--;
+			//if(Vaisseau1.vie == 0){
+				//fin du jeu 
+			//}
+			//console.log("COLLISION V/A")
+
 		}
 	})
 }
