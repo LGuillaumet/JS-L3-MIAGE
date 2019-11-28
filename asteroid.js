@@ -8,7 +8,7 @@ var mousepos = {
 var inputStates = {};
 var incrementX = 0;
 var incrementAngle = 0;
-
+var score = 0;
 
 var shoot = new Audio('SoundEffect/Guns/wav/Gun4.wav');
 
@@ -62,6 +62,7 @@ class Vaisseau {
     if(gameover != true){
     ctx.save();
     ctx.fillText("Vie: " + Vaisseau1.vie,10,50 );
+    ctx.fillText("Score: "+ score,10,100);
     this.drawBoundingBox(ctx);
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
@@ -261,7 +262,7 @@ if (promise !== undefined) {
 
   // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
   // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
-  Vaisseau1 = new Vaisseau(500, 500, 0, 2, 200,5);
+  Vaisseau1 = new Vaisseau(600, 400, 0, 2, 200,3);
 
   canvas.addEventListener('mousemove', function (evt) {
     mousepos = getMousePos(canvas, evt);
@@ -425,6 +426,10 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1){
 			console.log(Vaisseau1.vie)
 			supprimerAsteroid(a);
 			Vaisseau1.vie--;
+			incrementX = 0;
+			Vaisseau1.x = 600;
+			Vaisseau1.y = 400;
+			score = score +100;
 			if(Vaisseau1.vie == 0){
         //fin du jeu 
         gameover = true;/*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
@@ -447,7 +452,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
       
       supprimerAsteroid(asteroid);
       console.log("COLLISION B/A")
-
+      score = score +100;
       // On supprime la balle de la liste
       Vaisseau1.removeBullet(b);
 
