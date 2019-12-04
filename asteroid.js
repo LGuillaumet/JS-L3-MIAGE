@@ -450,7 +450,7 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1){
 			}
 			if(Math.floor((Math.random()*5)) == 0){
 				//une chance sur 5 d'avoir un bonus 
-				BonusArray.push(new Bonus1(asteroid.x,asteroid.y));
+				BonusArray.push(new Bonus1(asteroid.x,asteroid.y,(Math.floor(Math.random()*3))));
 
 				//var position = BonusArray.length + 1;
 				//BonusArray[position] = bonus;
@@ -477,9 +477,9 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
       score = score +100;
       // On supprime la balle de la liste
       Vaisseau1.removeBullet(b);
-    if(Math.floor((Math.random()*5)) == 0){
+    if(Math.floor((Math.random()*1)) == 0){
     	//une chance sur 5 d'avoir un bonus
-    	BonusArray.push(new Bonus1(asteroid.x,asteroid.y));
+    	BonusArray.push(new Bonus1(asteroid.x,asteroid.y,(Math.floor(Math.random()*3))));
     	//var position = BonusArray.length + 1;
     	//BonusArray[position] = bonus;
     	//console.log("BONUS");
@@ -500,10 +500,13 @@ function collisionTestVaisseauBonus(Vaisseau1,BonusArray){
 		bonus = BonusArray[NbBonus];
 	//BonusArray.forEach((bonus , index) =>{
 		if(rectangleCollide(Vaisseau1.boundingBox, bonus.boundingBox)){
-			console.log('Collision Bonus')
-			supprimerBonus(bonus);
-			console.log("BV");
-			changeCadenceTir(25);
+			//if(bonus.id == 0){
+				//console.log('Collision Bonus')
+				console.log(bonus.id);
+				supprimerBonus(bonus);
+				
+				changeCadenceTir(25);
+			//}
 		}
 		}
 	//})

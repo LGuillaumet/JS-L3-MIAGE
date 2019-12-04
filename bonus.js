@@ -1,10 +1,11 @@
 
 
 class Bonus1 {
-	constructor(x, y) {
-		console.log("POS TEST:", x, y);
+	constructor(x, y,id) {
+		//console.log("POS TEST:", x, y);
 		this.x = x;
 	  	this.y = y;
+	  	this.id = id;
 	  	this.boundingBox = {
 		    x,
 		    y,
