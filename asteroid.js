@@ -1,3 +1,14 @@
+var xhr = new XMLHttpRequest()
+        xhr.open('POST', 'index.html', true)
+        xhr.withCredentials = true
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 2) {// do something
+          }
+        }
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.send(json)
+
+
 var canvas, ctx, width, height;
 var Vaisseau1;
 var gameover = false;
@@ -10,7 +21,11 @@ var incrementX = 0;
 var incrementAngle = 0;
 var score = 0;
 var BonusArray = [];
-var shoot = new Audio('SoundEffect/Guns/wav/Gun4.wav');
+
+var shoot = new Howl({
+  src: ['Gun4.wav']
+});
+
 
 
 window.onload = init;
@@ -380,7 +395,7 @@ function anime60fps() {
 
   if (inputStates.SPACE == true) {
     Vaisseau1.addBullet(Date.now());
-    //shoot.play();
+    shoot.play();
     //console.log('Shoooooot');
 
   }
