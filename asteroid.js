@@ -9,7 +9,7 @@ var inputStates = {};
 var incrementX = 0;
 var incrementAngle = 0;
 var score = 0;
-
+var BonusArray = [];
 var shoot = new Audio('SoundEffect/Guns/wav/Gun4.wav');
 
 
@@ -60,6 +60,11 @@ class Vaisseau {
     }
 
     if(gameover != true){
+    	if(BonusArray.length != 0){
+    		BonusArray.forEach(e => {
+    			e.draw();
+    		})
+    	}
     ctx.save();
     ctx.fillText("Vie: " + Vaisseau1.vie,10,50 );
     ctx.fillText("Score: "+ score,10,100);
@@ -68,7 +73,6 @@ class Vaisseau {
     ctx.rotate(this.angle);
     ctx.rotate(Math.PI / -0.4455);
     ctx.translate(-25, -25); //pour tourner sur lui même
-
    
 
 
@@ -377,11 +381,12 @@ function anime60fps() {
   if (inputStates.SPACE == true) {
     Vaisseau1.addBullet(Date.now());
     //shoot.play();
-    console.log('Shoooooot');
+    //console.log('Shoooooot');
 
   }
 
   // Pour chanque meteore
+
   for (var i = 0; i < AstArray.length; i++) {
     var meteores = AstArray[i];
 
@@ -396,8 +401,11 @@ function anime60fps() {
     //collision tets  asteroid et vaisseau
     collisionTestAsteroidVaisseau(meteores , Vaisseau1);
 
+     collisionTestVaisseauBonus(Vaisseau1,BonusArray);
+
     // 3) On dessine les meteores
     meteores.draw();
+
   }
 
   // On demande une nouvelle frame d'animation
@@ -409,8 +417,9 @@ function supprimerAsteroid(a) {
   let pos = AstArray.indexOf(a);
   AstArray.splice(pos, 1);
 }
+
 // Test for collision between an object and a point
-function rectangleCollide(targetA, targetB) {
+function rectangleCollide(targetA, targetB) {	
   return !(targetB.x > (targetA.x + targetA.width) ||
     (targetB.x + targetB.width) < targetA.x ||
     targetB.y > (targetA.x + targetA.height) ||
@@ -434,6 +443,13 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1){
         //fin du jeu 
         gameover = true;/*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
 			}
+			if(Math.floor((Math.random()*1)) == 0){
+				BonusArray.push(new Bonus1(asteroid.x,asteroid.y));
+
+				//var position = BonusArray.length + 1;
+				//BonusArray[position] = bonus;
+				//console.log("BONUS");
+			}
 			//console.log("COLLISION V/A")
 
 		}
@@ -455,10 +471,35 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
       score = score +100;
       // On supprime la balle de la liste
       Vaisseau1.removeBullet(b);
-
+    if(Math.floor((Math.random()*1)) == 0){
+    	BonusArray.push(new Bonus1(asteroid.x,asteroid.y));
+    	//var position = BonusArray.length + 1;
+    	//BonusArray[position] = bonus;
+    	//console.log("BONUS");
+	}
       // break; // on sort de la boucle, il ne peut y avoir de collision avec plusieurs balles en meme temps
     }
   })
+}
+
+function supprimerBonus(bonus){
+	let posi = BonusArray.indexOf(bonus);
+	BonusArray.splice(posi,1);
+}
+
+function collisionTestVaisseauBonus(Vaisseau1,BonusArray){
+	
+	for( let NbBonus = 0 ; NbBonus < BonusArray.length; NbBonus++){
+		bonus = BonusArray[NbBonus];
+	//BonusArray.forEach((bonus , index) =>{
+		if(rectangleCollide(Vaisseau1.boundingBox, bonus.boundingBox)){
+			console.log('Collision Bonus')
+			supprimerBonus(bonus);
+			console.log("BV");
+			//delayMinBetweenBullets = delayMinBetweenBullets/2;
+		}
+		}
+	//})
 }
 
 
