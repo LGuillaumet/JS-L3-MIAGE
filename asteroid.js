@@ -11,7 +11,7 @@ var incrementX = 0;
 var incrementAngle = 0;
 var score = 0;
 var BonusArray = [];
-
+var bouclier = false;
 var shoot = new Howl({
   src: ['Gun4.wav']
 });
@@ -335,7 +335,7 @@ function handleKeydown(evt) {
 
 function slow() {
   if (incrementX > 0) {
-    console.log(Vaisseau1.getAngle());
+    //console.log(Vaisseau1.getAngle());
     Vaisseau1.setAngle(Vaisseau1.getAngle())
     //console.log(incrementX);
     incrementX -= 0.5;
@@ -435,29 +435,35 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1){
 
 	AstArray.forEach((a, index) => {
 		if (rectangleCollide(a.boundingBox, Vaisseau1.boundingBox)){
-			console.log(a.boundingBox)
-			console.log(Vaisseau1.boundingBox)
-			console.log(Vaisseau1.vie)
-			supprimerAsteroid(a);
-			Vaisseau1.vie--;
-			incrementX = 0;
-			Vaisseau1.x = 600;
-			Vaisseau1.y = 400;
-			score = score +100;
-			if(Vaisseau1.vie == 0){
-        //fin du jeu 
-        gameover = true;/*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
-			}
-			if(Math.floor((Math.random()*5)) == 0){
+			if(bouclier == false){
+				console.log(a.boundingBox)
+				console.log(Vaisseau1.boundingBox)
+				console.log(Vaisseau1.vie)
+				supprimerAsteroid(a);
+				Vaisseau1.vie--;
+				incrementX = 0;
+				Vaisseau1.x = 600;
+				Vaisseau1.y = 400;
+				score = score +100;
+				if(Vaisseau1.vie == 0){
+        			//fin du jeu 
+        			gameover = true;/*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+				}
+				if(Math.floor((Math.random()*5)) == 0){
 				//une chance sur 5 d'avoir un bonus 
-				BonusArray.push(new Bonus1(asteroid.x,asteroid.y,(Math.floor(Math.random()*3))));
-
+					BonusArray.push(new Bonus1(asteroid.x,asteroid.y,(Math.floor(Math.random()*3))));
+				}
 				//var position = BonusArray.length + 1;
 				//BonusArray[position] = bonus;
 				//console.log("BONUS");
+				
 			}
+			else{
+				bouclier = false;
+				supprimerAsteroid(a);
+				console.log(bouclier);
+			}	
 			//console.log("COLLISION V/A")
-
 		}
 	})
 }
@@ -501,11 +507,21 @@ function collisionTestVaisseauBonus(Vaisseau1,BonusArray){
 	//BonusArray.forEach((bonus , index) =>{
 		if(rectangleCollide(Vaisseau1.boundingBox, bonus.boundingBox)){
 			//if(bonus.id == 0){
-				//console.log('Collision Bonus')
 				console.log(bonus.id);
+				if(bonus.id == 0){
+					changeCadenceTir(25);
+				}
+				else if(bonus.id == 1){
+					bouclier = true;
+					console.log(bouclier);
+					//draw bouclier a faire 
+				}
+				else if(bonus.id == 2){
+					changeCadenceTir(25); // A changer
+				}
 				supprimerBonus(bonus);
 				
-				changeCadenceTir(25);
+				
 			//}
 		}
 		}
