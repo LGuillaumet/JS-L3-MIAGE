@@ -1,13 +1,3 @@
-var xhr = new XMLHttpRequest()
-        xhr.open('POST', 'index.html', true)
-        xhr.withCredentials = true
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 2) {// do something
-          }
-        }
-        xhr.setRequestHeader('Content-Type', 'application/json')
-        xhr.send(json)
-
 
 var canvas, ctx, width, height;
 var Vaisseau1;
