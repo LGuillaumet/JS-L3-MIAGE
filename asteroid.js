@@ -45,6 +45,15 @@ class Vaisseau {
     ctx.restore();
   }
 
+  drawBouclier(ctx){
+  	ctx.save();
+  	ctx.strokeStyle = 'blue';
+  	ctx.beginPath();
+    ctx.arc(this.x,this.y,40,0,2*Math.PI);
+    ctx.stroke();
+    ctx.restore();
+  }
+
   draw(ctx) {
     if(gameover == true){
       ctx.save();
@@ -74,6 +83,10 @@ class Vaisseau {
     ctx.fillText("Vie: " + Vaisseau1.vie,10,50 );
     ctx.fillText("Score: "+ score,10,100);
     this.drawBoundingBox(ctx);
+    if(bouclier == true){
+    	this.drawBouclier(ctx);
+    	console.log("apparitionBouclier");
+    }
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
     ctx.rotate(Math.PI / -0.4455);
@@ -101,9 +114,11 @@ class Vaisseau {
       this.y = 0;
 
     this.drawBullets(ctx);
+    
     }
 
   }
+
   drawBullets(ctx) {
     for (let i = 0; i < this.bullets.length; i++) {
       var b = this.bullets[i];

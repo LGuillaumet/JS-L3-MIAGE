@@ -20,12 +20,21 @@ class Bonus1 {
     	ctx.strokeRect(this.boundingBox.x,this.boundingBox.y,this.boundingBox.width,this.boundingBox.height);
     	ctx.restore();
   	}
+    
   	draw() {  		
     	this.drawBoundingBox(ctx);
     	ctx.save();
     	ctx.beginPath();
     	ctx.arc(this.x,this.y,10,0,2*Math.PI);
-    	ctx.fillStyle= "yellow";
+      if(this.id == 0){
+    	 ctx.fillStyle = "yellow";
+      } 
+      if(this.id == 1){
+        ctx.fillStyle = "blue";
+      }
+      if(this.id == 2){
+        ctx.fillStyle = "green";
+      }
     	ctx.fill();
     	ctx.restore();
 	}
