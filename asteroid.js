@@ -458,7 +458,8 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1){
         //fin du jeu 
         gameover = true;/*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
 			}
-			if(Math.floor((Math.random()*1)) == 0){
+			if(Math.floor((Math.random()*5)) == 0){
+				//une chance sur 5 d'avoir un bonus 
 				BonusArray.push(new Bonus1(asteroid.x,asteroid.y));
 
 				//var position = BonusArray.length + 1;
@@ -486,7 +487,8 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
       score = score +100;
       // On supprime la balle de la liste
       Vaisseau1.removeBullet(b);
-    if(Math.floor((Math.random()*1)) == 0){
+    if(Math.floor((Math.random()*5)) == 0){
+    	//une chance sur 5 d'avoir un bonus
     	BonusArray.push(new Bonus1(asteroid.x,asteroid.y));
     	//var position = BonusArray.length + 1;
     	//BonusArray[position] = bonus;
@@ -511,7 +513,7 @@ function collisionTestVaisseauBonus(Vaisseau1,BonusArray){
 			console.log('Collision Bonus')
 			supprimerBonus(bonus);
 			console.log("BV");
-			//delayMinBetweenBullets = delayMinBetweenBullets/2;
+			changeCadenceTir(25);
 		}
 		}
 	//})
@@ -544,7 +546,7 @@ function getMousePos(canvas, evt) {
 }
 
 function changeCadenceTir(value) {
-  Vaisseau1.delayMinBetweenBullets = value;
+  Vaisseau1.delayMinBetweenBullets -= value;
 }
 
 function getGameOver(){

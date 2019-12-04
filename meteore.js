@@ -1,6 +1,6 @@
 
 var AstArray = [];
-var NbAst = 5;
+var NbAst = 10;
 var tab = [];
 
 
@@ -12,8 +12,8 @@ function createMeteore(numberOfMeteore) {
   for(var i=0; i < numberOfMeteore; i++) {
     
     // Create a meteore with random position and speed
-    var meteore =  new Meteore(1,
-                          1,
+    var meteore =  new Meteore((Math.random()*1200),
+                          (Math.random()*800),
                           (2*Math.random())-1,
                           (2*Math.random())-1); // radius, change if ou like.
     
