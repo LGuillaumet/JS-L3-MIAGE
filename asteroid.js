@@ -454,7 +454,26 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1){
 				console.log(a.boundingBox)
 				console.log(Vaisseau1.boundingBox)
 				console.log(Vaisseau1.vie)
+				for(var i=0; i < AstArray.length; i++) {
+    // Create a meteore with random position and speed
+    				var meteore =  new Meteore(a.x,
+                        a.y,
+                        (2*Math.random())-1,
+                        (2*Math.random())-1,
+                        1); // radius, change if ou like.
+   	 					AstArray[i] = meteore;
+ 				}
+ 				for(var i=0; i < AstArray.length; i++) {
+    // Create a meteore with random position and speed
+    				var meteore =  new Meteore(a.x,
+                        a.y,
+                        (2*Math.random())-1,
+                        (2*Math.random())-1,
+                        2); // radius, change if ou like.
+   	 					AstArray[i] = meteore;
+ 				}
 				supprimerAsteroid(a);
+
 				Vaisseau1.vie--;
 				incrementX = 0;
 				Vaisseau1.x = 600;
@@ -492,6 +511,24 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
       // On casse l'asteroide, on change les vitesses de rotation des
       // morceaux résultants (2, 3 ou 4)
       //asteroid.casse();
+      for(var i=0; i < AstArray.lenght; i++) {
+    // Create a meteore with random position and speed
+    				var meteore =  new Meteore(asteroid.x,
+                        asteroid.y,
+                        (2*Math.random())-1,
+                        (2*Math.random())-1,
+                        1); // radius, change if ou like.
+   	 					AstArray[i] = meteore;
+ 				}
+ 				for(var i=0; i < AstArray.length; i++) {
+    // Create a meteore with random position and speed
+    				var meteore =  new Meteore(asteroid.x,
+                        asteroid.y,
+                        (2*Math.random())-1,
+                        (2*Math.random())-1,
+                        2); // radius, change if ou like.
+   	 					AstArray[i] = meteore;
+ 				}
       
       supprimerAsteroid(asteroid);
       console.log("COLLISION B/A")

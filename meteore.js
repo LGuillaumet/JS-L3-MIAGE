@@ -1,6 +1,6 @@
 
 var AstArray = [];
-var NbAst = 10;
+var NbAst = 2;
 var tab = [];
 
 
@@ -15,7 +15,8 @@ function createMeteore(numberOfMeteore) {
     var meteore =  new Meteore((Math.random()*1200),
                           (Math.random()*800),
                           (2*Math.random())-1,
-                          (2*Math.random())-1); // radius, change if ou like.
+                          (2*Math.random())-1,
+                          0); // radius, change if ou like.
     
     // Add it to the array
     AstArray[i] = meteore;
@@ -46,11 +47,12 @@ function collisionTestWithWalls(meteore) {
 
 
 
-function Meteore(x, y, vx, vy) {
+function Meteore(x, y, vx, vy,id) {
   this.x = x;
   this.y = y;
   this.vx = vx;
   this.vy = vy;
+  this.id = id;
   this.rayon = 20;
   this.boundingBox = {
     x: x,
@@ -75,8 +77,51 @@ function Meteore(x, y, vx, vy) {
     ctx.lineWidth = 3;
     
     for (var i=0;i<1;i++){
+    	if(Meteore.id == 0){
+    		ctx.beginPath();
+      		ctx.strokeStyle = "green";
+      		ctx.lineWidth = 3;
+      		ctx.lineJoin = 'round';
+      		ctx.lineTo(this.x+40,this.y+10);
+      		ctx.lineTo(this.x+10,this.y+50);
+      		ctx.lineTo(this.x+20,this.y+80);
+      		ctx.lineTo(this.x+40,this.y+100);
+      		ctx.lineTo(this.x+100,this.y+90);
+     		ctx.lineTo(this.x+120,this.y+50)
+     		ctx.lineTo(this.x+90,this.y+5);
+     		ctx.closePath();
+    	}
+    	if(Meteore.id == 1){
+    		 ctx.beginPath();
+      		ctx.strokeStyle = "red";
+      		ctx.lineWidth = 3;
+     		ctx.lineJoin = 'round';
+      		ctx.lineTo(this.x+120,this.y+50);
+     		ctx.lineTo(this.x+100,this.y+90);
+      		ctx.lineTo(this.x+40,this.y+100);
+     		ctx.lineTo(this.x+50,this.y+90);
+      		ctx.lineTo(this.x+60,this.y+50);
+     		ctx.lineTo(this.x+90,this.y+5);
+     		ctx.closePath();
+     		ctx.stroke();
+    	}
+    	if(Meteore.id == 2){
+    		ctx.beginPath();
+      		ctx.strokeStyle = "blue";
+      		ctx.lineWidth = 3;
+     		ctx.lineJoin = 'round';
+     		ctx.lineTo(this.x+40,this.y+10);
+     		ctx.lineTo(this.x+10,this.y+50);
+     		ctx.lineTo(this.x+20,this.y+80);
+     		ctx.lineTo(this.x+40,this.y+100);
+     		ctx.lineTo(this.x+50,this.y+90);
+    		ctx.lineTo(this.x+60,this.y+50)
+     		ctx.lineTo(this.x+90,this.y+5);
+     		ctx.closePath();
+     		ctx.stroke();
+    	}
       // permet d'arrondir les bords de l'astéroids pour la rendre plus homogène
-    ctx.lineJoin = 'round';
+   /* ctx.lineJoin = 'round';
     ctx.beginPath();
     ctx.lineTo(this.x+40,this.y+20);
     ctx.lineTo(this.x+50,this.y+40);
@@ -84,10 +129,10 @@ function Meteore(x, y, vx, vy) {
     ctx.lineTo(this.x+20,this.y+60);
     ctx.lineTo(this.x+10,this.y+55);
     ctx.lineTo(this.x+30,this.y+20);
-    ctx.closePath();
+    ctx.closePath();*/
     }
-    ctx.stroke();
-  };
+    //ctx.stroke();
+  }
 
   
   this.move = function() {
