@@ -119,7 +119,23 @@ function Meteore(x, y, vx, vy,id) {
      		ctx.lineTo(this.x+90,this.y+5);
      		ctx.closePath();
      		ctx.stroke();
-    	}
+      }
+      
+      if(this.id == 3){
+        ctx.strokeStyle = "orange";
+        ctx.lineWidth = 3;
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.lineTo(this.x+40,this.y+20);
+      ctx.lineTo(this.x+50,this.y+40);
+      ctx.lineTo(this.x+40,this.y+50);
+      ctx.lineTo(this.x+20,this.y+60);
+      ctx.lineTo(this.x+10,this.y+55);
+      ctx.lineTo(this.x+30,this.y+20);
+      ctx.closePath();
+      }
+
+  
       // permet d'arrondir les bords de l'astéroids pour la rendre plus homogène
    /* ctx.lineJoin = 'round';
     ctx.beginPath();
