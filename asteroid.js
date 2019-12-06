@@ -1,4 +1,3 @@
-
 var canvas, ctx, width, height;
 var Vaisseau1;
 var gameover = false;
@@ -21,7 +20,7 @@ var shoot = new Howl({
 window.onload = init;
 
 class Vaisseau {
-  constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes,vie) {
+  constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes, vie) {
     this.x = x;
     this.y = y;
     this.angle = angle;
@@ -45,76 +44,76 @@ class Vaisseau {
     ctx.restore();
   }
 
-  drawBouclier(ctx){
-  	ctx.save();
-  	ctx.strokeStyle = 'blue';
-  	ctx.beginPath();
-    ctx.arc(this.x,this.y,40,0,2*Math.PI);
+  drawBouclier(ctx) {
+    ctx.save();
+    ctx.strokeStyle = 'blue';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 40, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.restore();
   }
 
   draw(ctx) {
-    if(gameover == true){
+    if (gameover == true) {
       ctx.save();
       ctx.setTransform(1, 0, 0, 1, 0, 0);
-      for(var i = AstArray.length-1; i>0; i--){
+      for (var i = AstArray.length - 1; i > 0; i--) {
         var v = AstArray[i];
-        for(var j = 1; j <arguments.length; j++){
-           if(v == arguments[j]){
-            AstArray.splice(i,1);
-           }
+        for (var j = 1; j < arguments.length; j++) {
+          if (v == arguments[j]) {
+            AstArray.splice(i, 1);
+          }
         }
-     }
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.font = '48px serif';
       ctx.textAlign = 'center';
-      ctx.fillText("GAMEOVER",(canvas.width/2), (canvas.height/2));
+      ctx.fillText("GAMEOVER", (canvas.width / 2), (canvas.height / 2));
       ctx.restore
     }
 
-    if(gameover != true){
-    	if(BonusArray.length != 0){
-    		BonusArray.forEach(e => {
-    			e.draw();
-    		})
-    	}
-    ctx.save();
-    ctx.fillText("Vie: " + Vaisseau1.vie,10,50 );
-    ctx.fillText("Score: "+ score,10,100);
-    this.drawBoundingBox(ctx);
-    if(bouclier == true){
-    	this.drawBouclier(ctx);
-    	console.log("apparitionBouclier");
-    }
-    ctx.translate(this.x, this.y);
-    ctx.rotate(this.angle);
-    ctx.rotate(Math.PI / -0.4455);
-    ctx.translate(-25, -25); //pour tourner sur lui même
-   
+    if (gameover != true) {
+      if (BonusArray.length != 0) {
+        BonusArray.forEach(e => {
+          e.draw();
+        })
+      }
+      ctx.save();
+      ctx.fillText("Vie: " + Vaisseau1.vie, 10, 50);
+      ctx.fillText("Score: " + score, 10, 100);
+      this.drawBoundingBox(ctx);
+      if (bouclier == true) {
+        this.drawBouclier(ctx);
+        console.log("apparitionBouclier");
+      }
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.angle);
+      ctx.rotate(Math.PI / -0.4455);
+      ctx.translate(-25, -25); //pour tourner sur lui même
 
 
-    ctx.beginPath();
-    ctx.strokeStyle = "red";
-    ctx.moveTo(0, 0); // pick up "pen," reposition at 500 (horiz), 0 (vert)0
-    ctx.lineTo(70, 25); // draw straight down by 200px (200 + 200)
-    ctx.lineTo(25, 25); // draw up toward left (100 less than 300, so left)
-    ctx.lineTo(25, 70);
-    ctx.closePath(); // connect end to start
-    ctx.stroke(); // outline the shape that's been described
-    ctx.fill();
-    ctx.restore();
-    if (this.x < 0)
-      this.x = width;
-    if (this.y < 0)
-      this.y = height;
-    if (this.x > width)
-      this.x = 0;
-    if (this.y > height)
-      this.y = 0;
 
-    this.drawBullets(ctx);
-    
+      ctx.beginPath();
+      ctx.strokeStyle = "red";
+      ctx.moveTo(0, 0); // pick up "pen," reposition at 500 (horiz), 0 (vert)0
+      ctx.lineTo(70, 25); // draw straight down by 200px (200 + 200)
+      ctx.lineTo(25, 25); // draw up toward left (100 less than 300, so left)
+      ctx.lineTo(25, 70);
+      ctx.closePath(); // connect end to start
+      ctx.stroke(); // outline the shape that's been described
+      ctx.fill();
+      ctx.restore();
+      if (this.x < 0)
+        this.x = width;
+      if (this.y < 0)
+        this.y = height;
+      if (this.x > width)
+        this.x = 0;
+      if (this.y > height)
+        this.y = 0;
+
+      this.drawBullets(ctx);
+
     }
 
   }
@@ -241,17 +240,17 @@ function init() {
   var backgroundMusic = new Audio('SoundEffect/space_harrier_music_main_theme.mp3');
   var promise = backgroundMusic.play();
 
-if (promise !== undefined) {
-  promise.then(_ => {
-    // Autoplay started!
-  }).catch(error => {
-    // Autoplay was prevented.
-    // Show a "Play" button so that user can start playback.
-  });
-}
+  if (promise !== undefined) {
+    promise.then(_ => {
+      // Autoplay started!
+    }).catch(error => {
+      // Autoplay was prevented.
+      // Show a "Play" button so that user can start playback.
+    });
+  }
 
 
- 
+
   canvas = document.querySelector("#myCanvas");
   ctx = canvas.getContext('2d');
   width = canvas.width;
@@ -286,7 +285,7 @@ if (promise !== undefined) {
 
   // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
   // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
-  Vaisseau1 = new Vaisseau(600, 400, 0, 2, 200,3);
+  Vaisseau1 = new Vaisseau(600, 400, 0, 2, 200, 3);
 
   canvas.addEventListener('mousemove', function (evt) {
     mousepos = getMousePos(canvas, evt);
@@ -419,9 +418,9 @@ function anime60fps() {
     // collision test with bullets
     collisionTestAsteroidBullets(meteores, Vaisseau1.bullets);
     //collision tets  asteroid et vaisseau
-    collisionTestAsteroidVaisseau(meteores , Vaisseau1);
+    collisionTestAsteroidVaisseau(meteores, Vaisseau1);
 
-     collisionTestVaisseauBonus(Vaisseau1,BonusArray);
+    collisionTestVaisseauBonus(Vaisseau1, BonusArray);
 
     // 3) On dessine les meteores
     meteores.draw();
@@ -439,67 +438,66 @@ function supprimerAsteroid(a) {
 }
 
 // Test for collision between an object and a point
-function rectangleCollide(targetA, targetB) {	
+function rectangleCollide(targetA, targetB) {
   return !(targetB.x > (targetA.x + targetA.width) ||
     (targetB.x + targetB.width) < targetA.x ||
     targetB.y > (targetA.x + targetA.height) ||
     (targetB.y + targetB.height) < targetA.y);
 }
 
-function collisionTestAsteroidVaisseau(asteroid, Vaisseau1){
+function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
 
-	AstArray.forEach((a, index) => {
-		if (rectangleCollide(a.boundingBox, Vaisseau1.boundingBox)){
-			if(bouclier == false){
-				console.log(a.boundingBox)
-				console.log(Vaisseau1.boundingBox)
-				console.log(Vaisseau1.vie)
-				for(var i=0; i < AstArray.length; i++) {
-    // Create a meteore with random position and speed
-    				var meteore =  new Meteore(a.x,
-                        a.y,
-                        (2*Math.random())-1,
-                        (2*Math.random())-1,
-                        1); // radius, change if ou like.
-   	 					AstArray[i] = meteore;
- 				}
- 				for(var i=0; i < AstArray.length; i++) {
-    // Create a meteore with random position and speed
-    				var meteore =  new Meteore(a.x,
-                        a.y,
-                        (2*Math.random())-1,
-                        (2*Math.random())-1,
-                        2); // radius, change if ou like.
-   	 					AstArray[i] = meteore;
- 				}
-				supprimerAsteroid(a);
+  AstArray.forEach((a, index) => {
+    if (rectangleCollide(a.boundingBox, Vaisseau1.boundingBox)) {
+      if (bouclier == false) {
+        console.log(a.boundingBox)
+        console.log(Vaisseau1.boundingBox)
+        console.log(Vaisseau1.vie)
+        for (var i = 0; i < AstArray.length; i++) {
+          // Create a meteore with random position and speed
+          var meteore = new Meteore(a.x,
+            a.y,
+            (2 * Math.random()) - 1,
+            (2 * Math.random()) - 1,
+            1); // radius, change if ou like.
+          AstArray[i] = meteore;
+        }
+        for (var i = 0; i < AstArray.length; i++) {
+          // Create a meteore with random position and speed
+          var meteore = new Meteore(a.x,
+            a.y,
+            (2 * Math.random()) - 1,
+            (2 * Math.random()) - 1,
+            2); // radius, change if ou like.
+          AstArray[i] = meteore;
+        }
+        supprimerAsteroid(a);
 
-				Vaisseau1.vie--;
-				incrementX = 0;
-				Vaisseau1.x = 600;
-				Vaisseau1.y = 400;
-				score = score +100;
-				if(Vaisseau1.vie == 0){
-        			//fin du jeu 
-        			gameover = true;/*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
-				}
-				if(Math.floor((Math.random()*5)) == 0){
-				//une chance sur 5 d'avoir un bonus 
-					BonusArray.push(new Bonus1(asteroid.x,asteroid.y,(Math.floor(Math.random()*3))));
-				}
-				//var position = BonusArray.length + 1;
-				//BonusArray[position] = bonus;
-				//console.log("BONUS");
-				
-			}
-			else{
-				bouclier = false;
-				supprimerAsteroid(a);
-				console.log(bouclier);
-			}	
-			//console.log("COLLISION V/A")
-		}
-	})
+        Vaisseau1.vie--;
+        incrementX = 0;
+        Vaisseau1.x = 600;
+        Vaisseau1.y = 400;
+        score = score + 100;
+        if (Vaisseau1.vie == 0) {
+          //fin du jeu 
+          gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+        }
+        if (Math.floor((Math.random() * 5)) == 0) {
+          //une chance sur 5 d'avoir un bonus 
+          BonusArray.push(new Bonus1(asteroid.x, asteroid.y, (Math.floor(Math.random() * 3))));
+        }
+        //var position = BonusArray.length + 1;
+        //BonusArray[position] = bonus;
+        //console.log("BONUS");
+
+      } else {
+        bouclier = false;
+        supprimerAsteroid(a);
+        console.log(bouclier);
+      }
+      //console.log("COLLISION V/A")
+    }
+  })
 }
 
 function collisionTestAsteroidBullets(asteroid, bulletsArray) {
@@ -513,72 +511,93 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
       //asteroid.casse();
 
       supprimerAsteroid(asteroid);
-     
-    // Create a meteore with random position and speed
- 
-   	 					AstArray.push(new Meteore(asteroid.x,
-                asteroid.y,
-                (2*Math.random())-1,
-                (2*Math.random())-1,
-                1));
- 				
- 			
-    // Create a meteore with random position and speed
-    AstArray.push(new Meteore(asteroid.x,
-      asteroid.y,
-      (2*Math.random())-1,
-      (2*Math.random())-1,
-      2));
- 				
-      
-     
+
+      //PREMIERE DIVISION ------------------------------------------------------------------------------------------
+      if (asteroid.id == 0) {
+        AstArray.push(new Meteore(asteroid.x,
+          asteroid.y,
+          (2 * Math.random()) - 1,
+          (2 * Math.random()) - 1,
+          asteroid.id + 1));
+
+
+        // Create a meteore with random position and speed
+        AstArray.push(new Meteore(asteroid.x,
+          asteroid.y,
+          (2 * Math.random()) - 1,
+          (2 * Math.random()) - 1,
+          asteroid.id + 2));
+
+      }
+
+
+      //Deuxieme DIVISION ------------------------------------------------------------------------------------------
+      if (asteroid.id == 1) {
+
+        // Create a meteore with random position and speed
+        AstArray.push(new Meteore(asteroid.x,
+          asteroid.y,
+          (2 * Math.random()) - 1,
+          (2 * Math.random()) - 1,
+          asteroid.id + 2));
+
+      }
+
+      //Deuxieme DIVISION ------------------------------------------------------------------------------------------
+      if (asteroid.id == 2) {
+        AstArray.push(new Meteore(asteroid.x,
+          asteroid.y,
+          (2 * Math.random()) - 1,
+          (2 * Math.random()) - 1,
+          asteroid.id + 1));
+
+      }
+
       console.log("COLLISION B/A")
-      score = score +100;
+      score = score + 100;
       // On supprime la balle de la liste
       Vaisseau1.removeBullet(b);
-    if(Math.floor((Math.random()*1)) == 0){
-    	//une chance sur 5 d'avoir un bonus
-    	BonusArray.push(new Bonus1(asteroid.x,asteroid.y,(Math.floor(Math.random()*3))));
-    	//var position = BonusArray.length + 1;
-    	//BonusArray[position] = bonus;
-    	//console.log("BONUS");
-	}
+      if (Math.floor((Math.random() * 1)) == 0) {
+        //une chance sur 5 d'avoir un bonus
+        BonusArray.push(new Bonus1(asteroid.x, asteroid.y, (Math.floor(Math.random() * 3))));
+        //var position = BonusArray.length + 1;
+        //BonusArray[position] = bonus;
+        //console.log("BONUS");
+      }
       // break; // on sort de la boucle, il ne peut y avoir de collision avec plusieurs balles en meme temps
     }
   })
 }
 
-function supprimerBonus(bonus){
-	let posi = BonusArray.indexOf(bonus);
-	BonusArray.splice(posi,1);
+function supprimerBonus(bonus) {
+  let posi = BonusArray.indexOf(bonus);
+  BonusArray.splice(posi, 1);
 }
 
-function collisionTestVaisseauBonus(Vaisseau1,BonusArray){
-	
-	for( let NbBonus = 0 ; NbBonus < BonusArray.length; NbBonus++){
-		bonus = BonusArray[NbBonus];
-	//BonusArray.forEach((bonus , index) =>{
-		if(rectangleCollide(Vaisseau1.boundingBox, bonus.boundingBox)){
-			//if(bonus.id == 0){
-				console.log(bonus.id);
-				if(bonus.id == 0){
-					changeCadenceTir(25);
-				}
-				else if(bonus.id == 1){
-					bouclier = true;
-					console.log(bouclier);
-					//draw bouclier a faire 
-				}
-				else if(bonus.id == 2){
-					changeCadenceTir(25); // A changer
-				}
-				supprimerBonus(bonus);
-				
-				
-			//}
-		}
-		}
-	//})
+function collisionTestVaisseauBonus(Vaisseau1, BonusArray) {
+
+  for (let NbBonus = 0; NbBonus < BonusArray.length; NbBonus++) {
+    bonus = BonusArray[NbBonus];
+    //BonusArray.forEach((bonus , index) =>{
+    if (rectangleCollide(Vaisseau1.boundingBox, bonus.boundingBox)) {
+      //if(bonus.id == 0){
+      console.log(bonus.id);
+      if (bonus.id == 0) {
+        changeCadenceTir(25);
+      } else if (bonus.id == 1) {
+        bouclier = true;
+        console.log(bouclier);
+        //draw bouclier a faire 
+      } else if (bonus.id == 2) {
+        changeCadenceTir(25); // A changer
+      }
+      supprimerBonus(bonus);
+
+
+      //}
+    }
+  }
+  //})
 }
 
 
@@ -611,6 +630,6 @@ function changeCadenceTir(value) {
   Vaisseau1.delayMinBetweenBullets -= value;
 }
 
-function getGameOver(){
+function getGameOver() {
   return gameover;
 }
