@@ -77,7 +77,7 @@ function Meteore(x, y, vx, vy,id) {
     ctx.lineWidth = 3;
     
     for (var i=0;i<1;i++){
-    	if(Meteore.id == 0){
+    	if(this.id == 0){
     		ctx.beginPath();
       		ctx.strokeStyle = "green";
       		ctx.lineWidth = 3;
@@ -91,7 +91,7 @@ function Meteore(x, y, vx, vy,id) {
      		ctx.lineTo(this.x+90,this.y+5);
      		ctx.closePath();
     	}
-    	if(Meteore.id == 1){
+    	if(this.id == 1){
     		 ctx.beginPath();
       		ctx.strokeStyle = "red";
       		ctx.lineWidth = 3;
@@ -105,7 +105,7 @@ function Meteore(x, y, vx, vy,id) {
      		ctx.closePath();
      		ctx.stroke();
     	}
-    	if(Meteore.id == 2){
+    	if(this.id == 2){
     		ctx.beginPath();
       		ctx.strokeStyle = "blue";
       		ctx.lineWidth = 3;
@@ -131,7 +131,7 @@ function Meteore(x, y, vx, vy,id) {
     ctx.lineTo(this.x+30,this.y+20);
     ctx.closePath();*/
     }
-    //ctx.stroke();
+    ctx.stroke();
   }
 
   

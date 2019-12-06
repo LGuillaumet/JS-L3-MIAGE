@@ -511,26 +511,27 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
       // On casse l'asteroide, on change les vitesses de rotation des
       // morceaux résultants (2, 3 ou 4)
       //asteroid.casse();
-      for(var i=0; i < AstArray.lenght; i++) {
-    // Create a meteore with random position and speed
-    				var meteore =  new Meteore(asteroid.x,
-                        asteroid.y,
-                        (2*Math.random())-1,
-                        (2*Math.random())-1,
-                        1); // radius, change if ou like.
-   	 					AstArray[i] = meteore;
- 				}
- 				for(var i=0; i < AstArray.length; i++) {
-    // Create a meteore with random position and speed
-    				var meteore =  new Meteore(asteroid.x,
-                        asteroid.y,
-                        (2*Math.random())-1,
-                        (2*Math.random())-1,
-                        2); // radius, change if ou like.
-   	 					AstArray[i] = meteore;
- 				}
-      
+
       supprimerAsteroid(asteroid);
+     
+    // Create a meteore with random position and speed
+ 
+   	 					AstArray.push(new Meteore(asteroid.x,
+                asteroid.y,
+                (2*Math.random())-1,
+                (2*Math.random())-1,
+                1));
+ 				
+ 			
+    // Create a meteore with random position and speed
+    AstArray.push(new Meteore(asteroid.x,
+      asteroid.y,
+      (2*Math.random())-1,
+      (2*Math.random())-1,
+      2));
+ 				
+      
+     
       console.log("COLLISION B/A")
       score = score +100;
       // On supprime la balle de la liste
