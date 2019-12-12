@@ -1,11 +1,19 @@
 // Test for collision between an object and a point
 function rectangleCollide(targetA, targetB) {
-    //console.log(targetB);
-    return !(targetB.x > (targetA.x + targetA.width) ||
-        (targetB.x + targetB.width) < targetA.x ||
-        targetB.y > (targetA.x + targetA.height) ||
-        (targetB.y + targetB.height) < targetA.y);
+    return rectsOverlap(targetA.x, targetA.y, targetA.width, targetA.height, targetB.x, targetB.y, targetB.width, targetB.height);
 }
+
+function rectsOverlap(x1, y1, w1, h1, x2, y2, w2, h2) {
+
+    if ((x1 > (x2 + w2)) || ((x1 + w1) < x2))
+        return false; // No horizontal axis projection overlap
+    if ((y1 > (y2 + h2)) || ((y1 + h1) < y2))
+        return false; // No vertical axis projection overlap
+    return true; // If previous tests failed, then both axis projections
+    // overlap and the rectangles intersect
+}
+
+
 
 
 function collisionTestVaisseauBonus(Vaisseau1, BonusArray) {
@@ -51,7 +59,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
 
             //PREMIERE DIVISION ------------------------------------------------------------------------------------------
             if (asteroid.id == 0) {
-                AstArray.push(new Meteore(asteroid.x,
+                AstArray.push(new Asteroid(asteroid.x,
                     asteroid.y,
                     (2 * Math.random()) - 1,
                     (2 * Math.random()) - 1,
@@ -59,7 +67,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
 
 
                 // Create a meteore with random position and speed
-                AstArray.push(new Meteore(asteroid.x,
+                AstArray.push(new Asteroid(asteroid.x,
                     asteroid.y,
                     (2 * Math.random()) - 1,
                     (2 * Math.random()) - 1,
@@ -72,7 +80,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
             if (asteroid.id == 1) {
 
                 // Create a meteore with random position and speed
-                AstArray.push(new Meteore(asteroid.x,
+                AstArray.push(new Asteroid(asteroid.x,
                     asteroid.y,
                     (2 * Math.random()) - 1,
                     (2 * Math.random()) - 1,
@@ -82,7 +90,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
 
             //Deuxieme DIVISION ------------------------------------------------------------------------------------------
             if (asteroid.id == 2) {
-                AstArray.push(new Meteore(asteroid.x,
+                AstArray.push(new Asteroid(asteroid.x,
                     asteroid.y,
                     (2 * Math.random()) - 1,
                     (2 * Math.random()) - 1,
@@ -108,12 +116,16 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
 
 
 function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
+
     AstArray.forEach((a, index) => {
-        if (a instanceof Asteroid && rectangleCollide(a.boundingBox, Vaisseau1.boundingBox)) {
+        if (rectangleCollide(a.boundingBox, Vaisseau1.boundingBox)) {
             if (bouclier == false) {
+                console.log(a.boundingBox)
+                console.log(Vaisseau1.boundingBox)
+                console.log(Vaisseau1.vie)
                 for (var i = 0; i < AstArray.length; i++) {
                     // Create a meteore with random position and speed
-                    var meteore = new Meteore(a.x,
+                    var meteore = new Asteroid(a.x,
                         a.y,
                         (2 * Math.random()) - 1,
                         (2 * Math.random()) - 1,
@@ -122,14 +134,56 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
                 }
                 for (var i = 0; i < AstArray.length; i++) {
                     // Create a meteore with random position and speed
-                    var meteore = new Meteore(a.x,
+                    var meteore = new Asteroid(a.x,
                         a.y,
                         (2 * Math.random()) - 1,
                         (2 * Math.random()) - 1,
                         2); // radius, change if ou like.
                     AstArray[i] = meteore;
                 }
+
+
                 supprimerAsteroid(a);
+
+                if (asteroid.id == 0) {
+                    AstArray.push(new Asteroid(asteroid.x,
+                        asteroid.y,
+                        (2 * Math.random()) - 1,
+                        (2 * Math.random()) - 1,
+                        asteroid.id + 1));
+
+
+                    // Create a meteore with random position and speed
+                    AstArray.push(new Asteroid(asteroid.x,
+                        asteroid.y,
+                        (2 * Math.random()) - 1,
+                        (2 * Math.random()) - 1,
+                        asteroid.id + 2));
+
+                }
+
+
+                //Deuxieme DIVISION ------------------------------------------------------------------------------------------
+                if (asteroid.id == 1) {
+
+                    // Create a meteore with random position and speed
+                    AstArray.push(new Asteroid(asteroid.x,
+                        asteroid.y,
+                        (2 * Math.random()) - 1,
+                        (2 * Math.random()) - 1,
+                        asteroid.id + 2));
+
+                }
+
+                //Deuxieme DIVISION ------------------------------------------------------------------------------------------
+                if (asteroid.id == 2) {
+                    AstArray.push(new Asteroid(asteroid.x,
+                        asteroid.y,
+                        (2 * Math.random()) - 1,
+                        (2 * Math.random()) - 1,
+                        asteroid.id + 1));
+
+                }
 
                 Vaisseau1.vie--;
                 incrementX = 0;
@@ -138,7 +192,7 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
                 score = score + 100;
                 if (Vaisseau1.vie == 0) {
                     //fin du jeu 
-                    gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+                    //gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
                 }
                 if (Math.floor((Math.random() * 5)) == 0) {
                     //une chance sur 5 d'avoir un bonus 
@@ -151,6 +205,7 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
             } else {
                 bouclier = false;
                 supprimerAsteroid(a);
+
                 console.log(bouclier);
             }
             //console.log("COLLISION V/A")
