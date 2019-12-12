@@ -410,7 +410,7 @@ function anime60fps() {
     for (var i = 0; i < AstArray.length; i++) {
         var meteores = AstArray[i];
 
-        // 1) On bouge les meteores
+        // 1) Oapn bouge les meteores
         meteores.move();
 
         // 2) collision test with walls
@@ -419,9 +419,9 @@ function anime60fps() {
         // collision test with bullets
         collisionTestAsteroidBullets(meteores, Vaisseau1.bullets);
         //collision tets  asteroid et vaisseau
-        console.log("APPEL ENCULE");
+    
         collisionTestAsteroidVaisseau(meteores, Vaisseau1);
-        console.log("APPEL BATARD");
+        
 
         collisionTestVaisseauBonus(Vaisseau1, BonusArray);
 

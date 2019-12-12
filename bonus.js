@@ -17,7 +17,7 @@ class Bonus1 {
   	drawBoundingBox(ctx){
     	ctx.save();
     	ctx.strokeStyle = 'red';    	
-    	ctx.strokeRect(this.boundingBox.x,this.boundingBox.y,this.boundingBox.width,this.boundingBox.height);
+    	ctx.strokeRect(this.boundingBox.x-10,this.boundingBox.y-10,this.boundingBox.width,this.boundingBox.height);
     	ctx.restore();
   	}
     

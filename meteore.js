@@ -54,12 +54,39 @@ function Meteore(x, y, vx, vy,id) {
   this.vy = vy;
   this.id = id;
   this.rayon = 20;
-  this.boundingBox = {
+  if(this.id == 0){
+   this.boundingBox = {
     x: x,
-    y: y,
+    y: y,      
+    width: 110,
+    height: 95
+    }
+  }
+  if(this.id == 1){
+   this.boundingBox = {
+    x: x,
+    y: y,      
+    width: 80,
+    height: 95
+    }
+  }
+  if(this.id == 2){
+   this.boundingBox = {
+    x: x,
+    y: y,      
+    width: 80,
+    height: 95
+    }
+  }
+  if(this.id == 3){
+   this.boundingBox = {
+    x: x,
+    y: y,      
     width: 40,
     height: 40
+   }
   }
+
 
   this.drawBoundingBox = function(ctx) {
     ctx.save();
@@ -154,10 +181,22 @@ function Meteore(x, y, vx, vy,id) {
   this.move = function() {
     this.x += this.vx;
     this.y += this.vy;
-
-    this.boundingBox.x = this.x + 10;
-    this.boundingBox.y = this.y + 20;
-
+    if(this.id == 0){
+      this.boundingBox.x = this.x + 10;
+      this.boundingBox.y = this.y + 5;
+    }
+    if(this.id == 1){
+      this.boundingBox.x = this.x + 40;
+      this.boundingBox.y = this.y + 5;
+    }
+    if(this.id == 2){
+      this.boundingBox.x = this.x + 10;
+      this.boundingBox.y = this.y+  5;
+    }
+    if(this.id == 3){
+      this.boundingBox.x = this.x + 10;
+      this.boundingBox.y = this.y + 20;
+    }
   };
   
 }

@@ -25,7 +25,7 @@ function collisionTestVaisseauBonus(Vaisseau1, BonusArray) {
             //if(bonus.id == 0){
             console.log(bonus.id);
             if (bonus.id == 0) {
-                changeCadenceTir(25);
+                score = score + 500;
             } else if (bonus.id == 1) {
                 bouclier = true;
                 console.log(bouclier);
@@ -98,7 +98,6 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
 }
 
 function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
-    console.log("ta grand mère");
     if (rectangleCollide(asteroid.boundingBox, Vaisseau1.boundingBox)) {
         if (invincible == false) {
             invincible = true;
