@@ -18,7 +18,6 @@ var shoot = new Howl({
 
 
 
-window.onload = init;
 
 class Vaisseau {
     constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes, vie) {
@@ -259,18 +258,11 @@ function init() {
 
 
     ctx.beginPath();
-    ctx.rect(250, 350, 200, 100);
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillStyle = 'rgba(225,225,225,0.5)';
-    ctx.fillRect(25, 72, 32, 32);
-    ctx.fill();
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = '#000000';
-    ctx.stroke();
-    ctx.closePath();
+
+
     ctx.font = '40pt Kremlin Pro Web';
     ctx.fillStyle = '#000000';
-    ctx.fillText('Start', 345, 415);
+
 
 
 
