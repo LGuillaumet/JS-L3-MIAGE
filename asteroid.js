@@ -329,6 +329,9 @@ function handleKeydown(evt) {
     if (evt.keyCode === 38) {
         //up key 
         boost();
+        startDoubleExplosion(Vaisseau1.x, Vaisseau1.y,Vaisseau1.angle);
+           
+     
     } else if (evt.keyCode === 37) {
         if (keysCheck[37] && keysCheck[39]) {
             incrementAngle = 0;
@@ -363,10 +366,13 @@ function slow() {
 
 function boost() {
     if (incrementX < 5) {
+        var boostcheck = true;
         //console.log(incrementX);
         incrementX += 1 * 2;
+   
         setTimeout(boost, 200);
     } else {
+        boostcheck = false;
         incrementX = 6;
     }
 }
@@ -387,7 +393,7 @@ function handleKeyup(evt) {
     }
 }
 
-function anime60fps() {
+function anime60fps(time) {
     // Get current direction ship is facing
     let radians = Vaisseau1.angle / Math.PI * 180;
     // 1) On efface l'Ã©cran
@@ -419,16 +425,32 @@ function anime60fps() {
         // collision test with bullets
         collisionTestAsteroidBullets(meteores, Vaisseau1.bullets);
         //collision tets  asteroid et vaisseau
+<<<<<<< Updated upstream
     
         collisionTestAsteroidVaisseau(meteores, Vaisseau1);
         
+=======
+ 
+        collisionTestAsteroidVaisseau(meteores, Vaisseau1);
+  
+>>>>>>> Stashed changes
 
         collisionTestVaisseauBonus(Vaisseau1, BonusArray);
 
         // 3) On dessine les meteores
         meteores.draw();
 
+
+ 
+
     }
+
+
+       // number of ms since last frame draw
+       delta = timer(time);
+       
+     // Move and draw particles
+     updateAndDrawParticules(delta);
 
     // On demande une nouvelle frame d'animation
     window.requestAnimationFrame(anime60fps);

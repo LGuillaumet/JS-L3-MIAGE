@@ -23,12 +23,12 @@ function collisionTestVaisseauBonus(Vaisseau1, BonusArray) {
         //BonusArray.forEach((bonus , index) =>{
         if (rectangleCollide(Vaisseau1.boundingBox, bonus.boundingBox)) {
             //if(bonus.id == 0){
-            console.log(bonus.id);
+            //console.log(bonus.id);
             if (bonus.id == 0) {
                 score = score + 500;
             } else if (bonus.id == 1) {
                 bouclier = true;
-                console.log(bouclier);
+                //console.log(bouclier);
                 //draw bouclier a faire 
             } else if (bonus.id == 2) {
                 changeCadenceTir(25); // A changer
@@ -98,6 +98,10 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
 }
 
 function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     if (rectangleCollide(asteroid.boundingBox, Vaisseau1.boundingBox)) {
         if (invincible == false) {
             invincible = true;
