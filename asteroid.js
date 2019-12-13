@@ -425,15 +425,15 @@ function anime60fps(time) {
         // collision test with bullets
         collisionTestAsteroidBullets(meteores, Vaisseau1.bullets);
         //collision tets  asteroid et vaisseau
-<<<<<<< Updated upstream
+
     
         collisionTestAsteroidVaisseau(meteores, Vaisseau1);
         
-=======
+
  
         collisionTestAsteroidVaisseau(meteores, Vaisseau1);
   
->>>>>>> Stashed changes
+
 
         collisionTestVaisseauBonus(Vaisseau1, BonusArray);
 
