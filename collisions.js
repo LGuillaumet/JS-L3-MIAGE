@@ -98,10 +98,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
 }
 
 function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
     if (rectangleCollide(asteroid.boundingBox, Vaisseau1.boundingBox)) {
         if (invincible == false) {
             invincible = true;
