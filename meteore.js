@@ -80,7 +80,9 @@ function Meteore(x, y, vx, vy,id) {
     }
   }
   if(this.id == 3){
-   this.boundingBox = {
+    this.vx = (Math.random() * 10) - 5;  // returns a random integer from 1 to 10;
+    this.vy = (Math.random() * 10) - 5; 
+    this.boundingBox = {
     x: x,
     y: y,      
     width: 40,
