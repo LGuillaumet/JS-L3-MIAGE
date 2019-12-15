@@ -68,7 +68,8 @@ class Vaisseau {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.font = '48px serif';
             ctx.textAlign = 'center';
-            ctx.fillText("GAMEOVER", (canvas.width / 2), (canvas.height / 2));
+            ctx.fillText("GAME OVER", (canvas.width / 2), (canvas.height / 2));
+            ctx.fillText(score + "pts",(canvas.width / 2), ((canvas.height / 2) + 50));
             ctx.restore
         }
 

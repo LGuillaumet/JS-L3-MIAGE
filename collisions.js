@@ -25,7 +25,9 @@ function collisionTestVaisseauBonus(Vaisseau1, BonusArray) {
             //if(bonus.id == 0){
             //console.log(bonus.id);
             if (bonus.id == 0) {
-                score = score + 500;
+                if(gameover == false){
+                    score = score + 500;
+                }
             } else if (bonus.id == 1) {
                 bouclier = true;
                 //console.log(bouclier);
@@ -82,7 +84,9 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
                     asteroid.id + 1));
             }
             console.log("COLLISION B/A")
-            score = score + 100;
+            if(gameover == false){
+                score = score + 100;
+            }
             // On supprime la balle de la liste
             Vaisseau1.removeBullet(b);
             if (Math.floor((Math.random() * 5)) == 0) {
@@ -158,7 +162,9 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
                     invincible = false;
                 }, 1000);
             }
-            score = score + 100;
+            if(gameover == false){
+                score = score + 100;
+            }
             if (Vaisseau1.vie == 0) {
                 //fin du jeu 
                 gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
