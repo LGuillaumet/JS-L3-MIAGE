@@ -1,6 +1,7 @@
 
 var AstArray = [];
 var NbAst = 2;
+var cunrrentNB =NbAst;
 var tab = [];
 
 

@@ -85,7 +85,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
             score = score + 100;
             // On supprime la balle de la liste
             Vaisseau1.removeBullet(b);
-            if (Math.floor((Math.random() * 1)) == 0) {
+            if (Math.floor((Math.random() * 5)) == 0) {
                 //une chance sur 5 d'avoir un bonus
                 BonusArray.push(new Bonus1(asteroid.x, asteroid.y, (Math.floor(Math.random() * 3))));
                 //var position = BonusArray.length + 1;
@@ -161,7 +161,7 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
             score = score + 100;
             if (Vaisseau1.vie == 0) {
                 //fin du jeu 
-                //gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+                gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
             }
             if (Math.floor((Math.random() * 5)) == 0) {
                 //une chance sur 5 d'avoir un bonus 
@@ -181,4 +181,13 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
 function supprimerAsteroid(a) {
     let pos = AstArray.indexOf(a);
     AstArray.splice(pos, 1);
+    if(a.id==3){
+        cunrrentNB = cunrrentNB- 0.5;
+        console.log(cunrrentNB);
+    }
+    if(cunrrentNB == 0){
+        NbAst =NbAst+1;
+        createMeteore(NbAst);
+        cunrrentNB = NbAst;
+    }
 }
