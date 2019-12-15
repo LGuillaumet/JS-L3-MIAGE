@@ -81,6 +81,7 @@ class Vaisseau {
             ctx.save();
             ctx.fillText("Vie: " + Vaisseau1.vie, 10, 50);
             ctx.fillText("Score: " + score, 10, 100);
+            ctx.fillText("Niveau: " + (NbAst - 1), 10 , 150);
             this.drawBoundingBox(ctx);
             if (bouclier == true) {
                 this.drawBouclier(ctx);
@@ -331,6 +332,7 @@ function handleKeydown(evt) {
         // left key
         else
             incrementAngle = -0.08;
+            startDoubleExplosion(Vaisseau1.x, Vaisseau1.y,Vaisseau1.angle);
         //console.log(incrementAngle);
     } else if (evt.keyCode === 39) {
         if (keysCheck[37] && keysCheck[39]) {
@@ -339,6 +341,7 @@ function handleKeydown(evt) {
         // right key
         else
             incrementAngle = 0.08;
+            startDoubleExplosion(Vaisseau1.x, Vaisseau1.y,Vaisseau1.angle);
         //console.log(incrementAngle);
     }
 }
