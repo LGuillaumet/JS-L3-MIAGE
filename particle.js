@@ -189,10 +189,11 @@ function startDoubleExplosion(x, y,vAngle) {
             // explositons de couleurs différentes...
           
             //createExplosion(x, y, "green");
-      sound.play('blast');
+      //sound.play('blast');
 
 }
 // SOUND WITH HOWLER JS
+/*
 var sound = new Howl({
 urls: ['http://goldfirestudios.com/proj/howlerjs/sounds.mp3', 'http://goldfirestudios.com/proj/howlerjs/sounds.ogg'],
 sprite: {
@@ -201,5 +202,5 @@ laser: [3000, 700],
 winner: [5000, 9000]
 }, 
 onload: function() { console.log("Sound loaded");}
-});
+});*/
 

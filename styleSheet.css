@@ -1,21 +1,54 @@
 #myCanvas{ 
-    width: 80vh !important;
-
+    width: 53.5vw !important;
+    height: 79vh;
     display: none;
+    margin-left: 2.5vw;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:900i');
 
-* {
-  box-sizing: border-box;
+
+
+body{
+    margin: 0;
 }
-
-
 .wrapper {
   display: flex;
   justify-content: center;
 }
+svg{
+    margin: 0 auto;
+    display: block;
+}
+#credit{
+    display:flex;
+    justify-content: center;
+}
+#gauche{
+    position: absolute;
+    left: 0px;
+    width: 25vw;
+  height: 100vh;
+    margin: auto;
+}
 
+#droite{
+    position: absolute;
+    right: 0px;
+    width: 25vw;
+    height: 100vh;
+    margin: auto;
+}
+
+#overlay{
+    display: grid;
+    height: 100%;
+}
+
+#canvas-fit{
+    display: flex;
+    justify-content: center;
+}
 
 
 .cta {
