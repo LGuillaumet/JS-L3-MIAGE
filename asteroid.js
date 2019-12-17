@@ -16,213 +16,6 @@ var shoot = new Howl({
     src: ['Gun4.wav']
 });
 
-
-
-
-class Vaisseau {
-    constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes, vie) {
-        this.x = x;
-        this.y = y;
-        this.angle = angle;
-        this.v = vitesse;
-        this.bullets = [];
-        this.vie = vie;
-        // cadenceTir en millisecondes = temps min entre tirs
-        this.delayMinBetweenBullets = tempsMinEntreTirsEnMillisecondes;
-        this.boundingBox = {
-            x: this.x,
-            y: this.y,
-            width: 50,
-            height: 50
-        }
-    }
-
-    drawBoundingBox(ctx) {
-        ctx.save();
-        ctx.strokeStyle = 'red';
-        ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
-        ctx.restore();
-    }
-
-    drawBouclier(ctx) {
-        ctx.save();
-        ctx.strokeStyle = 'blue';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 40, 0, 2 * Math.PI);
-        ctx.stroke();
-        ctx.restore();
-    }
-
-    draw(ctx) {
-        if (gameover == true) {
-            ctx.save();
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-            for (var i = AstArray.length - 1; i > 0; i--) {
-                var v = AstArray[i];
-                for (var j = 1; j < arguments.length; j++) {
-                    if (v == arguments[j]) {
-                        AstArray.splice(i, 1);
-                    }
-                }
-            }
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.font = '48px serif';
-            ctx.textAlign = 'center';
-            ctx.fillText("GAME OVER", (canvas.width / 2), (canvas.height / 2));
-            ctx.fillText(score + "pts",(canvas.width / 2), ((canvas.height / 2) + 50));
-            ctx.restore
-        }
-
-        if (gameover != true) {
-            if (BonusArray.length != 0) {
-                BonusArray.forEach(e => {
-                    e.draw();
-                })
-            }
-            ctx.save();
-            ctx.fillText("Vie: " + Vaisseau1.vie, 10, 50);
-            ctx.fillText("Score: " + score, 10, 100);
-            ctx.fillText("Niveau: " + (NbAst - 1), 10 , 150);
-            this.drawBoundingBox(ctx);
-            if (bouclier == true) {
-                this.drawBouclier(ctx);
-                console.log("apparitionBouclier");
-            }
-            ctx.translate(this.x, this.y);
-            ctx.rotate(this.angle);
-            ctx.rotate(Math.PI / -0.4455);
-            ctx.translate(-25, -25); //pour tourner sur lui même
-
-
-
-            ctx.beginPath();
-            ctx.strokeStyle = "red";
-            ctx.moveTo(0, 0); // pick up "pen," reposition at 500 (horiz), 0 (vert)0
-            ctx.lineTo(70, 25); // draw straight down by 200px (200 + 200)
-            ctx.lineTo(25, 25); // draw up toward left (100 less than 300, so left)
-            ctx.lineTo(25, 70);
-            ctx.closePath(); // connect end to start
-            ctx.stroke(); // outline the shape that's been described
-            ctx.fill();
-            ctx.restore();
-            if (this.x < 0)
-                this.x = width;
-            if (this.y < 0)
-                this.y = height;
-            if (this.x > width)
-                this.x = 0;
-            if (this.y > height)
-                this.y = 0;
-
-            this.drawBullets(ctx);
-
-        }
-
-    }
-
-    drawBullets(ctx) {
-        for (let i = 0; i < this.bullets.length; i++) {
-            var b = this.bullets[i];
-            setTimeout(() => {
-                delete this.bullets[i];
-            }, 1000);
-
-            if (b != undefined) {
-                b.draw(ctx);
-                b.move();
-                if (b.x < 0)
-                    b.x = width;
-                if (b.y < 0)
-                    b.y = height;
-                if (b.x > width)
-                    b.x = 0;
-                if (b.y > height)
-                    b.y = 0;
-
-            }
-        }
-    }
-
-    move() {
-
-
-        this.x -= incrementX * Math.cos(this.angle);
-        this.y -= incrementX * Math.sin(this.angle);
-        this.angle += incrementAngle;
-
-        this.boundingBox.x = this.x - 25;
-        this.boundingBox.y = this.y - 25;
-
-    }
-
-    addBullet(time) {
-        // si le temps écoulé depuis le dernier tir est > temps max alors on tire
-        var tempEcoule = 0;
-
-        if (this.lastBulletTime !== undefined) {
-            tempEcoule = time - this.lastBulletTime;
-            //console.log("temps écoulé = " + tempEcoule);
-        }
-
-        if ((this.lastBulletTime === undefined) || (tempEcoule > this.delayMinBetweenBullets)) {
-            this.bullets.push(new Bullet(this));
-            // on mémorise le dernier temps.
-            this.lastBulletTime = time;
-        }
-    }
-
-    removeBullet(bullet) {
-        let position = this.bullets.indexOf(bullet);
-        this.bullets.splice(position, 1);
-    }
-
-    getAngle() {
-        return this.angle;
-    }
-
-    setAngle(value) {
-        return this.angle = value;
-    }
-}
-
-class Bullet {
-    constructor(Vaisseau) {
-        this.x = Vaisseau.x;
-        this.y = Vaisseau.y;
-        this.angle = Vaisseau.angle;
-        this.boundingBox = {
-            x: this.x,
-            y: this.y,
-            width: 10,
-            height: 2
-        }
-    }
-
-    drawBoundingBox(ctx) {
-        ctx.save();
-        ctx.strokeStyle = 'red';
-        ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
-        ctx.restore();
-    }
-    draw(ctx) {
-        this.drawBoundingBox(ctx);
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
-        ctx.fillRect(-25, 0, 10, 2);
-        ctx.restore();
-    }
-
-
-    move() {
-        this.x -= 10 * Math.cos(this.angle);
-        this.y -= 10 * Math.sin(this.angle);
-
-        this.boundingBox.x = this.x;
-        this.boundingBox.y = this.y;
-    }
-}
-
 //Function to get the mouse position
 function getMousePos(canvas, event) {
     var rect = canvas.getBoundingClientRect();
@@ -323,9 +116,9 @@ function handleKeydown(evt) {
     if (evt.keyCode === 38) {
         //up key 
         boost();
-        startDoubleExplosion(Vaisseau1.x, Vaisseau1.y,Vaisseau1.angle);
-           
-     
+        startDoubleExplosion(Vaisseau1.x, Vaisseau1.y, Vaisseau1.angle);
+
+
     } else if (evt.keyCode === 37) {
         if (keysCheck[37] && keysCheck[39]) {
             incrementAngle = 0;
@@ -333,7 +126,7 @@ function handleKeydown(evt) {
         // left key
         else
             incrementAngle = -0.08;
-            startDoubleExplosion(Vaisseau1.x, Vaisseau1.y,Vaisseau1.angle);
+        startDoubleExplosion(Vaisseau1.x, Vaisseau1.y, Vaisseau1.angle);
         //console.log(incrementAngle);
     } else if (evt.keyCode === 39) {
         if (keysCheck[37] && keysCheck[39]) {
@@ -342,7 +135,7 @@ function handleKeydown(evt) {
         // right key
         else
             incrementAngle = 0.08;
-            startDoubleExplosion(Vaisseau1.x, Vaisseau1.y,Vaisseau1.angle);
+        startDoubleExplosion(Vaisseau1.x, Vaisseau1.y, Vaisseau1.angle);
         //console.log(incrementAngle);
     }
 }
@@ -365,7 +158,7 @@ function boost() {
         var boostcheck = true;
         //console.log(incrementX);
         incrementX += 1 * 2;
-   
+
         setTimeout(boost, 200);
     } else {
         boostcheck = false;
@@ -422,13 +215,13 @@ function anime60fps(time) {
         collisionTestAsteroidBullets(meteores, Vaisseau1.bullets);
         //collision tets  asteroid et vaisseau
 
-    
-        collisionTestAsteroidVaisseau(meteores, Vaisseau1);
-        
 
- 
         collisionTestAsteroidVaisseau(meteores, Vaisseau1);
-  
+
+
+
+        collisionTestAsteroidVaisseau(meteores, Vaisseau1);
+
 
 
         collisionTestVaisseauBonus(Vaisseau1, BonusArray);
@@ -437,16 +230,16 @@ function anime60fps(time) {
         meteores.draw();
 
 
- 
+
 
     }
 
 
-       // number of ms since last frame draw
-       delta = timer(time);
-       
-     // Move and draw particles
-     updateAndDrawParticules(delta);
+    // number of ms since last frame draw
+    delta = timer(time);
+
+    // Move and draw particles
+    updateAndDrawParticules(delta);
 
     // On demande une nouvelle frame d'animation
     window.requestAnimationFrame(anime60fps);
