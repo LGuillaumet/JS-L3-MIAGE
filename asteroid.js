@@ -207,6 +207,7 @@ function anime60fps(time) {
 
         // 1) Oapn bouge les meteores
         meteores.move();
+        
 
         // 2) collision test with walls
         collisionTestWithWalls(meteores);
@@ -228,12 +229,18 @@ function anime60fps(time) {
 
         // 3) On dessine les meteores
         meteores.draw();
+        
 
 
 
 
     }
 
+    for (var i = 0; i < AlienArray.length; i++) {
+        var aliens = AlienArray[i];
+        aliens.move();
+        aliens.draw();
+    }    
 
     // number of ms since last frame draw
     delta = timer(time);

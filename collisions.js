@@ -83,7 +83,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
                     (2 * Math.random()) - 1,
                     asteroid.id + 1));
             }
-            console.log("COLLISION B/A")
+            //console.log("COLLISION B/A")
             if(gameover == false){
                 score = score + 100;
             }
@@ -189,7 +189,7 @@ function supprimerAsteroid(a) {
     AstArray.splice(pos, 1);
     if(a.id==3){
         cunrrentNB = cunrrentNB- 0.5;
-        console.log(cunrrentNB);
+        //console.log(cunrrentNB);
     }
     if(cunrrentNB == 0){
         NbAst =NbAst+1;
