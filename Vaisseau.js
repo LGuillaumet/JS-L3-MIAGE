@@ -1,8 +1,10 @@
+var bangle = 0;
 class Vaisseau {
-    constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes, vie) {
+    constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes, vie,clavier) {
         this.x = x;
         this.y = y;
         this.angle = angle;
+        this.clavier = clavier
         this.v = vitesse;
         this.bullets = [];
         this.vie = vie;
@@ -22,14 +24,33 @@ class Vaisseau {
         ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
         ctx.restore();
     }
+   
 
     drawBouclier(ctx) {
-        ctx.save();
+        /*ctx.save();
         ctx.strokeStyle = 'blue';
         ctx.beginPath();
         ctx.arc(this.x, this.y, 40, 0, 2 * Math.PI);
         ctx.stroke();
-        ctx.restore();
+        ctx.restore();*/
+
+        ctx.clearRect(0, 0, ctx.width, ctx.height);
+     
+
+     
+    // draw the circle
+    ctx.beginPath();
+     
+    var radius = 35 + 10 * Math.abs(Math.cos(bangle));
+    ctx.arc(this.x, this.y, radius, 0, Math.PI * 2, false);
+    ctx.closePath();
+     
+    // color in the circle
+    ctx.strokeStyle = 'blue';
+    ctx.stroke();
+      
+    bangle += Math.PI / 64;
+     
     }
 
     draw(ctx) {
@@ -65,7 +86,7 @@ class Vaisseau {
             this.drawBoundingBox(ctx);
             if (bouclier == true) {
                 this.drawBouclier(ctx);
-                console.log("apparitionBouclier");
+                //console.log("apparitionBouclier");
             }
             ctx.translate(this.x, this.y);
             ctx.rotate(this.angle);

@@ -1,7 +1,7 @@
 var canvas, ctx, width, height;
 var Vaisseau1;
 var gameover = false;
-var mousepos = {
+var pos = {
     x: 0,
     y: 0
 };
@@ -12,9 +12,19 @@ var score = 0;
 var BonusArray = [];
 var bouclier = false;
 var invincible = false;
-var shoot = new Howl({
-    src: ['Gun4.wav']
+var shoot;
+var  playSpace = false;
+
+var backgroundMusic = new Howl({
+    src: ['SoundEffect/space_harrier_music_main_theme.mp3'],
+    volume: 0.8
 });
+var shoot = new Howl({
+    src: ['SoundEffect/shootArcade.wav'],
+    volume: 0.5
+
+});
+
 
 //Function to get the mouse position
 function getMousePos(canvas, event) {
@@ -32,17 +42,8 @@ function isInside(pos, rect) {
 
 
 function init() {
-    var backgroundMusic = new Audio('SoundEffect/space_harrier_music_main_theme.mp3');
-    var promise = backgroundMusic.play();
-
-    if (promise !== undefined) {
-        promise.then(_ => {
-            // Autoplay started!
-        }).catch(error => {
-            // Autoplay was prevented.
-            // Show a "Play" button so that user can start playback.
-        });
-    }
+    
+  backgroundMusic.play();
 
 
 
@@ -73,10 +74,11 @@ function init() {
 
     // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
     // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
-    Vaisseau1 = new Vaisseau(600, 400, 0, 2, 200, 3);
+    
+    Vaisseau1 = new Vaisseau(600, 400, 0, 2, 200, 3,this.clavier);
 
     canvas.addEventListener('mousemove', function(evt) {
-        mousepos = getMousePos(canvas, evt);
+        pos = getMousePos(canvas, evt);
     }, false);
 
     window.addEventListener('click', function(evt) {
@@ -91,17 +93,49 @@ function init() {
         // tir à zero.
     });
 
-    window.addEventListener('keydown', function(event) {
-        if (window.event.keyCode == 32) {
+    var map = {}; 
+    onkeydown = onkeyup = function(e){
+        e = e || event; // to deal with IE
+        map[e.keyCode] = e.type == 'keydown';
+        /* insert conditional here */
+        if(map[32] || map[32] && map[e.keyCode] ){
             inputStates.SPACE = true;
+
+            if(playSpace == true) return;
+            
+            playSpace = true;
+            shoot.play();
+            shoot.once('end', () => {
+                playSpace = false;
+            });
+        }
+    }
+    
+    
+    
+    /*window.addEventListener('keydown', function(event) {
+        if (window.event.keyCode == 32) {
+
+            inputStates.SPACE = true;
+
+            if(playSpace == true) return;
+            
+            playSpace = true;
+            shoot.play();
+            shoot.once('end', () => {
+                playSpace = false;
+            });
+            
         }
 
-    });
+    });*/
 
     window.addEventListener('keyup', function(event) {
 
         if (window.event.keyCode == 32) {
             inputStates.SPACE = false;
+
+            
         }
     });
 
@@ -168,6 +202,7 @@ function boost() {
 
 
 function handleKeyup(evt) {
+   
     keysCheck[evt.keyCode] = false;
     if (evt.keyCode === 38) {
         //up key 
@@ -191,11 +226,12 @@ function anime60fps(time) {
 
     // 2) On dessine et on déplace le Vaisseau 1
     Vaisseau1.draw(ctx);
-    Vaisseau1.move(mousepos);
+    Vaisseau1.move(pos);
 
     if (inputStates.SPACE == true) {
+      
         Vaisseau1.addBullet(Date.now());
-        shoot.play();
+      
         //console.log('Shoooooot');
 
     }
@@ -282,3 +318,159 @@ function changeCadenceTir(value) {
 function getGameOver() {
     return gameover;
 }
+
+/*
+var starfield = (function() {
+    // Variables - a quantity which during a calculation is assumed to vary or be capable of varying in value
+    var stars = [],
+        star_density = 25,
+        velocity = {x:0, y: 0},
+        star_colors = ["rgba(0,0,0,.5)", "#ffe9c4", "#d4fbff"],
+        stars_bg = "rgba(0,0,0,.5)",
+        frame,
+        star_canvas,
+        star_context,
+        ctx.width,
+        ctx.height; 
+  
+    function starGo() {
+
+         
+      // Draw all the stars, I decided stars come in units of 10 
+      for (var i = 0; i < (star_density*10); i++) {
+        var rad = Math.random() * 2;
+        create_star(rad);
+        // twice as many small stars as big
+        var rad = Math.random();
+        create_star(rad);
+        create_star(rad);
+      }
+     
+     
+      
+      // When you press keys stuff happens 
+      document.addEventListener('keydown', function(e) {
+        e = e || window.event;
+        // We add to the existing velocity, this dampens the speed changes and makes changing directions more gradual just like flying a real spaceship... I imagine
+        if (e.keyCode == 39) {
+          velocity = {
+            x: velocity.x -5, 
+            y: velocity.y
+          };
+        }
+        if (e.keyCode == 37) {
+          velocity = {
+            x: velocity.x +5, 
+            y: velocity.y
+          };
+        }
+        if (e.keyCode == 40) {
+          velocity = {
+            x: velocity.x, 
+            y: velocity.y -5
+          };
+        }
+        if (e.keyCode == 38) {
+          velocity = {
+            x: velocity.x,
+            y: velocity.y +5
+          };
+        }
+      }, false);
+      
+
+  
+ 
+  
+      function draw_star() {
+        var s = stars.length;
+        // for every star
+        while(s--) {
+          var star = stars[s];
+          // update individual stars position
+          star.update();
+          // render the star to the canvas
+          star.render(star_context);
+        }
+      }
+  
+  
+      function create_star(rad) {
+        // I don't really need a function for create_star, but reads better and easy to expand upon
+        stars.push(new star(rad));
+      }
+  
+    
+    }
+  
+   
+  
+  
+    var star = function(rad) {
+      
+      this.alpha    = Math.round((Math.random() * 100 - 70) + 70); // Random brightness
+      this.radius = rad || Math.random() * 2; // Radius
+      this.color    = star_colors[Math.round(Math.random() * star_colors.length)]; // Random color from array
+  
+      this.pos = {
+        // Initial random position
+        x: Math.random() * ctx.width,
+        y: Math.random() * ctx.height
+      };
+  
+  
+    };
+  
+    star.prototype = {
+  
+      update: function() {
+  
+        // Depending on the radius the star will move at a differnt speed (slower where a greater perception of depth) 
+        // Yes! 3 is a magic number :)
+        this.pos.y += velocity.y === 0 ? velocity.y : (velocity.y / (3 - this.radius));
+        this.pos.x += velocity.x === 0 ? velocity.x : (velocity.x / (3 - this.radius));
+        
+        // Keep the stars on the canvas
+        if(this.pos.y > ctx.height){
+          this.pos.y = 0;        
+        } else if(this.pos.y < 0){
+          this.pos.y = ctx.height;
+        }
+        // Keep the stars on the canvas in a different direction
+        if(this.pos.x > ctx.width){
+          this.pos.x = 0;        
+        } else if(this.pos.x < 0){
+          this.pos.x = ctx.width;        
+        }
+        // Dampen the velocity, ie slow down when you stop telling it to move
+        velocity.x = velocity.x /1.00005;
+        velocity.y = velocity.y /1.00005;
+      },
+  
+      render: function(ctx) {
+        // Draw the star at its current position
+        var x = Math.round(this.pos.x),
+            y = Math.round(this.pos.y);
+  
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.globalAlpha = this.alpha;      
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.arc(x, y, this.radius, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+  
+    };
+    
+    return {
+      // Always kick things off with a really cool function name!
+      lets_roll: initialize
+    };
+    
+  })();
+  
+  starfield.lets_roll();*/

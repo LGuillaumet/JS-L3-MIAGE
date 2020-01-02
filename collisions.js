@@ -1,3 +1,15 @@
+var explosion = new Howl({
+    src: ['SoundEffect/explosion.wav'],
+    volume:0.5
+});
+
+var gameoverSound = new Howl({
+    src: ['SoundEffect/gameOver_music.wav']
+});
+var gameoverVoice = new Howl({
+    src: ['SoundEffect/gameOver_voice.wav']
+});
+
 // Test for collision between an object and a point
 function rectangleCollide(targetA, targetB) {
     return rectsOverlap(targetA.x, targetA.y, targetA.width, targetA.height, targetB.x, targetB.y, targetB.width, targetB.height);
@@ -22,6 +34,7 @@ function collisionTestVaisseauBonus(Vaisseau1, BonusArray) {
         bonus = BonusArray[NbBonus];
         //BonusArray.forEach((bonus , index) =>{
         if (rectangleCollide(Vaisseau1.boundingBox, bonus.boundingBox)) {
+            explosion.play();
             //if(bonus.id == 0){
             //console.log(bonus.id);
             if (bonus.id == 0) {
@@ -47,11 +60,13 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
     // on teste si l'asteroide courante est en collision avec une balle
     bulletsArray.forEach((b, index) => {
         if (rectangleCollide(asteroid.boundingBox, b.boundingBox)) {
+     
             // il y a collision
             // On casse l'asteroide, on change les vitesses de rotation des
             // morceaux résultants (2, 3 ou 4)
             //asteroid.casse();
             supprimerAsteroid(asteroid);
+            explosion.play();
             //PREMIERE DIVISION ------------------------------------------------------------------------------------------
             if (asteroid.id == 0) {
                 AstArray.push(new Meteore(asteroid.x,
@@ -83,7 +98,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
                     (2 * Math.random()) - 1,
                     asteroid.id + 1));
             }
-            console.log("COLLISION B/A")
+            //console.log("COLLISION B/A")
             if(gameover == false){
                 score = score + 100;
             }
@@ -111,6 +126,7 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
             }, 1000);
 
             supprimerAsteroid(asteroid);
+            explosion.play();
 
 
             if (asteroid.id == 0) {
@@ -168,6 +184,13 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
             if (Vaisseau1.vie == 0) {
                 //fin du jeu 
                 gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+                backgroundMusic.stop();
+                explosion.mute(true);
+                shoot.mute(true);
+                gameoverSound.play();
+                gameoverSound.once('end', function(){
+                    gameoverVoice.play();
+                  });
             }
             if (Math.floor((Math.random() * 5)) == 0) {
                 //une chance sur 5 d'avoir un bonus 
@@ -189,7 +212,7 @@ function supprimerAsteroid(a) {
     AstArray.splice(pos, 1);
     if(a.id==3){
         cunrrentNB = cunrrentNB- 0.5;
-        console.log(cunrrentNB);
+        //console.log(cunrrentNB);
     }
     if(cunrrentNB == 0){
         NbAst =NbAst+1;
