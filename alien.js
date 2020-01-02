@@ -50,8 +50,8 @@ function Alien(x, y,anglex,angley, vx, vy,amplitude) {
   this.move = function(){
   	this.anglex += this.vx;
   	this.angley += this.vy;
-  	this.x = width/3 + Math.sin(radians(this.anglex / 5)) * width/3;
-  	this.y =height/2 + Math.sin(radians(this.angley)) * this.amplitude;
+  	this.x = width/2 + Math.sin(radians(this.anglex / 5)) * width/3;
+  	this.y = height/2 + Math.sin(radians(this.angley)) * this.amplitude;
   }
 }
 
@@ -77,3 +77,4 @@ function radians(degrees) {
     var TAU = 2 * Math.PI;
     return degrees * TAU / 360;
 }
+

@@ -12,6 +12,8 @@ var score = 0;
 var BonusArray = [];
 var bouclier = false;
 var invincible = false;
+var surchauffage = false;
+var surchauffe = 0;
 var shoot = new Howl({
     src: ['Gun4.wav']
 });
@@ -194,9 +196,14 @@ function anime60fps(time) {
     Vaisseau1.move(mousepos);
 
     if (inputStates.SPACE == true) {
-        Vaisseau1.addBullet(Date.now());
-        shoot.play();
+        if (surchauffage == false){
+            if(surchauffe < 200){
+                Vaisseau1.addBullet(Date.now());
+                surchauffe = surchauffe + 2;
+                shoot.play();
+            }
         //console.log('Shoooooot');
+        }
 
     }
 
@@ -250,6 +257,11 @@ function anime60fps(time) {
 
     // On demande une nouvelle frame d'animation
     window.requestAnimationFrame(anime60fps);
+    if(surchauffe > 0){
+        surchauffe = surchauffe - 1;
+    }
+    surchaud();
+    console.log(surchauffe);
 
 }
 
@@ -288,4 +300,14 @@ function changeCadenceTir(value) {
 
 function getGameOver() {
     return gameover;
+}
+
+function surchaud(){
+    if( surchauffe >= 200){
+        console.log(surchauffage);
+        surchauffage = true;
+        setTimeout(() => {
+                surchauffage = false;
+            }, 3000);
+    }
 }
