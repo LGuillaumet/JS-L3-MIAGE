@@ -325,7 +325,12 @@ function drawsurchaud(ctx){
         console.log("test");
     }
     else{
-        ctx.fillStyle = 'green';
+        if(surchauffe > 150){
+            ctx.fillStyle = 'orange';
+        }
+        else{
+            ctx.fillStyle = 'green';
+        }
     }
     ctx.fillRect(20,750,surchauffe,10);
     ctx.stroke();
