@@ -261,7 +261,8 @@ function anime60fps(time) {
         surchauffe = surchauffe - 1;
     }
     surchaud();
-    console.log(surchauffe);
+    drawsurchaud(ctx);
+    //console.log(surchauffe);
 
 }
 
@@ -308,6 +309,25 @@ function surchaud(){
         surchauffage = true;
         setTimeout(() => {
                 surchauffage = false;
-            }, 3000);
+            }, 3350);
     }
+}
+
+function drawsurchaud(ctx){
+    ctx.save();
+    ctx.beginPath();
+    ctx.fillStyle = "grey";
+    ctx.fillRect(20,750,200,10);
+    ctx.stroke();
+    ctx.beginPath();
+    if(surchauffage == true){
+        ctx.fillStyle = "red";
+        console.log("test");
+    }
+    else{
+        ctx.fillStyle = 'green';
+    }
+    ctx.fillRect(20,750,surchauffe,10);
+    ctx.stroke();
+    ctx.restore
 }
