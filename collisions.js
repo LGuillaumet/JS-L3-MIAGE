@@ -184,6 +184,18 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
 
 }
 
+function collisionTestAlienVaisseau(aliens, Vaisseau1){
+
+}
+
+function collisionTestBulletAVaisseau(){
+
+}
+
+function collisionTestBulletAlien(){
+    
+}
+
 function supprimerAsteroid(a) {
     let pos = AstArray.indexOf(a);
     AstArray.splice(pos, 1);

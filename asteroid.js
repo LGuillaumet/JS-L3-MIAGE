@@ -14,6 +14,7 @@ var bouclier = false;
 var invincible = false;
 var surchauffage = false;
 var surchauffe = 0;
+var tempo = 0;
 var shoot = new Howl({
     src: ['Gun4.wav']
 });
@@ -243,10 +244,17 @@ function anime60fps(time) {
 
     }
 
+    tempo++;
+
     for (var i = 0; i < AlienArray.length; i++) {
         var aliens = AlienArray[i];
         aliens.move();
         aliens.draw();
+        // tempo est le temps entre chaque tir de l'alien
+        if(tempo == 100){
+            aliens.addBulletA();
+            tempo = 0;
+        }
     }    
 
     // number of ms since last frame draw

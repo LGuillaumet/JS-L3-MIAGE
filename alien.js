@@ -1,13 +1,15 @@
 var AlienArray =[];
 
-function Alien(x, y,anglex,angley, vx, vy,amplitude) {
+function Alien(x, y, angleD, anglex, angley, vx, vy,amplitude) {
   this.x = x;
   this.y = y;
+  this.angleD = angleD;
   this.anglex = anglex;
   this.angley = angley;
   this.vx = vx;
   this.vy = vy;
   this.amplitude = amplitude;
+  this.bulletsA = [];
   this.boundingBox = {
   	x:x,
   	y:y,
@@ -27,6 +29,9 @@ function Alien(x, y,anglex,angley, vx, vy,amplitude) {
     this.drawBoundingBox(ctx);
     ctx.save();
     ctx.translate(this.x, this.y);
+    ctx.rotate(this.angleD);
+    ctx.rotate(Math.PI / -0.4455);
+    ctx.translate(-25, -25);
     ctx.beginPath();
     ctx.strokeStyle = "black";
     ctx.moveTo(0, 0); // pick up "pen," reposition at 500 (horiz), 0 (vert)0
@@ -45,14 +50,52 @@ function Alien(x, y,anglex,angley, vx, vy,amplitude) {
     	this.x = 0;
     if (this.y > height)
         this.y = 0;
+    this.drawBulletsA(ctx);  
   }
  
   this.move = function(){
   	this.anglex += this.vx;
   	this.angley += this.vy;
+    let d1x = this.x - Vaisseau1.x;
+    let d1y = this.y - Vaisseau1.y;
+    this.angleD = Math.atan2(d1y, d1x);
   	this.x = width/2 + Math.sin(radians(this.anglex / 5)) * width/3;
   	this.y = height/2 + Math.sin(radians(this.angley)) * this.amplitude;
   }
+
+  this.drawBulletsA = function(){
+        for (let i = 0; i < this.bulletsA.length; i++) {
+            var b = this.bulletsA[i];
+            setTimeout(() => {
+                delete this.bulletsA[i];
+            }, 1000);
+
+            if (b != undefined) {
+                b.draw(ctx);
+                b.move();
+                if (b.x < 0)
+                    b.x = width;
+                if (b.y < 0)
+                    b.y = height;
+                if (b.x > width)
+                    b.x = 0;
+                if (b.y > height)
+                    b.y = 0;
+
+            }
+        }
+  }
+
+this.addBulletA = function() {
+        console.log("tir alien");
+        this.bulletsA.push(new BulletA(this));
+    }
+
+this.removeBulletA = function(bulletA) {
+        let position = this.bulletsA.indexOf(bulletA);
+        this.bulletsA.splice(position, 1);
+    }
+
 }
 
 createAlien(1);
@@ -62,7 +105,8 @@ function createAlien(numberOfAlien){
 	for(var k=0; k < numberOfAlien; k++){
 		var alien = new Alien((Math.random()*1200),
                          	(Math.random()*800),
-                          	(2*Math.random())-1,
+                          0,
+                          (2*Math.random())-1,
                          	(2*Math.random())-1,
                         	(Math.random()*3),
                          	(Math.random()*3),
