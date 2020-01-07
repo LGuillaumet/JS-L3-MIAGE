@@ -16,8 +16,24 @@ var surchauffage = false;
 var surchauffe = 0;
 var tempo = 0;
 var shoot = new Howl({
-    src: ['Gun4.wav']
+    src: ['shoot.wav'],
+    volume: 0.10
 });
+var backgroundMusic = new Audio('SoundEffect/space_harrier_music_main_theme.mp3');
+var explosion = new Howl({
+    src: ['SoundEffect/explosion.wav'],
+    volume: 0.5
+});
+
+var gameoverSound = new Howl({
+    src: ['SoundEffect/gameOver_music.wav']
+});
+var gameoverVoice = new Howl({
+    src: ['SoundEffect/gameOver_voice.wav']
+});
+var backgroundMusic = new Audio('SoundEffect/space_harrier_music_main_theme.mp3');
+
+
 
 //Function to get the mouse position
 function getMousePos(canvas, event) {
@@ -35,7 +51,6 @@ function isInside(pos, rect) {
 
 
 function init() {
-    var backgroundMusic = new Audio('SoundEffect/space_harrier_music_main_theme.mp3');
     var promise = backgroundMusic.play();
 
     if (promise !== undefined) {
@@ -78,30 +93,30 @@ function init() {
     // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
     Vaisseau1 = new Vaisseau(600, 400, 0, 2, 200, 3);
 
-    canvas.addEventListener('mousemove', function(evt) {
+    canvas.addEventListener('mousemove', function (evt) {
         mousepos = getMousePos(canvas, evt);
     }, false);
 
     //window.addEventListener('click', function(evt) {
-        // on passe le temps en parametres, en millisecondes
-        //Vaisseau1.addBullet(Date.now());
+    // on passe le temps en parametres, en millisecondes
+    //Vaisseau1.addBullet(Date.now());
 
-        // NOTE : si tu n'utilises pas inputStates.MOUSEDOWN
-        // ici, mais juste l'évébement click au lieu de mousedown
-        // tu ne pourras pas tirer plus vite, il te faudra
-        // marteler le bouton.
-        // compare en gardant space appuyé avec la cadence de
-        // tir à zero.
- //  });
+    // NOTE : si tu n'utilises pas inputStates.MOUSEDOWN
+    // ici, mais juste l'évébement click au lieu de mousedown
+    // tu ne pourras pas tirer plus vite, il te faudra
+    // marteler le bouton.
+    // compare en gardant space appuyé avec la cadence de
+    // tir à zero.
+    //  });
 
-    window.addEventListener('keydown', function(event) {
+    window.addEventListener('keydown', function (event) {
         if (window.event.keyCode == 32) {
             inputStates.SPACE = true;
         }
 
     });
 
-    window.addEventListener('keyup', function(event) {
+    window.addEventListener('keyup', function (event) {
 
         if (window.event.keyCode == 32) {
             inputStates.SPACE = false;
@@ -147,7 +162,7 @@ function slow() {
     if (incrementX > 0) {
         //console.log(Vaisseau1.getAngle());
         Vaisseau1.setAngle(Vaisseau1.getAngle())
-            //console.log(incrementX);
+        //console.log(incrementX);
         incrementX -= 0.5;
         setTimeout(slow, 150);
     } else {
@@ -252,13 +267,13 @@ function anime60fps(time) {
         collisionTestBulletAlien(aliens, Vaisseau1.bullets);
 
         // tempo est le temps entre chaque tir de l'alien
-        if(gameover == false){
-            if(tempo == 100){
+        if (gameover == false) {
+            if (tempo == 100) {
                 aliens.addBulletA();
                 tempo = 0;
             }
-        }    
-    }    
+        }
+    }
 
     // number of ms since last frame draw
     delta = timer(time);
@@ -344,4 +359,22 @@ function drawsurchaud(ctx) {
     ctx.fillRect(20, 750, surchauffe, 10);
     ctx.stroke();
     ctx.restore();
+}
+
+function setvolume0() {
+    backgroundMusic.pause();
+    explosion.mute(true);
+    gameoverSound.mute(true);
+    gameoverVoice.mute(true);
+    shoot.mute(true);
+}
+
+function setvolume() {
+    backgroundMusic.play();
+    explosion.mute(false);
+    gameoverSound.mute(false);
+    gameoverVoice.mute(false);
+    shoot.mute(false);
+
+
 }

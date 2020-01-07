@@ -1,16 +1,3 @@
-var numero;
-var explosion = new Howl({
-    src: ['SoundEffect/explosion.wav'],
-    volume: 0.5
-});
-
-var gameoverSound = new Howl({
-    src: ['SoundEffect/gameOver_music.wav']
-});
-var gameoverVoice = new Howl({
-    src: ['SoundEffect/gameOver_voice.wav']
-});
-
 // Test for collision between an object and a point
 function rectangleCollide(targetA, targetB) {
     return rectsOverlap(targetA.x, targetA.y, targetA.width, targetA.height, targetB.x, targetB.y, targetB.width, targetB.height);
@@ -212,7 +199,7 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
                 explosion.mute(true);
                 shoot.mute(true);
                 gameoverSound.play();
-                gameoverSound.once('end', function() {
+                gameoverSound.once('end', function () {
                     gameoverVoice.play();
                 });
             }
@@ -240,20 +227,21 @@ function collisionTestBulletAVaisseau() {
 
 }
 
-function collisionTestBulletAlien(aliens,bulletsArray) {
-     bulletsArray.forEach((b, index) => {
+function collisionTestBulletAlien(aliens, bulletsArray) {
+    bulletsArray.forEach((b, index) => {
         if (rectangleCollide(aliens.boundingBox, b.boundingBox)) {
             supprimerAliens(aliens);
             explosion.play();
             Vaisseau1.removeBullet(b);
-             if (gameover == false) {
+            if (gameover == false) {
                 score = score + 2000;
             }
-        }})
+        }
+    })
 
 }
 
-function supprimerAliens(al){
+function supprimerAliens(al) {
     let pos = AstArray.indexOf(al);
     AlienArray.splice(pos, 1);
 }

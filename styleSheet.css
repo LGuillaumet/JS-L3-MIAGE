@@ -136,3 +136,15 @@ path.two {
         fill: white;
     }
 }
+
+.speakerIMG{
+    max-width: 2vw;
+    display: inline;
+}
+
+.speakerContainer{
+    margin: 5px 65vw;
+    width: 10vw;
+    /* display: inline; */
+    margin-top: -2.5vw;
+}
