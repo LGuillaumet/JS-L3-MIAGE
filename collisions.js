@@ -186,7 +186,6 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
             if (Vaisseau1.vie == 0) {
                 //fin du jeu 
                 gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
-                backgroundMusic.stop();
                 explosion.mute(true);
                 shoot.mute(true);
                 gameoverSound.play();
