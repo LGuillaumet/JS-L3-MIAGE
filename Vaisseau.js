@@ -1,3 +1,5 @@
+var bangle = 0;
+
 class Vaisseau {
     constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes, vie) {
         this.x = x;
@@ -24,12 +26,25 @@ class Vaisseau {
     }
 
     drawBouclier(ctx) {
+
         ctx.save();
-        ctx.strokeStyle = 'blue';
+        ctx.clearRect(0, 0, ctx.width, ctx.height);
+
+
+
+        // draw the circle
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 40, 0, 2 * Math.PI);
+
+        var radius = 35 + 10 * Math.abs(Math.cos(bangle));
+        ctx.arc(this.x, this.y, radius, 0, Math.PI * 2, false);
+        ctx.closePath();
+
+        // color in the circle
+        ctx.strokeStyle = 'blue';
         ctx.stroke();
-        ctx.restore();
+
+        bangle += Math.PI / 64;
+
     }
 
     draw(ctx) {

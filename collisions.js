@@ -1,3 +1,15 @@
+var explosion = new Howl({
+    src: ['SoundEffect/explosion.wav'],
+    volume: 0.5
+});
+
+var gameoverSound = new Howl({
+    src: ['SoundEffect/gameOver_music.wav']
+});
+var gameoverVoice = new Howl({
+    src: ['SoundEffect/gameOver_voice.wav']
+});
+
 // Test for collision between an object and a point
 function rectangleCollide(targetA, targetB) {
     return rectsOverlap(targetA.x, targetA.y, targetA.width, targetA.height, targetB.x, targetB.y, targetB.width, targetB.height);
@@ -22,10 +34,12 @@ function collisionTestVaisseauBonus(Vaisseau1, BonusArray) {
         bonus = BonusArray[NbBonus];
         //BonusArray.forEach((bonus , index) =>{
         if (rectangleCollide(Vaisseau1.boundingBox, bonus.boundingBox)) {
+            explosion.play();
+
             //if(bonus.id == 0){
             //console.log(bonus.id);
             if (bonus.id == 0) {
-                if(gameover == false){
+                if (gameover == false) {
                     score = score + 500;
                 }
             } else if (bonus.id == 1) {
@@ -52,6 +66,8 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
             // morceaux résultants (2, 3 ou 4)
             //asteroid.casse();
             supprimerAsteroid(asteroid);
+            explosion.play();
+
             //PREMIERE DIVISION ------------------------------------------------------------------------------------------
             if (asteroid.id == 0) {
                 AstArray.push(new Meteore(asteroid.x,
@@ -84,7 +100,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
                     asteroid.id + 1));
             }
             //console.log("COLLISION B/A")
-            if(gameover == false){
+            if (gameover == false) {
                 score = score + 100;
             }
             // On supprime la balle de la liste
@@ -111,6 +127,8 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
             }, 1000);
 
             supprimerAsteroid(asteroid);
+            explosion.play();
+
 
 
             if (asteroid.id == 0) {
@@ -162,12 +180,19 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
                     invincible = false;
                 }, 1000);
             }
-            if(gameover == false){
+            if (gameover == false) {
                 score = score + 100;
             }
             if (Vaisseau1.vie == 0) {
                 //fin du jeu 
                 gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+                backgroundMusic.stop();
+                explosion.mute(true);
+                shoot.mute(true);
+                gameoverSound.play();
+                gameoverSound.once('end', function () {
+                    gameoverVoice.play();
+                });
             }
             if (Math.floor((Math.random() * 5)) == 0) {
                 //une chance sur 5 d'avoir un bonus 
@@ -184,45 +209,44 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
 
 }
 
-function collisionTestAlienVaisseau(aliens, Vaisseau1){
+function collisionTestAlienVaisseau(aliens, Vaisseau1) {
 
 }
 
-function collisionTestBulletAVaisseau(){
+function collisionTestBulletAVaisseau() {
 
 }
 
-function collisionTestBulletAlien(){
+function collisionTestBulletAlien() {
 
 }
 
 function supprimerAsteroid(a) {
     let pos = AstArray.indexOf(a);
     AstArray.splice(pos, 1);
-    if(a.id==3){
-        cunrrentNB = cunrrentNB- 0.5;
+    if (a.id == 3) {
+        cunrrentNB = cunrrentNB - 0.5;
         //console.log(cunrrentNB);
     }
-    if(cunrrentNB == 0){
-        NbAst =NbAst+1;
-        if(NbAst == 3){
-            for(var i=0; i < 10; i++) {
-    
-             // Create a meteore with random position and speed
-             var meteore =  new Meteore((Math.random()*1200),
-                          (Math.random()*800),
-                          (2*Math.random())-1,
-                          (2*Math.random())-1,
-                          3); // radius, change if ou like.
-            // Add it to the array
-            AstArray[i] = meteore;
+    if (cunrrentNB == 0) {
+        NbAst = NbAst + 1;
+        if (NbAst == 3) {
+            for (var i = 0; i < 10; i++) {
+
+                // Create a meteore with random position and speed
+                var meteore = new Meteore((Math.random() * 1200),
+                    (Math.random() * 800),
+                    (2 * Math.random()) - 1,
+                    (2 * Math.random()) - 1,
+                    3); // radius, change if ou like.
+                // Add it to the array
+                AstArray[i] = meteore;
             }
             cunrrentNB = 5;
-        }
-        else {
+        } else {
             createMeteore(NbAst);
             cunrrentNB = NbAst;
         }
-       
+
     }
 }
