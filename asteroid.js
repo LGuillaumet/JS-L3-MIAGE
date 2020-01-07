@@ -19,7 +19,6 @@ var shoot = new Howl({
     src: ['shoot.wav'],
     volume: 0.10
 });
-var backgroundMusic = new Audio('SoundEffect/space_harrier_music_main_theme.mp3');
 var explosion = new Howl({
     src: ['SoundEffect/explosion.wav'],
     volume: 0.5
@@ -32,6 +31,7 @@ var gameoverVoice = new Howl({
     src: ['SoundEffect/gameOver_voice.wav']
 });
 var backgroundMusic = new Audio('SoundEffect/space_harrier_music_main_theme.mp3');
+
 
 
 
@@ -68,6 +68,7 @@ function init() {
     ctx = canvas.getContext('2d');
     width = canvas.width;
     height = canvas.height;
+    
 
 
     ctx.beginPath();
@@ -125,6 +126,8 @@ function init() {
 
     //anime();
 }
+
+
 
 var keysCheck = [];
 
@@ -201,10 +204,15 @@ function handleKeyup(evt) {
 }
 
 function anime60fps(time) {
+
+    
     // Get current direction ship is facing
     let radians = Vaisseau1.angle / Math.PI * 180;
     // 1) On efface l'Ã©cran
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    //on draw le background
+    sf.draw();
 
 
     // 2) On dessine et on déplace le Vaisseau 1
@@ -290,6 +298,8 @@ function anime60fps(time) {
     drawsurchaud(ctx);
     //console.log(surchauffe);
 
+
+    
 }
 
 function supprimerBonus(bonus) {

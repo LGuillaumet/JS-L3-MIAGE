@@ -33,7 +33,7 @@ function Alien(x, y, angleD, anglex, angley, vx, vy,amplitude) {
     ctx.rotate(Math.PI / -0.4455);
     ctx.translate(-25, -25);
     ctx.beginPath();
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = "white";
     ctx.moveTo(0, 0); // pick up "pen," reposition at 500 (horiz), 0 (vert)0
     ctx.lineTo(70, 25); // draw straight down by 200px (200 + 200)
     ctx.lineTo(25, 25); // draw up toward left (100 less than 300, so left)

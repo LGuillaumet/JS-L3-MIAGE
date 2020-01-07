@@ -61,6 +61,7 @@ class Vaisseau {
             }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.font = '48px serif';
+            ctx.fillStyle = "white";
             ctx.textAlign = 'center';
             ctx.fillText("GAME OVER", (canvas.width / 2), (canvas.height / 2));
             ctx.fillText(score + "pts", (canvas.width / 2), ((canvas.height / 2) + 50));
@@ -74,9 +75,12 @@ class Vaisseau {
                 })
             }
             ctx.save();
+            ctx.fillStyle = "white";
             ctx.fillText("Vie: " + Vaisseau1.vie, 10, 50);
             ctx.fillText("Score: " + score, 10, 100);
             ctx.fillText("Niveau: " + (NbAst - 1), 10, 150);
+            ctx.restore();
+            ctx.save();
             this.drawBoundingBox(ctx);
             if (bouclier == true) {
                 this.drawBouclier(ctx);

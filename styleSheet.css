@@ -3,6 +3,7 @@
     height: 79vh;
     display: none;
     margin-left: 2.5vw;
+    background-color: black;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:900i');

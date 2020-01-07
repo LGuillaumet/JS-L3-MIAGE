@@ -14,7 +14,7 @@ function rectsOverlap(x1, y1, w1, h1, x2, y2, w2, h2) {
 }
 
 function randomBonus() {
-    console.log('salut');
+    //console.log('salut');
     // Pour changer la chance d'apparition d'un bonus, changer le 22 par un multiple de 3 + 1 //
     var x = (Math.floor(Math.random() * 22));
     if (x <= 6) {
@@ -198,9 +198,10 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
                 gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
                 explosion.mute(true);
                 shoot.mute(true);
+                backgroundMusic.pause();
                 gameoverSound.play();
                 gameoverSound.once('end', function () {
-                    gameoverVoice.play();
+                gameoverVoice.play();
                 });
             }
 
