@@ -231,12 +231,47 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
 
 }
 
-function collisionTestAlienVaisseau(aliens, Vaisseau1) {
+function collisionTestBulletAVaisseau(bulletsArray, Vaisseau1) {
+    bulletsArray.forEach((b, index) => {
+        if (rectangleCollide(b.boundingBox, Vaisseau1.boundingBox)) {
+            if (invincible == false) {
+                invincible = true;
+                setTimeout(() => {
+                    invincible = false;
+                }, 1000);
 
-}
+                explosion.play();
 
-function collisionTestBulletAVaisseau() {
+                if (bouclier == false) {
+                    Vaisseau1.vie--;
+                }
 
+                if (bouclier == true) {
+                    bouclier = false
+                    invincible = true;
+                    setTimeout(() => {
+                        invincible = false;
+                    }, 1000);
+                }
+
+                if (gameover == false) {
+                    score = score + 2000;
+                }
+
+                if (Vaisseau1.vie == 0) {
+                    //fin du jeu 
+                    gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+                    explosion.mute(true);
+                    shoot.mute(true);
+                    backgroundMusic.pause();
+                    gameoverSound.play();
+                    gameoverSound.once('end', function () {
+                    gameoverVoice.play();
+                    });
+                }
+            }
+        }
+    })
 }
 
 function collisionTestBulletAlien(aliens, bulletsArray) {
@@ -252,6 +287,7 @@ function collisionTestBulletAlien(aliens, bulletsArray) {
     })
 
 }
+
 function collisionTestAlienVaisseau(aliens, Vaisseau1) {
     if (rectangleCollide(aliens.boundingBox, Vaisseau1.boundingBox)) {
         if (invincible == false) {
@@ -277,7 +313,6 @@ function collisionTestAlienVaisseau(aliens, Vaisseau1) {
 
             if (gameover == false) {
                 score = score + 2000;
-                cunrrentNB = 0;
             }
 
             if (Vaisseau1.vie == 0) {
