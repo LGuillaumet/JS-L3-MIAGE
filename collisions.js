@@ -1,3 +1,4 @@
+var numero;
 var explosion = new Howl({
     src: ['SoundEffect/explosion.wav'],
     volume: 0.5
@@ -25,7 +26,25 @@ function rectsOverlap(x1, y1, w1, h1, x2, y2, w2, h2) {
     // overlap and the rectangles intersect
 }
 
-
+function randomBonus() {
+    console.log('salut');
+    // Pour changer la chance d'apparition d'un bonus, changer le 22 par un multiple de 3 + 1 //
+    var x = (Math.floor(Math.random() * 22));
+    if (x <= 6) {
+        numero = 0;
+    }
+    if (x >= 7 && x <= 13) {
+        numero = 1;
+    }
+    if (x >= 14 && x <= 20) {
+        numero = 2;
+    }
+    if (x == 21) {
+        numero = 3;
+    }
+    console.log(x);
+    console.log(numero);
+}
 
 
 function collisionTestVaisseauBonus(Vaisseau1, BonusArray) {
@@ -38,16 +57,19 @@ function collisionTestVaisseauBonus(Vaisseau1, BonusArray) {
 
             //if(bonus.id == 0){
             //console.log(bonus.id);
+
             if (bonus.id == 0) {
                 if (gameover == false) {
-                    score = score + 500;
+                    score = score + 300;
                 }
             } else if (bonus.id == 1) {
                 bouclier = true;
-                //console.log(bouclier);
-                //draw bouclier a faire 
             } else if (bonus.id == 2) {
                 changeCadenceTir(25); // A changer
+            } else if (bonus.id == 3) {
+                if (gameover == false) {
+                    score = score + 1243;
+                }
             }
             supprimerBonus(bonus);
             //}
@@ -107,7 +129,8 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
             Vaisseau1.removeBullet(b);
             if (Math.floor((Math.random() * 5)) == 0) {
                 //une chance sur 5 d'avoir un bonus
-                BonusArray.push(new Bonus1(asteroid.x, asteroid.y, (Math.floor(Math.random() * 3))));
+                randomBonus();
+                BonusArray.push(new Bonus1(asteroid.x, asteroid.y, numero));
                 //var position = BonusArray.length + 1;
                 //BonusArray[position] = bonus;
                 //console.log("BONUS");
@@ -189,14 +212,15 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
                 explosion.mute(true);
                 shoot.mute(true);
                 gameoverSound.play();
-                gameoverSound.once('end', function () {
+                gameoverSound.once('end', function() {
                     gameoverVoice.play();
                 });
             }
+
             if (Math.floor((Math.random() * 5)) == 0) {
                 //une chance sur 5 d'avoir un bonus 
-                BonusArray.push(new Bonus1(asteroid.x, asteroid.y, (Math.floor(Math.random() * 3))));
-
+                randomBonus();
+                BonusArray.push(new Bonus1(asteroid.x, asteroid.y, numero));
                 //var position = BonusArray.length + 1;
                 //BonusArray[position] = bonus;
                 //console.log("BONUS");

@@ -88,7 +88,6 @@ class Vaisseau {
             ctx.translate(-25, -25); //pour tourner sur lui même
 
 
-
             ctx.beginPath();
             ctx.strokeStyle = "red";
             ctx.moveTo(0, 0); // pick up "pen," reposition at 500 (horiz), 0 (vert)0

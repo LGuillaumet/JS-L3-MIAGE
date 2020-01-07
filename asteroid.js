@@ -197,13 +197,13 @@ function anime60fps(time) {
     Vaisseau1.move(mousepos);
 
     if (inputStates.SPACE == true) {
-        if (surchauffage == false){
-            if(surchauffe < 200){
+        if (surchauffage == false) {
+            if (surchauffe < 200) {
                 Vaisseau1.addBullet(Date.now());
                 surchauffe = surchauffe + 2;
                 shoot.play();
             }
-        //console.log('Shoooooot');
+            //console.log('Shoooooot');
         }
 
     }
@@ -215,7 +215,7 @@ function anime60fps(time) {
 
         // 1) Oapn bouge les meteores
         meteores.move();
-        
+
 
         // 2) collision test with walls
         collisionTestWithWalls(meteores);
@@ -228,16 +228,11 @@ function anime60fps(time) {
         collisionTestAsteroidVaisseau(meteores, Vaisseau1);
 
 
-
-        collisionTestAsteroidVaisseau(meteores, Vaisseau1);
-
-
-
         collisionTestVaisseauBonus(Vaisseau1, BonusArray);
 
         // 3) On dessine les meteores
         meteores.draw();
-        
+
 
 
 
@@ -251,13 +246,13 @@ function anime60fps(time) {
         aliens.move();
         aliens.draw();
         // tempo est le temps entre chaque tir de l'alien
-        if(gameover == false){
-            if(tempo == 100){
+        if (gameover == false) {
+            if (tempo == 100) {
                 aliens.addBulletA();
                 tempo = 0;
             }
-        }    
-    }    
+        }
+    }
 
     // number of ms since last frame draw
     delta = timer(time);
@@ -267,7 +262,7 @@ function anime60fps(time) {
 
     // On demande une nouvelle frame d'animation
     window.requestAnimationFrame(anime60fps);
-    if(surchauffe > 0){
+    if (surchauffe > 0) {
         surchauffe = surchauffe - 1;
     }
     surchaud();
@@ -313,36 +308,34 @@ function getGameOver() {
     return gameover;
 }
 
-function surchaud(){
-    if( surchauffe >= 200){
+function surchaud() {
+    if (surchauffe >= 200) {
         //console.log(surchauffage);
         surchauffage = true;
         setTimeout(() => {
-                surchauffage = false;
-            }, 3350);
+            surchauffage = false;
+        }, 3350);
     }
 }
 
-function drawsurchaud(ctx){
+function drawsurchaud(ctx) {
     ctx.save();
     ctx.beginPath();
     ctx.fillStyle = "grey";
-    ctx.fillRect(20,750,200,10);
+    ctx.fillRect(20, 750, 200, 10);
     ctx.stroke();
     ctx.beginPath();
-    if(surchauffage == true){
+    if (surchauffage == true) {
         ctx.fillStyle = "red";
         //console.log("test");
-    }
-    else{
-        if(surchauffe > 150){
+    } else {
+        if (surchauffe > 150) {
             ctx.fillStyle = 'orange';
-        }
-        else{
+        } else {
             ctx.fillStyle = '#00FF00';
         }
     }
-    ctx.fillRect(20,750,surchauffe,10);
+    ctx.fillRect(20, 750, surchauffe, 10);
     ctx.stroke();
     ctx.restore();
 }

@@ -1,41 +1,59 @@
+var shrek = new Image(10, 10);
+shrek.src = "shrek.png";
 
+//L'image pour la vie supplémentaire utilisable ultérieurement.
+var coeur = new Image(10, 10);
+coeur.src = "coeur.png";
+
+var jul = new Image(10, 10);
+jul.src = "bitcoin.png";
+
+var mun = new Image(10, 10);
+mun.src = "mun.png";
+
+var shield = new Image(10, 10);
+shield.src = "shield.png";
 
 class Bonus1 {
-	constructor(x, y,id) {
-		//console.log("POS TEST:", x, y);
-		this.x = x;
-	  	this.y = y;
-	  	this.id = id;
-	  	this.boundingBox = {
-		    x,
-		    y,
-		    width: 20,
-		    height: 20
-	  	}
-  	}
+    constructor(x, y, id) {
+        //console.log("POS TEST:", x, y);
+        this.x = x;
+        this.y = y;
+        this.id = id;
+        this.boundingBox = {
+            x: x - 10,
+            y: y - 10,
+            width: 20,
+            height: 20
+        }
+    }
 
-  	drawBoundingBox(ctx){
-    	ctx.save();
-    	ctx.strokeStyle = 'red';    	
-    	ctx.strokeRect(this.boundingBox.x-10,this.boundingBox.y-10,this.boundingBox.width,this.boundingBox.height);
-    	ctx.restore();
-  	}
-    
-  	draw() {  		
-    	this.drawBoundingBox(ctx);
-    	ctx.save();
-    	ctx.beginPath();
-    	ctx.arc(this.x,this.y,10,0,2*Math.PI);
-      if(this.id == 0){
-    	 ctx.fillStyle = "yellow";
-      } 
-      if(this.id == 1){
-        ctx.fillStyle = "blue";
-      }
-      if(this.id == 2){
-        ctx.fillStyle = "green";
-      }
-    	ctx.fill();
-    	ctx.restore();
-	}
+    drawBoundingBox(ctx) {
+        ctx.save();
+        ctx.strokeStyle = 'red';
+        ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
+        ctx.restore();
+    }
+
+    draw() {
+        this.drawBoundingBox(ctx);
+        // LES POINTS POUR GRYFONDOR
+        if (this.id == 0) {
+            ctx.drawImage(jul, this.x - 30, this.y - 30, 70, 70);
+        }
+        //BOUCLIER 
+        if (this.id == 1) {
+            ctx.drawImage(shield, this.x - 20, this.y - 20, 25, 25);
+        }
+        // LES MUNITIONS POUR TOUT CASSER
+        if (this.id == 2) {
+            ctx.drawImage(mun, this.x - 20, this.y - 20, 25, 25);
+        }
+        //EL SHREKOS
+        if (this.id == 3) {
+            ctx.drawImage(shrek, this.x - 20, this.y - 20, 30, 30);
+        }
+        ctx.fill();
+        ctx.restore();
+    }
 }
