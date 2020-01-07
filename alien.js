@@ -13,13 +13,13 @@ function Alien(x, y, angleD, anglex, angley, vx, vy,amplitude) {
   this.boundingBox = {
   	x:x,
   	y:y,
-  	wifth: 110,
-  	height: 95
+     width: 50,
+    height: 50
   }
 
   this.drawBoundingBox = function(ctx) {
     ctx.save();
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = 'blue';
     ctx.strokeRect(this.boundingBox.x, this.boundingBox.y,    this.boundingBox.width, this.boundingBox.height);
     ctx.restore();
   }
@@ -61,6 +61,9 @@ function Alien(x, y, angleD, anglex, angley, vx, vy,amplitude) {
     this.angleD = Math.atan2(d1y, d1x);
   	this.x = width/2 + Math.sin(radians(this.anglex / 5)) * width/3;
   	this.y = height/2 + Math.sin(radians(this.angley)) * this.amplitude;
+    this.boundingBox.x = this.x - 25;
+    this.boundingBox.y = this.y - 25;
+
   }
 
   this.drawBulletsA = function(){

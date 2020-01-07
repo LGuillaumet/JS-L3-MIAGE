@@ -82,9 +82,9 @@ function init() {
         mousepos = getMousePos(canvas, evt);
     }, false);
 
-    window.addEventListener('click', function(evt) {
+    //window.addEventListener('click', function(evt) {
         // on passe le temps en parametres, en millisecondes
-        Vaisseau1.addBullet(Date.now());
+        //Vaisseau1.addBullet(Date.now());
 
         // NOTE : si tu n'utilises pas inputStates.MOUSEDOWN
         // ici, mais juste l'évébement click au lieu de mousedown
@@ -92,7 +92,7 @@ function init() {
         // marteler le bouton.
         // compare en gardant space appuyé avec la cadence de
         // tir à zero.
-    });
+ //  });
 
     window.addEventListener('keydown', function(event) {
         if (window.event.keyCode == 32) {
@@ -238,21 +238,27 @@ function anime60fps(time) {
 
 
     }
-
     tempo++;
 
     for (var i = 0; i < AlienArray.length; i++) {
         var aliens = AlienArray[i];
         aliens.move();
         aliens.draw();
+
+        //collisionTestAlienVaisseau():
+
+        //collisionTestBulletAVaisseau();
+
+        collisionTestBulletAlien(aliens, Vaisseau1.bullets);
+
         // tempo est le temps entre chaque tir de l'alien
-        if (gameover == false) {
-            if (tempo == 100) {
+        if(gameover == false){
+            if(tempo == 100){
                 aliens.addBulletA();
                 tempo = 0;
             }
-        }
-    }
+        }    
+    }    
 
     // number of ms since last frame draw
     delta = timer(time);

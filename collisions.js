@@ -240,8 +240,22 @@ function collisionTestBulletAVaisseau() {
 
 }
 
-function collisionTestBulletAlien() {
+function collisionTestBulletAlien(aliens,bulletsArray) {
+     bulletsArray.forEach((b, index) => {
+        if (rectangleCollide(aliens.boundingBox, b.boundingBox)) {
+            supprimerAliens(aliens);
+            explosion.play();
+            Vaisseau1.removeBullet(b);
+             if (gameover == false) {
+                score = score + 2000;
+            }
+        }})
 
+}
+
+function supprimerAliens(al){
+    let pos = AstArray.indexOf(al);
+    AlienArray.splice(pos, 1);
 }
 
 function supprimerAsteroid(a) {
