@@ -26,6 +26,7 @@ function Particle ()
     this.velocityX = 0;
     this.velocityY = 0;
     this.scaleSpeed = 0.5;
+    this.id = 0;
 
   
     this.update = function(ms)
@@ -51,13 +52,13 @@ function Particle ()
  
     };
     
-    this.draw = function(ctx)
+    this.draw = function(ctx,angle)
     {
         // translating the 2D context to the particle coordinates
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.scale(this.scale, this.scale);
-        ctx.rotate(Vaisseau1.angle);
+        ctx.rotate(angle);
         ctx.rotate(Math.PI / -0.4455);
         ctx.translate(25, 25); //pour tourner sur lui même
         
@@ -78,18 +79,20 @@ function Particle ()
  * 
  * Parameter : explosion center
  */
-function createBasicExplosion(x, y)
+function createBasicExplosion(x, y,color)
 {
     // creating 4 particles that scatter at 0, 90, 180 and 270 degrees
     for (var angleParticle=0; angleParticle<360; angleParticle+=90)
     {
+
+
         var particle = new Particle();
         
         // particle will start at explosion center
         particle.x = x;
         particle.y = y;
         
-        particle.color = "#FF0000";
+        particle.color = color;
         
         var speed = 50.0;
         
@@ -111,7 +114,7 @@ function createBasicExplosion(x, y)
  * 	color - particles' color
  */
 function createExplosion(x, y, color,vAngle)
-{
+{ 
     var minSize = 10;
     var maxSize = 15;
     var count = 1;
@@ -123,7 +126,7 @@ function createExplosion(x, y, color,vAngle)
     for (var vAngle=0; vAngle<count; vAngle += 1)
     {
         var particle = new Particle();
-        
+        particle.id = 1;
         particle.x = x;
         particle.y = y;
         
@@ -156,7 +159,13 @@ for (var i = 0; i < particles.length; i++) {
   var particle = particles[i];
         
   particle.update(delta);
+  if(particle.id == 1){
+    particle.draw(ctx,Vaisseau1.angle);
+
+  }
+  else{
   particle.draw(ctx);
+  }
 }
 }
 

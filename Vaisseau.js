@@ -87,7 +87,7 @@ class Vaisseau {
                 //console.log("apparitionBouclier");
             }
             ctx.translate(this.x, this.y);
-            ctx.rotate(this.angle);
+            ctx.rotate(Vaisseau1.angle);
             ctx.rotate(Math.PI / -0.4455);
             ctx.translate(-25, -25); //pour tourner sur lui même
 

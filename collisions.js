@@ -74,11 +74,15 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
             // On casse l'asteroide, on change les vitesses de rotation des
             // morceaux résultants (2, 3 ou 4)
             //asteroid.casse();
+            ctx.save();
+         
+            ctx.restore();
             supprimerAsteroid(asteroid);
             explosion.play();
 
             //PREMIERE DIVISION ------------------------------------------------------------------------------------------
             if (asteroid.id == 0) {
+                createBasicExplosion(asteroid.x,asteroid.y,"#008000");
                 AstArray.push(new Meteore(asteroid.x,
                     asteroid.y,
                     (2 * Math.random()) - 1,
@@ -93,6 +97,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
             }
             //Deuxieme DIVISION ------------------------------------------------------------------------------------------
             if (asteroid.id == 1) {
+                createBasicExplosion(asteroid.x,asteroid.y,"#FF0000");
                 // Create a meteore with random position and speed
                 AstArray.push(new Meteore(asteroid.x,
                     asteroid.y,
@@ -102,11 +107,17 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
             }
             //Deuxieme DIVISION ------------------------------------------------------------------------------------------
             if (asteroid.id == 2) {
+                createBasicExplosion(asteroid.x,asteroid.y,"#0000FF");
+
                 AstArray.push(new Meteore(asteroid.x,
                     asteroid.y,
                     (2 * Math.random()) - 1,
                     (2 * Math.random()) - 1,
                     asteroid.id + 1));
+            }
+            if (asteroid.id ==3){
+                createBasicExplosion(asteroid.x,asteroid.y,"#FFA500");
+
             }
             //console.log("COLLISION B/A")
             if (gameover == false) {
