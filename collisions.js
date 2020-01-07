@@ -254,6 +254,7 @@ function collisionTestBulletAlien(aliens, bulletsArray) {
 }
 
 function supprimerAliens(al) {
+    lvlcheck = true;
     let pos = AstArray.indexOf(al);
     AlienArray.splice(pos, 1);
 }
@@ -265,7 +266,8 @@ function supprimerAsteroid(a) {
         cunrrentNB = cunrrentNB - 0.5;
         //console.log(cunrrentNB);
     }
-    if (cunrrentNB == 0) {
+    if (cunrrentNB == 0 && lvlcheck == true) {
+
         NbAst = NbAst + 1;
         if (NbAst == 3) {
             for (var i = 0; i < 10; i++) {

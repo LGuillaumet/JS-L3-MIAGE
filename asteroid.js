@@ -1,5 +1,6 @@
 var canvas, ctx, width, height;
 var Vaisseau1;
+var lvlcheck = false;
 var gameover = false;
 var mousepos = {
     x: 0,
