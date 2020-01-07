@@ -22,8 +22,8 @@ class Bullet {
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
+        ctx.fillStyle = 'yellow';
         ctx.fillRect(-25, 0, 10, 2);
-        ctx.fillStyle = "white";
         ctx.restore();
     }
 
