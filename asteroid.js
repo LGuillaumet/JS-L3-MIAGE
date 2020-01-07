@@ -251,10 +251,12 @@ function anime60fps(time) {
         aliens.move();
         aliens.draw();
         // tempo est le temps entre chaque tir de l'alien
-        if(tempo == 100){
-            aliens.addBulletA();
-            tempo = 0;
-        }
+        if(gameover == false){
+            if(tempo == 100){
+                aliens.addBulletA();
+                tempo = 0;
+            }
+        }    
     }    
 
     // number of ms since last frame draw
@@ -313,7 +315,7 @@ function getGameOver() {
 
 function surchaud(){
     if( surchauffe >= 200){
-        console.log(surchauffage);
+        //console.log(surchauffage);
         surchauffage = true;
         setTimeout(() => {
                 surchauffage = false;
@@ -330,17 +332,17 @@ function drawsurchaud(ctx){
     ctx.beginPath();
     if(surchauffage == true){
         ctx.fillStyle = "red";
-        console.log("test");
+        //console.log("test");
     }
     else{
         if(surchauffe > 150){
             ctx.fillStyle = 'orange';
         }
         else{
-            ctx.fillStyle = 'green';
+            ctx.fillStyle = '#00FF00';
         }
     }
     ctx.fillRect(20,750,surchauffe,10);
     ctx.stroke();
-    ctx.restore
+    ctx.restore();
 }

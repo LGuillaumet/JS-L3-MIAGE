@@ -65,7 +65,7 @@ class Vaisseau {
             this.drawBoundingBox(ctx);
             if (bouclier == true) {
                 this.drawBouclier(ctx);
-                console.log("apparitionBouclier");
+                //console.log("apparitionBouclier");
             }
             ctx.translate(this.x, this.y);
             ctx.rotate(this.angle);

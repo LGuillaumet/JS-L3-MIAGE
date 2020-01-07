@@ -87,7 +87,7 @@ function Alien(x, y, angleD, anglex, angley, vx, vy,amplitude) {
   }
 
 this.addBulletA = function() {
-        console.log("tir alien");
+        //console.log("tir alien");
         this.bulletsA.push(new BulletA(this));
     }
 
@@ -101,7 +101,7 @@ this.removeBulletA = function(bulletA) {
 createAlien(1);
 
 function createAlien(numberOfAlien){
-	console.log("alien");
+	//console.log("alien");
 	for(var k=0; k < numberOfAlien; k++){
 		var alien = new Alien((Math.random()*1200),
                          	(Math.random()*800),

@@ -193,7 +193,7 @@ function collisionTestBulletAVaisseau(){
 }
 
 function collisionTestBulletAlien(){
-    
+
 }
 
 function supprimerAsteroid(a) {
@@ -205,7 +205,24 @@ function supprimerAsteroid(a) {
     }
     if(cunrrentNB == 0){
         NbAst =NbAst+1;
-        createMeteore(NbAst);
-        cunrrentNB = NbAst;
+        if(NbAst == 3){
+            for(var i=0; i < 10; i++) {
+    
+             // Create a meteore with random position and speed
+             var meteore =  new Meteore((Math.random()*1200),
+                          (Math.random()*800),
+                          (2*Math.random())-1,
+                          (2*Math.random())-1,
+                          3); // radius, change if ou like.
+            // Add it to the array
+            AstArray[i] = meteore;
+            }
+            cunrrentNB = 5;
+        }
+        else {
+            createMeteore(NbAst);
+            cunrrentNB = NbAst;
+        }
+       
     }
 }
