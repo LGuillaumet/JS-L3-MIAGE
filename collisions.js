@@ -252,6 +252,49 @@ function collisionTestBulletAlien(aliens, bulletsArray) {
     })
 
 }
+function collisionTestAlienVaisseau(aliens, Vaisseau1) {
+    if (rectangleCollide(aliens.boundingBox, Vaisseau1.boundingBox)) {
+        if (invincible == false) {
+            invincible = true;
+            setTimeout(() => {
+                invincible = false;
+            }, 1000);
+
+            supprimerAliens(aliens);
+            explosion.play();
+
+            if (bouclier == false) {
+                Vaisseau1.vie--;
+            }
+
+            if (bouclier == true) {
+                bouclier = false
+                invincible = true;
+                setTimeout(() => {
+                    invincible = false;
+                }, 1000);
+            }
+
+            if (gameover == false) {
+                score = score + 2000;
+                cunrrentNB = 0;
+            }
+
+            if (Vaisseau1.vie == 0) {
+                //fin du jeu 
+                gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+                explosion.mute(true);
+                shoot.mute(true);
+                backgroundMusic.pause();
+                gameoverSound.play();
+                gameoverSound.once('end', function () {
+                gameoverVoice.play();
+                });
+            }
+        }
+    }
+}
+
 
 function supprimerAliens(al) {
     lvlcheck = true;
@@ -272,8 +315,12 @@ function supprimerAsteroid(a) {
 }
 
 function niveauSuivant(){
+    lvlcheck = true;
+    if(lvl == 2){
+        createAlien(1);
+    }
     if (cunrrentNB == 0 && lvlcheck == true) {
-        
+        lvl +=1;
         NbAst = NbAst + 1;
         if (NbAst == 3) {
             for (var i = 0; i < 10; i++) {

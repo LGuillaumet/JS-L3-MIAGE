@@ -1,5 +1,6 @@
 var canvas, ctx, width, height;
 var Vaisseau1;
+var lvl = 1;
 var lvlcheck = false;
 var gameover = false;
 var mousepos = {
@@ -274,6 +275,7 @@ function anime60fps(time) {
         //collisionTestBulletAVaisseau();
 
         collisionTestBulletAlien(aliens, Vaisseau1.bullets);
+        collisionTestAlienVaisseau(aliens, Vaisseau1);
 
         // tempo est le temps entre chaque tir de l'alien
         if (gameover == false) {

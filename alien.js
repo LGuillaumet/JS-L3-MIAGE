@@ -101,7 +101,7 @@ this.removeBulletA = function(bulletA) {
 
 }
 
-createAlien(1);
+
 
 function createAlien(numberOfAlien){
 	//console.log("alien");
