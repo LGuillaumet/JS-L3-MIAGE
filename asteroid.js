@@ -265,13 +265,21 @@ function anime60fps(time) {
 
 
     }
+
     
-    tempo++;
 
     for (var i = 0; i < AlienArray.length; i++) {
+        tempo++;
         var aliens = AlienArray[i];
         aliens.move();
         aliens.draw();
+
+        if (gameover == false) {
+            if (tempo >= 100) {
+                aliens.addBulletA();
+                tempo = 0;
+            }
+        }
 
         collisionTestBulletAVaisseau(aliens.bulletsA,Vaisseau1);
 
@@ -280,12 +288,7 @@ function anime60fps(time) {
         collisionTestAlienVaisseau(aliens, Vaisseau1);
 
         // tempo est le temps entre chaque tir de l'alien
-        if (gameover == false) {
-            if (tempo == 100) {
-                aliens.addBulletA();
-                tempo = 0;
-            }
-        }
+        
     }
 
     // number of ms since last frame draw

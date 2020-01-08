@@ -29,8 +29,8 @@ function randomBonus() {
     if (x == 21) {
         numero = 3;
     }
-    console.log(x);
-    console.log(numero);
+    //console.log(x);
+    //console.log(numero);
 }
 
 
@@ -241,6 +241,7 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
                 }, 1000);
 
                 explosion.play();
+                //aliens.removeBulletA(b);
 
                 if (bouclier == false) {
                     Vaisseau1.vie--;
@@ -252,10 +253,6 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
                     setTimeout(() => {
                         invincible = false;
                     }, 1000);
-                }
-
-                if (gameover == false) {
-                    score = score + 2000;
                 }
 
                 if (Vaisseau1.vie == 0) {
@@ -385,7 +382,7 @@ function niveauSuivant(){
         lvl +=1;
         NbAst = NbAst + 1;
         /* Niveau petit metores --------------------------------*/
-        if (lvl == 2) {
+        if (lvl == 3) {
             for (var i = 0; i < 10; i++) {
 
                 // Create a meteore with random position and speed
@@ -400,11 +397,18 @@ function niveauSuivant(){
             cunrrentNB = 5;
         } 
                 /* FIN Niveau petit metores --------------------------------*/
-        else if(lvl ==3){
+        else if(lvl == 4){
             NBAlien = 1;
             currentNBAlien = NBAlien;
             createAlien(NBAlien);
             cunrrentNB = 0;
+        }
+        else if(lvl == 2){
+            NBAlien = 1;
+            cunrrentNB = NbAst;
+            createMeteore(NbAst);
+            currentNBAlien = NBAlien;
+            createAlien(NBAlien);
         }
         else {
             createMeteore(NbAst);

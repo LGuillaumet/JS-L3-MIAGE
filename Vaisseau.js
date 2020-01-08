@@ -65,7 +65,7 @@ class Vaisseau {
             ctx.textAlign = 'center';
             ctx.fillText("GAME OVER", (canvas.width / 2), (canvas.height / 2));
             ctx.fillText(score + "pts", (canvas.width / 2), ((canvas.height / 2) + 50));
-            ctx.restore
+            ctx.restore();
         }
 
         if (gameover != true) {
