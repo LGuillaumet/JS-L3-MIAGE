@@ -1,7 +1,9 @@
 var canvas, ctx, width, height;
 var Vaisseau1;
 var lvl = 1;
-var lvlcheck = false;
+var aliencheck = false;
+var meteorecheck = false;
+
 var gameover = false;
 var mousepos = {
     x: 0,

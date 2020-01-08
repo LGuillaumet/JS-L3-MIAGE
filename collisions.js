@@ -335,6 +335,22 @@ function supprimerAliens(al) {
     let pos = AstArray.indexOf(al);
     AlienArray.splice(pos, 1);
     currentNBAlien = currentNBAlien - 1;
+    console.log("Meteore restant :",cunrrentNB);
+
+    if (cunrrentNB == 0) {
+        meteorecheck = true;//dans le cas où le niveau n'a pas de meteores
+    }
+    else{
+        meteorecheck = false;
+    }
+    console.log("Alien restant :",currentNBAlien);
+    if(currentNBAlien == 0){
+        aliencheck = true;
+    }
+    else{
+        aliencheck = false; 
+    }
+    niveauSuivant();
 }
 
 function supprimerAsteroid(a) {
@@ -346,17 +362,30 @@ function supprimerAsteroid(a) {
         //console.log(cunrrentNB);
     }
 
-    if (cunrrentNB == 0 && currentNBAlien == 0) {
+    if (cunrrentNB == 0) {
+        meteorecheck = true;
+    }
+    else{
+        meteorecheck = false;
+    }
+    if(currentNBAlien == 0){//dans le cas où le niveau n'a pas d'alien
+        aliencheck = true;
+    }
+    else{
+        aliencheck = false; 
+    }
+    niveauSuivant();
+}
 
+
+
+function niveauSuivant(){
+   
+    if (meteorecheck == true && aliencheck == true) {
+        lvl +=1;
         NbAst = NbAst + 1;
-
-        if (NbAst == 3){
-            NBAlien = 1;
-            createAlien(NBAlien);
-            cunrrentNB = 0;   
-        }
-
-        else if (NbAst == 4) {
+        /* Niveau petit metores --------------------------------*/
+        if (lvl == 2) {
             for (var i = 0; i < 10; i++) {
 
                 // Create a meteore with random position and speed
@@ -369,11 +398,19 @@ function supprimerAsteroid(a) {
                 AstArray[i] = meteore;
             }
             cunrrentNB = 5;
-
-        } else {
+        } 
+                /* FIN Niveau petit metores --------------------------------*/
+        else if(lvl ==3){
+            NBAlien = 1;
+            currentNBAlien = NBAlien;
+            createAlien(NBAlien);
+            cunrrentNB = 0;
+        }
+        else {
             createMeteore(NbAst);
             cunrrentNB = NbAst;
         }
 
     }
+    else return 0;
 }
