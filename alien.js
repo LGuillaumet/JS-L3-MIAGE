@@ -1,4 +1,6 @@
 var AlienArray =[];
+var NBAlien = 0;
+var currentNBAlien = NBAlien;
 
 function Alien(x, y, angleD, anglex, angley, vx, vy,amplitude) {
   this.x = x;

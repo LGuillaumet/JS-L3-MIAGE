@@ -231,8 +231,8 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
 
 }
 
-function collisionTestBulletAVaisseau(bulletsArray, Vaisseau1) {
-    bulletsArray.forEach((b, index) => {
+function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
+    bulletsAArray.forEach((b, index) => {
         if (rectangleCollide(b.boundingBox, Vaisseau1.boundingBox)) {
             if (invincible == false) {
                 invincible = true;
@@ -332,32 +332,31 @@ function collisionTestAlienVaisseau(aliens, Vaisseau1) {
 
 
 function supprimerAliens(al) {
-    lvlcheck = true;
     let pos = AstArray.indexOf(al);
     AlienArray.splice(pos, 1);
-    niveauSuivant();
+    currentNBAlien = currentNBAlien - 1;
 }
 
 function supprimerAsteroid(a) {
     let pos = AstArray.indexOf(a);
     AstArray.splice(pos, 1);
+
     if (a.id == 3) {
         cunrrentNB = cunrrentNB - 0.5;
         //console.log(cunrrentNB);
     }
- niveauSuivant();
-    
-}
 
-function niveauSuivant(){
-    lvlcheck = true;
-    if(lvl == 2){
-        createAlien(1);
-    }
-    if (cunrrentNB == 0 && lvlcheck == true) {
-        lvl +=1;
+    if (cunrrentNB == 0 && currentNBAlien == 0) {
+
         NbAst = NbAst + 1;
-        if (NbAst == 3) {
+
+        if (NbAst == 3){
+            NBAlien = 1;
+            createAlien(NBAlien);
+            cunrrentNB = 0;   
+        }
+
+        else if (NbAst == 4) {
             for (var i = 0; i < 10; i++) {
 
                 // Create a meteore with random position and speed
@@ -370,11 +369,11 @@ function niveauSuivant(){
                 AstArray[i] = meteore;
             }
             cunrrentNB = 5;
+
         } else {
             createMeteore(NbAst);
             cunrrentNB = NbAst;
         }
 
     }
-    else return 0;
 }
