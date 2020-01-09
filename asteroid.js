@@ -21,6 +21,8 @@ var surchauffe = 0;
 var tempo = 0;
 var swmode = false;
 var xsw = 0;
+var menu = true;
+var clicked = false;
 var shoot = new Howl({
     src: ['shoot.wav'],
     volume: 0.10
@@ -61,6 +63,10 @@ var swstart = new Howl({
 
 var shrekwhat = new Howl({
     src: ['SoundEffect/shrekwhat.mp3'],
+});
+
+var start2 = new Howl({
+    src: ['SoundEffect/start2.mp3'],
 });
 
 var swmusic1 = new Audio('SoundEffect/swmusic1.mp3');
@@ -117,6 +123,7 @@ function init() {
     ctx = canvas.getContext('2d');
     width = canvas.width;
     height = canvas.height;
+    menu = false;
     
 
 
@@ -426,19 +433,27 @@ function drawsurchaud(ctx) {
 }
 
 function setvolume0() {
-    if(swmode == true){
-        if(xsw == 0){
-            swmusic1.pause();
-        }
-        else if(xsw == 1){
-            swmusic2.pause();
+    if (menu == false){
+        if(swmode == true){
+            if(xsw == 0){
+                swmusic1.pause();
+                backgroundMusic.pause();
+            }
+            else if(xsw == 1){
+                swmusic2.pause();
+                backgroundMusic.pause();
+            }
+            else{
+                swmusic3.pause();
+                backgroundMusic.pause();
+            }
         }
         else{
+            backgroundMusic.pause();
             swmusic3.pause();
+            swmusic2.pause();
+            swmusic1.pause();
         }
-    }
-    else{
-    backgroundMusic.pause();
     }   
     explosion.mute(true);
     gameoverSound.mute(true);
@@ -450,22 +465,25 @@ function setvolume0() {
     weow.mute(true);
     swstart.mute(true);
     shrekwhat.mute(true);
+    start2.mute(true);
 }
 
 function setvolume() {
-    if(swmode == true){
-        if(xsw == 0){
-            swmusic1.play();
-        }
-        else if(xsw == 1){
-            swmusic2.play();
+    if (menu == false){
+        if(swmode == true){
+            if(xsw == 0){
+                swmusic1.play();
+            }
+            else if(xsw == 1){
+                swmusic2.play();
+            }
+            else{
+                swmusic3.play();
+            }
         }
         else{
-            swmusic3.play();
+            backgroundMusic.play();
         }
-    }
-    else{
-    backgroundMusic.play();
     }
     explosion.mute(false);
     gameoverSound.mute(false);
@@ -477,18 +495,28 @@ function setvolume() {
     weow.mute(false);
     swstart.mute(false);
     shrekwhat.mute(false);
+    start2.mute(false);
 }
 
 function setModeT(){
+    if(swmode == false){
+        start2.stop();
+        swstart.play();
+    }
     swmode = true;
-    console.log(swmode);
-    swstart.stop();
-    swstart.play();
+    clicked = true;
 }
 
 function setModeF(){
+    if(swmode == true){
+        swstart.stop();
+        start2.play();
+    }
+    if(clicked == false){
+        start2.play();
+        clicked = true;
+    }
     swmode = false;
-    console.log(swmode);
 }
 
 
