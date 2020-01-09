@@ -67,6 +67,8 @@ var swmusic1 = new Audio('SoundEffect/swmusic1.mp3');
 
 var swmusic2 = new Audio('SoundEffect/swmusic2.mp3');
 
+var swmusic3 = new Audio('SoundEffect/swmusic3.mp3');
+
 
 
 //Function to get the mouse position
@@ -86,12 +88,15 @@ function isInside(pos, rect) {
 
 function init() {
     if(swmode == true){
-        xsw = (Math.floor(Math.random() * 2));
+        xsw = (Math.floor(Math.random() * 3));
         if(xsw == 0){
             var promise = swmusic1.play();
         }
-        else{
+        else if(xsw == 1){
             var promise = swmusic2.play();
+        }
+        else{
+            var promise = swmusic3.play();
         }
     }
     else{
@@ -425,8 +430,11 @@ function setvolume0() {
         if(xsw == 0){
             swmusic1.pause();
         }
-        else{
+        else if(xsw == 1){
             swmusic2.pause();
+        }
+        else{
+            swmusic3.pause();
         }
     }
     else{
@@ -449,8 +457,11 @@ function setvolume() {
         if(xsw == 0){
             swmusic1.play();
         }
-        else{
+        else if(xsw == 1){
             swmusic2.play();
+        }
+        else{
+            swmusic3.play();
         }
     }
     else{
@@ -471,6 +482,7 @@ function setvolume() {
 function setModeT(){
     swmode = true;
     console.log(swmode);
+    swstart.stop();
     swstart.play();
 }
 

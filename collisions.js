@@ -215,6 +215,7 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
                 shoot.mute(true);
                 swmusic1.pause();
                 swmusic2.pause();
+                swmusic3.pause();
                 backgroundMusic.pause();
                 if( swmode == true){
                     weow.play();
@@ -279,6 +280,7 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
                     shoot.mute(true);
                     swmusic1.pause();
                     swmusic2.pause();
+                    swmusic3.pause();
                     backgroundMusic.pause();
                 if( swmode == true){
                     weow.play();
@@ -349,6 +351,7 @@ function collisionTestAlienVaisseau(aliens, Vaisseau1) {
                 shoot.mute(true);
                 swmusic1.pause();
                 swmusic2.pause();
+                swmusic3.pause();
                 backgroundMusic.pause();
                 if( swmode == true){
                     weow.play();
