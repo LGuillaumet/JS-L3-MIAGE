@@ -40,8 +40,12 @@ function collisionTestVaisseauBonus(Vaisseau1, BonusArray) {
         bonus = BonusArray[NbBonus];
         //BonusArray.forEach((bonus , index) =>{
         if (rectangleCollide(Vaisseau1.boundingBox, bonus.boundingBox)) {
-            priseBonus.play();
-
+            if (bonus.id == 3) {
+                shrekwhat.play();
+            }
+            else{
+                priseBonus.play();
+            }
             //if(bonus.id == 0){
             //console.log(bonus.id);
 
@@ -209,6 +213,8 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
                 gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
                 explosion.mute(true);
                 shoot.mute(true);
+                swmusic1.pause();
+                swmusic2.pause();
                 backgroundMusic.pause();
                 if( swmode == true){
                     weow.play();
@@ -271,6 +277,8 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
                     gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
                     explosion.mute(true);
                     shoot.mute(true);
+                    swmusic1.pause();
+                    swmusic2.pause();
                     backgroundMusic.pause();
                 if( swmode == true){
                     weow.play();
@@ -339,6 +347,8 @@ function collisionTestAlienVaisseau(aliens, Vaisseau1) {
                 gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
                 explosion.mute(true);
                 shoot.mute(true);
+                swmusic1.pause();
+                swmusic2.pause();
                 backgroundMusic.pause();
                 if( swmode == true){
                     weow.play();

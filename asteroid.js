@@ -20,6 +20,7 @@ var surchauffage = false;
 var surchauffe = 0;
 var tempo = 0;
 var swmode = false;
+var xsw = 0;
 var shoot = new Howl({
     src: ['shoot.wav'],
     volume: 0.10
@@ -54,6 +55,17 @@ var xwingexplose = new Howl({
     src: ['SoundEffect/xwingexplose.mp3'],
 });
 
+var swstart = new Howl({
+    src: ['SoundEffect/swstart.mp3'],
+});
+
+var shrekwhat = new Howl({
+    src: ['SoundEffect/shrekwhat.mp3'],
+});
+
+var swmusic1 = new Audio('SoundEffect/swmusic1.mp3');
+
+var swmusic2 = new Audio('SoundEffect/swmusic2.mp3');
 
 
 
@@ -73,8 +85,18 @@ function isInside(pos, rect) {
 
 
 function init() {
-    var promise = backgroundMusic.play();
-
+    if(swmode == true){
+        xsw = (Math.floor(Math.random() * 2));
+        if(xsw == 0){
+            var promise = swmusic1.play();
+        }
+        else{
+            var promise = swmusic2.play();
+        }
+    }
+    else{
+        var promise = backgroundMusic.play();
+    }
     if (promise !== undefined) {
         promise.then(_ => {
             // Autoplay started!
@@ -399,7 +421,17 @@ function drawsurchaud(ctx) {
 }
 
 function setvolume0() {
+    if(swmode == true){
+        if(xsw == 0){
+            swmusic1.pause();
+        }
+        else{
+            swmusic2.pause();
+        }
+    }
+    else{
     backgroundMusic.pause();
+    }   
     explosion.mute(true);
     gameoverSound.mute(true);
     gameoverVoice.mute(true);
@@ -408,10 +440,22 @@ function setvolume0() {
     tirAlien.mute(true);
     xwingexplose.mute(true);
     weow.mute(true);
+    swstart.mute(true);
+    shrekwhat.mute(true);
 }
 
 function setvolume() {
+    if(swmode == true){
+        if(xsw == 0){
+            swmusic1.play();
+        }
+        else{
+            swmusic2.play();
+        }
+    }
+    else{
     backgroundMusic.play();
+    }
     explosion.mute(false);
     gameoverSound.mute(false);
     gameoverVoice.mute(false);
@@ -420,12 +464,14 @@ function setvolume() {
     tirAlien.mute(false);
     xwingexplose.mute(false);
     weow.mute(false);
-
+    swstart.mute(false);
+    shrekwhat.mute(false);
 }
 
 function setModeT(){
     swmode = true;
     console.log(swmode);
+    swstart.play();
 }
 
 function setModeF(){
