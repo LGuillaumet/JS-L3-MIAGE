@@ -5,8 +5,8 @@ shrek.src = "shrek.png";
 var coeur = new Image(10, 10);
 coeur.src = "coeur.png";
 
-var jul = new Image(10, 10);
-jul.src = "bitcoin.png";
+var bitcoin = new Image(10, 10);
+bitcoin.src = "bitcoin.png";
 
 var mun = new Image(10, 10);
 mun.src = "mun.png";
@@ -36,18 +36,20 @@ class Bonus1 {
     }
 
     draw() {
-        this.drawBoundingBox(ctx);
+        if (afficher_bounding == true) {
+            this.drawBoundingBox(ctx);
+        }
         // LES POINTS POUR GRYFONDOR
         if (this.id == 0) {
-            ctx.drawImage(jul, this.x - 30, this.y - 30, 70, 70);
+            ctx.drawImage(bitcoin, this.x - 30, this.y - 30, 50, 50);
         }
         //BOUCLIER 
         if (this.id == 1) {
-            ctx.drawImage(shield, this.x - 20, this.y - 20, 25, 25);
+            ctx.drawImage(shield, this.x - 15, this.y - 15, 25, 25);
         }
         // LES MUNITIONS POUR TOUT CASSER
         if (this.id == 2) {
-            ctx.drawImage(mun, this.x - 20, this.y - 20, 25, 25);
+            ctx.drawImage(mun, this.x - 15, this.y - 15, 25, 25);
         }
         //EL SHREKOS
         if (this.id == 3) {

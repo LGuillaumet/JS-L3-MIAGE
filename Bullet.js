@@ -18,7 +18,9 @@ class Bullet {
         ctx.restore();
     }
     draw(ctx) {
-        this.drawBoundingBox(ctx);
+        if (afficher_bounding == true) {
+            this.drawBoundingBox(ctx);
+        }
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
