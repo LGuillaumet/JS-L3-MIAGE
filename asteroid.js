@@ -29,6 +29,15 @@ var explosion = new Howl({
     volume: 0.5
 });
 
+var priseBonus = new Howl({
+    src: ['SoundEffect/priseBonus.mp3'],
+});
+
+var tirAlien = new Howl({
+    src: ['SoundEffect/tirAlien.mp3'],
+    volume: 0.5
+});
+
 var gameoverSound = new Howl({
     src: ['SoundEffect/gameOver_music.wav']
 });
@@ -36,6 +45,14 @@ var gameoverVoice = new Howl({
     src: ['SoundEffect/gameOver_voice.wav']
 });
 var backgroundMusic = new Audio('SoundEffect/space_harrier_music_main_theme.mp3');
+
+var weow = new Howl({
+    src: ['SoundEffect/weow.mp3'],
+});
+
+var xwingexplose = new Howl({
+    src: ['SoundEffect/xwingexplose.mp3'],
+});
 
 
 
@@ -279,6 +296,7 @@ function anime60fps(time) {
             if (tempo >= 100) {
                 aliens.addBulletA();
                 tempo = 0;
+                tirAlien.play();
             }
         }
 
@@ -386,6 +404,10 @@ function setvolume0() {
     gameoverSound.mute(true);
     gameoverVoice.mute(true);
     shoot.mute(true);
+    priseBonus.mute(true);
+    tirAlien.mute(true);
+    xwingexplose.mute(true);
+    weow.mute(true);
 }
 
 function setvolume() {
@@ -394,7 +416,10 @@ function setvolume() {
     gameoverSound.mute(false);
     gameoverVoice.mute(false);
     shoot.mute(false);
-
+    priseBonus.mute(false);
+    tirAlien.mute(false);
+    xwingexplose.mute(false);
+    weow.mute(false);
 
 }
 

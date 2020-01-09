@@ -1,5 +1,6 @@
 var bangle = 0;
 
+
 class Vaisseau {
     constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes, vie) {
         this.x = x;

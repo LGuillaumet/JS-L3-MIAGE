@@ -40,7 +40,7 @@ function collisionTestVaisseauBonus(Vaisseau1, BonusArray) {
         bonus = BonusArray[NbBonus];
         //BonusArray.forEach((bonus , index) =>{
         if (rectangleCollide(Vaisseau1.boundingBox, bonus.boundingBox)) {
-            explosion.play();
+            priseBonus.play();
 
             //if(bonus.id == 0){
             //console.log(bonus.id);
@@ -210,10 +210,21 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
                 explosion.mute(true);
                 shoot.mute(true);
                 backgroundMusic.pause();
-                gameoverSound.play();
-                gameoverSound.once('end', function () {
-                gameoverVoice.play();
-                });
+                if( swmode == true){
+                    weow.play();
+                    weow.once('end', function () {
+                        xwingexplose.play();
+                        xwingexplose.once('end', function () {
+                            gameoverVoice.play();
+                        });
+                    });
+                }
+                else{
+                    gameoverSound.play();
+                    gameoverSound.once('end', function () {
+                    gameoverVoice.play();
+                    });
+                }
             }
 
             if (Math.floor((Math.random() * 5)) == 0) {
@@ -261,10 +272,21 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
                     explosion.mute(true);
                     shoot.mute(true);
                     backgroundMusic.pause();
+                if( swmode == true){
+                    weow.play();
+                    weow.once('end', function () {
+                        xwingexplose.play();
+                        xwingexplose.once('end', function () {
+                            gameoverVoice.play();
+                        });
+                    });
+                }
+                else{
                     gameoverSound.play();
                     gameoverSound.once('end', function () {
                     gameoverVoice.play();
                     });
+                }
                 }
             }
         }
@@ -318,10 +340,21 @@ function collisionTestAlienVaisseau(aliens, Vaisseau1) {
                 explosion.mute(true);
                 shoot.mute(true);
                 backgroundMusic.pause();
+                if( swmode == true){
+                    weow.play();
+                    weow.once('end', function () {
+                        xwingexplose.play();
+                        xwingexplose.once('end', function () {
+                            gameoverVoice.play();
+                        });
+                    });
+                }
+                else{
                 gameoverSound.play();
                 gameoverSound.once('end', function () {
                 gameoverVoice.play();
                 });
+                }
             }
         }
     }
