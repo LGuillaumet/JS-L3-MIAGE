@@ -19,6 +19,7 @@ var invincible = false;
 var surchauffage = false;
 var surchauffe = 0;
 var tempo = 0;
+var swmode = false;
 var shoot = new Howl({
     src: ['shoot.wav'],
     volume: 0.10
@@ -395,4 +396,14 @@ function setvolume() {
     shoot.mute(false);
 
 
+}
+
+function setModeT(){
+    swmode = true;
+    console.log(swmode);
+}
+
+function setModeF(){
+    swmode = false;
+    console.log(swmode);
 }

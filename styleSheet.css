@@ -149,3 +149,20 @@ path.two {
     /* display: inline; */
     margin-top: -2.5vw;
 }
+
+.modeIMG{
+    max-width: 10vw;
+    display: inline;
+}
+
+.modeSelect{
+    margin: 5px auto;
+    width: 10vw;
+    /* display: inline; /
+    /margin-top: -2.5vw;*/
+}
+
+#supprLancement{
+    display:flex;
+    justify-content: center;
+}

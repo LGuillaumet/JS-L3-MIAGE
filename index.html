@@ -21,6 +21,8 @@
         init();
         document.getElementById("myCanvas").style.display = "unset";
         document.getElementById('btn1').style.display = 'none';
+        document.getElementById('btn2').style.display = 'none';
+        document.getElementById('supprLancement').style.display = 'none';
       }
 
     }
@@ -37,6 +39,16 @@
   <div class="speakerContainer">
     <img class="speakerIMG" onclick="setvolume()" src="Speaker1.png">
     <img class="speakerIMG" onclick="setvolume0()" src="Speaker4.png">
+  </div>
+
+  <div id="supprLancement">
+    <p>Selectionne ton Mode de Jeu :</p>
+    <br/>
+  </div>
+
+  <div class="modeSelect" id="btn2">
+    <img class="modeIMG" onclick="setModeT()" src="starwars.png">
+    <img class="modeIMG" onclick="setModeF()" src="normal.png">
   </div>
 
   <div class="wrapper" href="#" id="btn1" onclick="whichButton(this)">

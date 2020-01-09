@@ -332,15 +332,12 @@ function supprimerAliens(al) {
     let pos = AstArray.indexOf(al);
     AlienArray.splice(pos, 1);
     currentNBAlien = currentNBAlien - 1;
-    console.log("Meteore restant :",cunrrentNB);
-
     if (cunrrentNB == 0) {
         meteorecheck = true;//dans le cas où le niveau n'a pas de meteores
     }
     else{
         meteorecheck = false;
     }
-    console.log("Alien restant :",currentNBAlien);
     if(currentNBAlien == 0){
         aliencheck = true;
     }
