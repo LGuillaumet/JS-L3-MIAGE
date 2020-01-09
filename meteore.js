@@ -4,6 +4,9 @@ var NbAst = 2;
 var cunrrentNB =NbAst;
 var tab = [];
 
+var etoilenoire = new Image(110,95);
+etoilenoire.src = "etoilenoire.png";
+
 
 
   // Change this number to get more meteores
@@ -108,6 +111,10 @@ function Meteore(x, y, vx, vy,id) {
     
     for (var i=0;i<1;i++){
     	if(this.id == 0){
+        if(swmode == true){
+          ctx.drawImage(etoilenoire,this.x + 10 , this.y + 5,110,95);
+        }
+        else{
     		ctx.beginPath();
       		ctx.strokeStyle = "green";
       		ctx.lineWidth = 3;
@@ -120,6 +127,7 @@ function Meteore(x, y, vx, vy,id) {
      		ctx.lineTo(this.x+120,this.y+50)
      		ctx.lineTo(this.x+90,this.y+5);
      		ctx.closePath();
+        } 
     	}
     	if(this.id == 1){
     		 ctx.beginPath();
