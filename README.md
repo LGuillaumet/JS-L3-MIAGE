@@ -9,20 +9,20 @@ Projet : Asteroids
 But du jeu : Détruire les obstacles sans perdre de vie.
 
 Première étape : Vaisseau 
-- Déplacement OK (Bug)
+- Déplacement OK 
 - Tir Ok
 - Collision avec le canvas Ok
 
 Deuxième étape : Obstacles 
 - Déplacement Ok
-- Collision avec les tirs OK (Bug)
-- Collision avec le vaisseau OK (Bug)
+- Collision avec les tirs OK 
+- Collision avec le vaisseau OK 
 
 Toisième étape : Score et IA
-- Ajout de vaisseaux ennemies 
-- Mouvement des vaisseaux ennemies 
-- Vie des vaisseaux ennemies
+- Ajout de vaisseaux ennemies OK
+- Mouvement des vaisseaux ennemies OK
+- Vie des vaisseaux ennemies OK
 
 ...
 
-Proposition :
+Proposition : Mode Star WARS
