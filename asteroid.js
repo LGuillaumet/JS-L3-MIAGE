@@ -69,6 +69,10 @@ var start2 = new Howl({
     src: ['SoundEffect/start2.mp3'],
 });
 
+var tieson = new Howl({
+    src: ['SoundEffect/tieson.mp3'],
+});
+
 var swmusic1 = new Audio('SoundEffect/swmusic1.mp3');
 
 var swmusic2 = new Audio('SoundEffect/swmusic2.mp3');
@@ -330,7 +334,12 @@ function anime60fps(time) {
             if (tempo >= 100) {
                 aliens.addBulletA();
                 tempo = 0;
-                tirAlien.play();
+                if(swmode == true){
+                    tirAlien.play();
+                }
+                else{
+                    shoot.play();
+                }
             }
         }
 
@@ -466,6 +475,7 @@ function setvolume0() {
     swstart.mute(true);
     shrekwhat.mute(true);
     start2.mute(true);
+    tieson.mute(true);
 }
 
 function setvolume() {
@@ -496,6 +506,7 @@ function setvolume() {
     swstart.mute(false);
     shrekwhat.mute(false);
     start2.mute(false);
+    tieson.mute(false);
 }
 
 function setModeT(){
@@ -526,7 +537,16 @@ function niveauSuivant(){
         lvl +=1;
         NbAst = NbAst + 1;
         /* Niveau petit metores --------------------------------*/
-        if (lvl == 3) {
+        if (lvl == 2) {
+            if(swmode == true){
+            tieson.play();
+            setTimeout(function(){
+            tieson.play();
+            }, 1000);
+            setTimeout(function(){
+            tieson.play();
+            }, 2000);
+            }
             for (var i = 0; i < 10; i++) {
 
                 // Create a meteore with random position and speed
@@ -547,7 +567,7 @@ function niveauSuivant(){
             createAlien(NBAlien);
             cunrrentNB = 0;
         }
-        else if(lvl == 2){
+        else if(lvl == 3){
             NBAlien = 1;
             cunrrentNB = NbAst;
             createMeteore(NbAst);
