@@ -52,7 +52,7 @@ function StarField(canvas, numStars, colours, twinkleSpeed) {
             //
             var x = Math.random() * this.w | 0,
                 y = Math.random() * this.h | 0,
-                r = Math.round((Math.random()) * 100) * 0.01,
+                r = Math.round((Math.random()) * 100) * 0.03,
                 b = this.randomBetween(80, 100) * 0.01,
                 c = this.colours[this.randomBetween(0, this.numColours)];
             //
@@ -103,5 +103,5 @@ function StarField(canvas, numStars, colours, twinkleSpeed) {
 
 };
 
-var sf = new StarField(document.getElementById("myCanvas"), 600, ["#f8f7ff", "#9bb0ff", "#ffcc6f", "#cad7ff"], 20);
+var sf = new StarField(document.getElementById("myCanvas"), 700, ["#f8f7ff", "#9bb0ff", "#ffcc6f", "#cad7ff"], 10);
     sf.create();

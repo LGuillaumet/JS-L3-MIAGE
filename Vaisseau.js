@@ -95,7 +95,14 @@ class Vaisseau {
             }
 
             if (swmode == true) {
-                ctx.drawImage(xwing, this.x - 30, this.y - 30, 60, 60);
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(Vaisseau1.angle);
+                //ctx.rotate(Math.PI / -0.4455);
+                ctx.translate(-30,-30);
+                ctx.drawImage(xwing, 0, 0, 60, 60);
+                ctx.restore();
+
             }
 
 
@@ -116,6 +123,7 @@ class Vaisseau {
                 ctx.stroke(); // outline the shape that's been described
                 ctx.fill();
                 ctx.restore();
+            }
                 if (this.x < 0)
                     this.x = width;
                 if (this.y < 0)
@@ -124,7 +132,7 @@ class Vaisseau {
                     this.x = 0;
                 if (this.y > height)
                     this.y = 0;
-            }
+            
 
             this.drawBullets(ctx);
 
