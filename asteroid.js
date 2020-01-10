@@ -365,7 +365,9 @@ function anime60fps(time) {
         surchauffe = surchauffe - 1;
     }
     surchaud();
-    drawsurchaud(ctx);
+    if(gameover == false){
+        drawsurchaud(ctx);
+    }
     //console.log(surchauffe);
 
 
@@ -466,7 +468,7 @@ function setvolume0() {
     }   
     explosion.mute(true);
     gameoverSound.mute(true);
-    gameoverVoice.mute(true);
+    tempoVoice.mute(true);
     shoot.mute(true);
     priseBonus.mute(true);
     tirAlien.mute(true);
@@ -537,7 +539,7 @@ function niveauSuivant(){
         lvl +=1;
         NbAst = NbAst + 1;
         /* Niveau petit metores --------------------------------*/
-        if (lvl == 2) {
+        if (lvl == 3) {
             if(swmode == true){
             tieson.play();
             setTimeout(function(){
@@ -567,7 +569,7 @@ function niveauSuivant(){
             createAlien(NBAlien);
             cunrrentNB = 0;
         }
-        else if(lvl == 3){
+        else if(lvl == 2){
             NBAlien = 1;
             cunrrentNB = NbAst;
             createMeteore(NbAst);
