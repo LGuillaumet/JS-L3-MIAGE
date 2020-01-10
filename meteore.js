@@ -11,10 +11,7 @@ tie.src = "tie.png";
 
 var destroyer = new Image(100, 100);
 destroyer.src = "destroyer.png";
-destroyer.style.transform = 'rotate(45deg)';
-
-
-// Change this number to get more meteores
+destroyer.style.transform = 'rotate(180deg)';
 
 createMeteore(NbAst);
 
@@ -138,10 +135,7 @@ function Meteore(x, y, vx, vy, id) {
             }
             if (this.id == 1) {
                 if (swmode == true) {
-                    ctx.save();
                     ctx.drawImage(destroyer, this.x + 10, this.y + 5, 110, 95);
-                    ctx.rotate(100 * Math.PI / 180);
-                    ctx.restore();
 
                 } else {
                     ctx.beginPath();
@@ -161,7 +155,12 @@ function Meteore(x, y, vx, vy, id) {
 
             if (this.id == 2) {
                 if (swmode == true) {
+                    ctx.save();
+                    ctx.translate(this.boundingBox.x, this.boundingBox.y);
+                    ctx.rotate(1);
+                    ctx.translate(-this.boundingBox.x, -this.boundingBox.y);
                     ctx.drawImage(destroyer, this.x + 10, this.y + 5, 110, 95);
+                    ctx.restore();
                 } else {
                     ctx.beginPath();
                     ctx.strokeStyle = "blue";

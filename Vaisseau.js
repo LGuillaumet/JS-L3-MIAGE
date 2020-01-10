@@ -1,6 +1,6 @@
 var bangle = 0;
 
-afficher_bounding = false;
+afficher_bounding = true;
 
 var xwing = new Image(10, 10);
 xwing.src = "xwing.png";
