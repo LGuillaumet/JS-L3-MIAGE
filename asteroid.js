@@ -256,7 +256,6 @@ function boost() {
     if (incrementX < 4 && slowcheck ==false) {
         //console.log(incrementX);
         incrementX += 1 * 1.5;
-
         setTimeout(boost, 200);
     } else {
         maxboostcheck = true;
