@@ -281,7 +281,7 @@ function anime60fps(time) {
 
     //on draw le background
     sf.draw();
-    console.log(ion);
+    //console.log(ion);
 
     // 2) On dessine et on déplace le Vaisseau 1
     Vaisseau1.draw(ctx);
