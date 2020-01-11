@@ -87,7 +87,7 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
             //PREMIERE DIVISION ------------------------------------------------------------------------------------------
             if (asteroid.id == 0) {
                 if(swmode== true){
-                createBasicExplosion(asteroid.x,asteroid.y,orange); 
+                createBasicExplosion(asteroid.x,asteroid.y,"#008000"); 
                 }
                 else if(swmode == false) {
                     createBasicExplosion(asteroid.x,asteroid.y,"#008000");

@@ -66,7 +66,7 @@ class Vaisseau {
             }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             if (swmode == true) {
-                document.getElementById("myCanvas").style.backgroundImage = "url('swfin.png')";
+                document.getElementById("myCanvas").style.backgroundImage = "url('starwarsGameOver.png')";
             }
             ctx.font = '48px serif';
             ctx.fillStyle = "white";
