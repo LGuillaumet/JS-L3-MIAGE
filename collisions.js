@@ -262,7 +262,15 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
                 //aliens.removeBulletA(b);
 
                 if (bouclier == false) {
-                    Vaisseau1.vie--;
+                    if(b.id == 0){
+                        Vaisseau1.vie--;
+                    }
+                    if(b.id == 1){
+                        ion = true
+                        setTimeout(() => {
+                        ion = false;
+                        }, 3000);
+                    }
                 }
 
                 if (bouclier == true) {

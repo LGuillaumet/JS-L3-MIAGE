@@ -2,7 +2,7 @@ var AlienArray =[];
 var NBAlien = 0;
 var currentNBAlien = NBAlien;
 
-function Alien(x, y, angleD, anglex, angley, vx, vy,amplitude) {
+function Alien(x, y, angleD, anglex, angley, vx, vy,amplitude,id) {
   this.x = x;
   this.y = y;
   this.angleD = angleD;
@@ -11,6 +11,7 @@ function Alien(x, y, angleD, anglex, angley, vx, vy,amplitude) {
   this.vx = vx;
   this.vy = vy;
   this.amplitude = amplitude;
+  this.id = id;
   this.bulletsA = [];
   this.boundingBox = {
   	x:x,
@@ -93,7 +94,12 @@ function Alien(x, y, angleD, anglex, angley, vx, vy,amplitude) {
 
 this.addBulletA = function() {
         //console.log("tir alien");
-        this.bulletsA.push(new BulletA(this));
+        this.bulletsA.push(new BulletA(this,0));
+    }
+
+this.addBulletA2 = function() {
+        //console.log("tir alien");
+        this.bulletsA.push(new BulletA(this,1));
     }
 
 this.removeBulletA = function(bulletA) {
@@ -115,10 +121,26 @@ function createAlien(numberOfAlien){
                          	(2*Math.random())-1,
                         	(Math.random()*3),
                          	(Math.random()*3),
-                         	(Math.random()*400));
+                         	(Math.random()*400),0);
       
 		AlienArray[k] = alien;
 	}
+}
+
+function createAlienION(numberOfAlien){
+  //console.log("alien");
+  for(var k=0; k < numberOfAlien; k++){
+    var alien = new Alien((Math.random()*1200),
+                          (Math.random()*800),
+                          0,
+                          (2*Math.random())-1,
+                          (2*Math.random())-1,
+                          (Math.random()*3),
+                          (Math.random()*3),
+                          (Math.random()*400),1);
+      
+    AlienArray[k] = alien;
+  }
 }
 
 

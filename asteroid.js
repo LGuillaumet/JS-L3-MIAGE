@@ -22,6 +22,7 @@ var tempo = 0;
 var swmode = false;
 var xsw = 0;
 var menu = true;
+var ion = false;
 var clicked = false;
 var shoot = new Howl({
     src: ['shoot.wav'],
@@ -205,8 +206,14 @@ function handleKeydown(evt) {
             incrementAngle = 0;
         }
         // left key
-        else
-            incrementAngle = -0.08;
+       else{
+            if(ion == true){
+                incrementAngle = 0.08;
+            }
+            else{
+                incrementAngle = -0.08;
+            }
+        }
         startDoubleExplosion(Vaisseau1.x, Vaisseau1.y, Vaisseau1.angle);
         //console.log(incrementAngle);
     } else if (evt.keyCode === 39) {
@@ -214,8 +221,14 @@ function handleKeydown(evt) {
             incrementAngle = 0;
         }
         // right key
-        else
-            incrementAngle = 0.08;
+       else{
+            if(ion == true){
+                incrementAngle = -0.08;
+            }
+            else{
+                incrementAngle = 0.08;
+            }
+        }
         startDoubleExplosion(Vaisseau1.x, Vaisseau1.y, Vaisseau1.angle);
         //console.log(incrementAngle);
     }
@@ -273,7 +286,7 @@ function anime60fps(time) {
 
     //on draw le background
     sf.draw();
-
+    console.log(ion);
 
     // 2) On dessine et on déplace le Vaisseau 1
     Vaisseau1.draw(ctx);
@@ -332,7 +345,12 @@ function anime60fps(time) {
 
         if (gameover == false) {
             if (tempo >= 100) {
-                aliens.addBulletA();
+                if(aliens.id == 0){
+                    aliens.addBulletA();
+                }
+                if(aliens.id == 1){
+                    aliens.addBulletA2();
+                }
                 tempo = 0;
                 if(swmode == true){
                     tirAlien.play();
@@ -574,7 +592,7 @@ function niveauSuivant(){
             cunrrentNB = NbAst;
             createMeteore(NbAst);
             currentNBAlien = NBAlien;
-            createAlien(NBAlien);
+            createAlienION(NBAlien);
             if(swmode == true){
                 document.getElementById("myCanvas").style.backgroundImage = "url('swWP.png')";           }
         }

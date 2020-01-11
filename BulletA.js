@@ -1,8 +1,9 @@
 class BulletA {
-    constructor(Alien) {
+    constructor(Alien,id) {
         this.x = Alien.x;
         this.y = Alien.y;
         this.angle = Alien.angleD;
+        this.id = id;
         this.boundingBox = {
             x: this.x,
             y: this.y,
