@@ -1,6 +1,12 @@
 var AlienArray = [];
 var NBAlien = 0;
 var currentNBAlien = NBAlien;
+var alienIMG = new Image(10, 10);
+alienIMG.src = "Alien.png";
+
+var alienIONIMG = new Image(10, 10);
+alienIONIMG.src = "AlienION.png";
+
 
 function Alien(x, y, angleD, anglex, angley, vx, vy, amplitude, id) {
   this.x = x;
@@ -32,6 +38,21 @@ function Alien(x, y, angleD, anglex, angley, vx, vy, amplitude, id) {
     if (afficher_bounding == true) {
       this.drawBoundingBox(ctx);
     }
+
+    if(swmode == true){
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.angleD);       
+      ctx.translate(-30, -30);
+      if(this.id = 0){
+        ctx.drawImage(alienIMG, 0, 0, 60, 60);
+      }
+      if(this.id = 1){
+        ctx.drawImage(alienIONIMG, 0, 0, 60, 60);
+      }
+      ctx.restore();
+    }
+    if(swmode == false){
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angleD);
@@ -52,6 +73,7 @@ function Alien(x, y, angleD, anglex, angley, vx, vy, amplitude, id) {
     ctx.stroke(); // outline the shape that's been described
     ctx.fill();
     ctx.restore();
+  }
     if (this.x < 0)
       this.x = width;
     if (this.y < 0)
