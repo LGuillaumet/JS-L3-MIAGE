@@ -99,6 +99,9 @@ function isInside(pos, rect) {
 
 function init() {
     if (swmode == true) {
+        document.getElementById("gauche").src="gaucheSW.png";
+        document.getElementById("droite").src="droiteSW.png";
+
         xsw = (Math.floor(Math.random() * 3));
         if (xsw == 0) {
             var promise = swmusic1.play();
