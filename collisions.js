@@ -260,10 +260,7 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
     bulletsAArray.forEach((b, index) => {
         if (rectangleCollide(b.boundingBox, Vaisseau1.boundingBox)) {
             if (invincible == false) {
-                invincible = true;
-                setTimeout(() => {
-                    invincible = false;
-                }, 1000);
+                
 
                 explosion.play();
                 //aliens.removeBulletA(b);
@@ -271,6 +268,10 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
                 if (bouclier == false) {
                     if(b.id == 0){
                         Vaisseau1.vie--;
+                        invincible = true;
+                        setTimeout(() => {
+                        invincible = false;
+                        }, 1000);
                     }
                     if(b.id == 1){
                         ion = true

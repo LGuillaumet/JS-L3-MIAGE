@@ -19,6 +19,7 @@ var invincible = false;
 var surchauffage = false;
 var surchauffe = 0;
 var tempo = 0;
+var tempoION = 0;
 var swmode = false;
 var xsw = 0;
 var menu = true;
@@ -341,6 +342,7 @@ function anime60fps(time) {
 
     for (var i = 0; i < AlienArray.length; i++) {
         tempo++;
+        tempoION++;
         var aliens = AlienArray[i];
         aliens.move();
         aliens.draw();
@@ -349,25 +351,38 @@ function anime60fps(time) {
             if (tempo >= 100) {
                 if (aliens.id == 0) {
                     aliens.addBulletA();
-                }
-                if (aliens.id == 1) {
-                    aliens.addBulletA2();
-                }
-                tempo = 0;
+                    tempo = 0;
                 if (swmode == true) {
                     tirAlien.play();
-                } else {
+                }
+                else {
                     shoot.play();
+                    }
+                }
+            }
+            if (tempoION >= 50){
+                if (aliens.id == 1) {
+                    aliens.addBulletA2();
+                    tempoION = 0;
+                    if (swmode == true) {
+                        tirAlien.play();
+                    } 
+                    else {
+                        shoot.play();
+                    }
                 }
             }
         }
+    
 
         collisionTestBulletAVaisseau(aliens.bulletsA, Vaisseau1);
 
         collisionTestBulletAlien(aliens, Vaisseau1.bullets);
 
         collisionTestAlienVaisseau(aliens, Vaisseau1);
+
         // tempo est le temps entre chaque tir de l'alien
+
     }
 
     // number of ms since last frame draw
