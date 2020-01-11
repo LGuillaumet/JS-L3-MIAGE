@@ -26,7 +26,7 @@ var ion = false;
 var clicked = false;
 var shoot = new Howl({
     src: ['shoot.wav'],
-    volume: 0.10
+    volume: 0.03
 });
 var explosion = new Howl({
     src: ['SoundEffect/explosion.wav'],
@@ -231,8 +231,13 @@ function handleKeydown(evt) {
         //console.log(incrementAngle);
     }
 }
-
+var slowcheck=false;
+var maxslow;
+var boostcheck;
+var maxboostcheck;
 function slow() {
+     slowcheck =true;
+
     if (incrementX > 0) {
         //console.log(Vaisseau1.getAngle());
         Vaisseau1.setAngle(Vaisseau1.getAngle())
@@ -240,21 +245,22 @@ function slow() {
         incrementX -= 0.5;
         setTimeout(slow, 150);
     } else {
+        slowcheck =false;
         incrementX = 0;
     }
 }
 
 
 function boost() {
-    if (incrementX < 5) {
-        var boostcheck = true;
+    boostcheck = true;
+    if (incrementX < 4 && slowcheck ==false) {
         //console.log(incrementX);
-        incrementX += 1 * 2;
+        incrementX += 1 * 1.5;
 
         setTimeout(boost, 200);
     } else {
-        boostcheck = false;
-        incrementX = 6;
+        maxboostcheck = true;
+        incrementX = 5;
     }
 }
 
@@ -263,7 +269,6 @@ function handleKeyup(evt) {
     keysCheck[evt.keyCode] = false;
     if (evt.keyCode === 38) {
         //up key 
-
         slow();
     } else if (evt.keyCode === 37 && keysCheck[39] == false || evt.keyCode === 37) {
         //left key 
@@ -363,9 +368,7 @@ function anime60fps(time) {
         collisionTestBulletAlien(aliens, Vaisseau1.bullets);
 
         collisionTestAlienVaisseau(aliens, Vaisseau1);
-
         // tempo est le temps entre chaque tir de l'alien
-
     }
 
     // number of ms since last frame draw
