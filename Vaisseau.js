@@ -1,5 +1,9 @@
 var bangle = 0;
 
+afficher_bounding = true;
+
+var xwing = new Image(10, 10);
+xwing.src = "xwing.png";
 
 class Vaisseau {
     constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes, vie) {
@@ -90,22 +94,38 @@ class Vaisseau {
                 this.drawBouclier(ctx);
                 //console.log("apparitionBouclier");
             }
-            ctx.translate(this.x, this.y);
-            ctx.rotate(Vaisseau1.angle);
-            ctx.rotate(Math.PI / -0.4455);
-            ctx.translate(-25, -25); //pour tourner sur lui même
+
+            if (swmode == true) {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(Vaisseau1.angle);
+                //ctx.rotate(Math.PI / -0.4455);
+                ctx.translate(-30,-30);
+                ctx.drawImage(xwing, 0, 0, 60, 60);
+                ctx.restore();
+
+            }
 
 
-            ctx.beginPath();
-            ctx.strokeStyle = "red";
-            ctx.moveTo(0, 0); // pick up "pen," reposition at 500 (horiz), 0 (vert)0
-            ctx.lineTo(70, 25); // draw straight down by 200px (200 + 200)
-            ctx.lineTo(25, 25); // draw up toward left (100 less than 300, so left)
-            ctx.lineTo(25, 70);
-            ctx.closePath(); // connect end to start
-            ctx.stroke(); // outline the shape that's been described
-            ctx.fill();
-            ctx.restore();
+            if (swmode == false) {
+                ctx.translate(this.x, this.y);
+                ctx.rotate(Vaisseau1.angle);
+                ctx.rotate(Math.PI / -0.4455);
+                ctx.translate(-25, -25); //pour tourner sur lui même
+
+
+                ctx.beginPath();
+                ctx.strokeStyle = "red";
+                ctx.moveTo(0, 0); // pick up "pen," reposition at 500 (horiz), 0 (vert)0
+                ctx.lineTo(70, 25); // draw straight down by 200px (200 + 200)
+                ctx.lineTo(25, 25); // draw up toward left (100 less than 300, so left)
+                ctx.lineTo(25, 70);
+                ctx.closePath(); // connect end to start
+                ctx.stroke(); // outline the shape that's been described
+                ctx.fill();
+                ctx.restore();
+            }
+            
             if (this.x < 0)
                 this.x = width;
             if (this.y < 0)
