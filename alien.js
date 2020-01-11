@@ -44,10 +44,10 @@ function Alien(x, y, angleD, anglex, angley, vx, vy, amplitude, id) {
       ctx.translate(this.x, this.y);
       ctx.rotate(this.angleD);       
       ctx.translate(-30, -30);
-      if(this.id = 0){
+      if(this.id == 0){
         ctx.drawImage(alienIMG, 0, 0, 60, 60);
       }
-      if(this.id = 1){
+      if(this.id == 1){
         ctx.drawImage(alienIONIMG, 0, 0, 60, 60);
       }
       ctx.restore();
