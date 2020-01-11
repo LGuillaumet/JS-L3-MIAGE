@@ -29,7 +29,9 @@ function Alien(x, y, angleD, anglex, angley, vx, vy, amplitude, id) {
 
 
   this.draw = function () {
-    this.drawBoundingBox(ctx);
+    if (afficher_bounding == true) {
+      this.drawBoundingBox(ctx);
+  }
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angleD);

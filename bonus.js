@@ -36,11 +36,12 @@ class Bonus1 {
     }
 
     draw() {
-        this.drawBoundingBox(ctx);
+        if (afficher_bounding == true) {
+            this.drawBoundingBox(ctx);
+        }
         // LES POINTS POUR GRYFONDOR
         if (this.id == 0) {
             ctx.drawImage(bitcoin, this.x - 30, this.y - 30, 60, 50);
-
         }
         //BOUCLIER 
         if (this.id == 1) {
