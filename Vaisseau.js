@@ -1,6 +1,6 @@
 var bangle = 0;
 
-afficher_bounding = true;
+afficher_bounding = false;
 
 var xwing = new Image(10, 10);
 xwing.src = "xwing.png";
@@ -89,7 +89,9 @@ class Vaisseau {
             ctx.fillText("Niveau: " + (NbAst - 1), 10, 150);
             ctx.restore();
             ctx.save();
-            this.drawBoundingBox(ctx);
+            if (afficher_bounding == true) {
+                this.drawBoundingBox(ctx);
+            }
             if (bouclier == true) {
                 this.drawBouclier(ctx);
                 //console.log("apparitionBouclier");
