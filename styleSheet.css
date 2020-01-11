@@ -147,7 +147,8 @@ path.two {
     display: none;
     max-width: 6vw !important;
     position: absolute;
-    margin: 50vh -49vh;
+    margin: 50vh -22vw;
+
 }
 
 .speakerContainer{
