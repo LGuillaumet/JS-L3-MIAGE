@@ -213,6 +213,7 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
                 gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
                 explosion.mute(true);
                 shoot.mute(true);
+                priseBonus.mute(true);
                 swmusic1.pause();
                 swmusic2.pause();
                 swmusic3.pause();
@@ -287,6 +288,7 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
                     explosion.mute(true);
                     shoot.mute(true);
                     swmusic1.pause();
+                    priseBonus.mute(true);
                     swmusic2.pause();
                     swmusic3.pause();
                     backgroundMusic.pause();
@@ -360,6 +362,7 @@ function collisionTestAlienVaisseau(aliens, Vaisseau1) {
                 swmusic1.pause();
                 swmusic2.pause();
                 swmusic3.pause();
+                priseBonus.mute(true);
                 backgroundMusic.pause();
                 if( swmode == true){
                     weow.play();

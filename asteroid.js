@@ -98,19 +98,16 @@ function isInside(pos, rect) {
 
 
 function init() {
-    if(swmode == true){
+    if (swmode == true) {
         xsw = (Math.floor(Math.random() * 3));
-        if(xsw == 0){
+        if (xsw == 0) {
             var promise = swmusic1.play();
-        }
-        else if(xsw == 1){
+        } else if (xsw == 1) {
             var promise = swmusic2.play();
-        }
-        else{
+        } else {
             var promise = swmusic3.play();
         }
-    }
-    else{
+    } else {
         var promise = backgroundMusic.play();
     }
     if (promise !== undefined) {
@@ -129,7 +126,7 @@ function init() {
     width = canvas.width;
     height = canvas.height;
     menu = false;
-    
+
 
 
     ctx.beginPath();
@@ -206,11 +203,10 @@ function handleKeydown(evt) {
             incrementAngle = 0;
         }
         // left key
-       else{
-            if(ion == true){
+        else {
+            if (ion == true) {
                 incrementAngle = 0.08;
-            }
-            else{
+            } else {
                 incrementAngle = -0.08;
             }
         }
@@ -221,11 +217,10 @@ function handleKeydown(evt) {
             incrementAngle = 0;
         }
         // right key
-       else{
-            if(ion == true){
+        else {
+            if (ion == true) {
                 incrementAngle = -0.08;
-            }
-            else{
+            } else {
                 incrementAngle = 0.08;
             }
         }
@@ -278,7 +273,7 @@ function handleKeyup(evt) {
 
 function anime60fps(time) {
 
-    
+
     // Get current direction ship is facing
     let radians = Vaisseau1.angle / Math.PI * 180;
     // 1) On efface l'Ã©cran
@@ -335,7 +330,7 @@ function anime60fps(time) {
 
     }
 
-    
+
 
     for (var i = 0; i < AlienArray.length; i++) {
         tempo++;
@@ -345,30 +340,29 @@ function anime60fps(time) {
 
         if (gameover == false) {
             if (tempo >= 100) {
-                if(aliens.id == 0){
+                if (aliens.id == 0) {
                     aliens.addBulletA();
                 }
-                if(aliens.id == 1){
+                if (aliens.id == 1) {
                     aliens.addBulletA2();
                 }
                 tempo = 0;
-                if(swmode == true){
+                if (swmode == true) {
                     tirAlien.play();
-                }
-                else{
+                } else {
                     shoot.play();
                 }
             }
         }
 
-        collisionTestBulletAVaisseau(aliens.bulletsA,Vaisseau1);
+        collisionTestBulletAVaisseau(aliens.bulletsA, Vaisseau1);
 
         collisionTestBulletAlien(aliens, Vaisseau1.bullets);
 
         collisionTestAlienVaisseau(aliens, Vaisseau1);
 
         // tempo est le temps entre chaque tir de l'alien
-        
+
     }
 
     // number of ms since last frame draw
@@ -383,13 +377,13 @@ function anime60fps(time) {
         surchauffe = surchauffe - 1;
     }
     surchaud();
-    if(gameover == false){
+    if (gameover == false) {
         drawsurchaud(ctx);
     }
     //console.log(surchauffe);
 
 
-    
+
 }
 
 function supprimerBonus(bonus) {
@@ -462,31 +456,28 @@ function drawsurchaud(ctx) {
 }
 
 function setvolume0() {
-    if (menu == false){
-        if(swmode == true){
-            if(xsw == 0){
+    if (menu == false) {
+        if (swmode == true) {
+            if (xsw == 0) {
                 swmusic1.pause();
                 backgroundMusic.pause();
-            }
-            else if(xsw == 1){
+            } else if (xsw == 1) {
                 swmusic2.pause();
                 backgroundMusic.pause();
-            }
-            else{
+            } else {
                 swmusic3.pause();
                 backgroundMusic.pause();
             }
-        }
-        else{
+        } else {
             backgroundMusic.pause();
             swmusic3.pause();
             swmusic2.pause();
             swmusic1.pause();
         }
-    }   
+    }
     explosion.mute(true);
     gameoverSound.mute(true);
-    tempoVoice.mute(true);
+    gameoverVoice.mute(true);
     shoot.mute(true);
     priseBonus.mute(true);
     tirAlien.mute(true);
@@ -499,19 +490,16 @@ function setvolume0() {
 }
 
 function setvolume() {
-    if (menu == false){
-        if(swmode == true){
-            if(xsw == 0){
+    if (menu == false) {
+        if (swmode == true) {
+            if (xsw == 0) {
                 swmusic1.play();
-            }
-            else if(xsw == 1){
+            } else if (xsw == 1) {
                 swmusic2.play();
-            }
-            else{
+            } else {
                 swmusic3.play();
             }
-        }
-        else{
+        } else {
             backgroundMusic.play();
         }
     }
@@ -529,8 +517,8 @@ function setvolume() {
     tieson.mute(false);
 }
 
-function setModeT(){
-    if(swmode == false){
+function setModeT() {
+    if (swmode == false) {
         start2.stop();
         swstart.play();
     }
@@ -538,12 +526,12 @@ function setModeT(){
     clicked = true;
 }
 
-function setModeF(){
-    if(swmode == true){
+function setModeF() {
+    if (swmode == true) {
         swstart.stop();
         start2.play();
     }
-    if(clicked == false){
+    if (clicked == false) {
         start2.play();
         clicked = true;
     }
@@ -551,21 +539,21 @@ function setModeF(){
 }
 
 
-function niveauSuivant(){
-   
+function niveauSuivant() {
+
     if (meteorecheck == true && aliencheck == true) {
-        lvl +=1;
+        lvl += 1;
         NbAst = NbAst + 1;
         /* Niveau petit metores --------------------------------*/
         if (lvl == 3) {
-            if(swmode == true){
-            tieson.play();
-            setTimeout(function(){
-            tieson.play();
-            }, 1000);
-            setTimeout(function(){
-            tieson.play();
-            }, 2000);
+            if (swmode == true) {
+                tieson.play();
+                setTimeout(function () {
+                    tieson.play();
+                }, 1000);
+                setTimeout(function () {
+                    tieson.play();
+                }, 2000);
             }
             for (var i = 0; i < 10; i++) {
 
@@ -579,28 +567,26 @@ function niveauSuivant(){
                 AstArray[i] = meteore;
             }
             cunrrentNB = 5;
-        } 
-                /* FIN Niveau petit metores --------------------------------*/
-        else if(lvl == 4){
+        }
+        /* FIN Niveau petit metores --------------------------------*/
+        else if (lvl == 4) {
             NBAlien = 1;
             currentNBAlien = NBAlien;
             createAlien(NBAlien);
             cunrrentNB = 0;
-        }
-        else if(lvl == 2){
+        } else if (lvl == 2) {
             NBAlien = 1;
             cunrrentNB = NbAst;
             createMeteore(NbAst);
             currentNBAlien = NBAlien;
             createAlienION(NBAlien);
-            if(swmode == true){
-                document.getElementById("myCanvas").style.backgroundImage = "url('swWP.png')";           }
-        }
-        else {
+            if (swmode == true) {
+                document.getElementById("myCanvas").style.backgroundImage = "url('swWP.png')";
+            }
+        } else {
             createMeteore(NbAst);
             cunrrentNB = NbAst;
         }
 
-    }
-    else return 0;
+    } else return 0;
 }

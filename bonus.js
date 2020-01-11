@@ -5,8 +5,8 @@ shrek.src = "shrek.png";
 var coeur = new Image(10, 10);
 coeur.src = "coeur.png";
 
-var jul = new Image(10, 10);
-jul.src = "bitcoin.png";
+var bitcoin = new Image(10, 10);
+bitcoin.src = "bitcoin.png";
 
 var mun = new Image(10, 10);
 mun.src = "mun.png";
@@ -39,7 +39,8 @@ class Bonus1 {
         this.drawBoundingBox(ctx);
         // LES POINTS POUR GRYFONDOR
         if (this.id == 0) {
-            ctx.drawImage(jul, this.x - 30, this.y - 30, 70, 70);
+            ctx.drawImage(bitcoin, this.x - 30, this.y - 30, 60, 50);
+
         }
         //BOUCLIER 
         if (this.id == 1) {

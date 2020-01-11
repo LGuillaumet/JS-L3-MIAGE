@@ -65,8 +65,8 @@ class Vaisseau {
                 }
             }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if( swmode == true){
-                document.getElementById("myCanvas").style.backgroundImage = "url('swfin.png')";   
+            if (swmode == true) {
+                document.getElementById("myCanvas").style.backgroundImage = "url('swfin.png')";
             }
             ctx.font = '48px serif';
             ctx.fillStyle = "white";
@@ -100,7 +100,7 @@ class Vaisseau {
                 ctx.translate(this.x, this.y);
                 ctx.rotate(Vaisseau1.angle);
                 //ctx.rotate(Math.PI / -0.4455);
-                ctx.translate(-30,-30);
+                ctx.translate(-30, -30);
                 ctx.drawImage(xwing, 0, 0, 60, 60);
                 ctx.restore();
 
@@ -125,7 +125,7 @@ class Vaisseau {
                 ctx.fill();
                 ctx.restore();
             }
-            
+
             if (this.x < 0)
                 this.x = width;
             if (this.y < 0)
