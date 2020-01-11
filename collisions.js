@@ -86,7 +86,12 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
 
             //PREMIERE DIVISION ------------------------------------------------------------------------------------------
             if (asteroid.id == 0) {
-                createBasicExplosion(asteroid.x,asteroid.y,"#008000");
+                if(swmode== true){
+                createBasicExplosion(asteroid.x,asteroid.y,orange); 
+                }
+                else if(swmode == false) {
+                    createBasicExplosion(asteroid.x,asteroid.y,"#008000");
+                }
                 AstArray.push(new Meteore(asteroid.x,
                     asteroid.y,
                     (2 * Math.random()) - 1,
@@ -211,6 +216,7 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
             if (Vaisseau1.vie == 0) {
                 //fin du jeu 
                 gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+                document.getElementById("restart").style.display ='inline';
                 explosion.mute(true);
                 shoot.mute(true);
                 priseBonus.mute(true);
