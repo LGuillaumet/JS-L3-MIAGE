@@ -292,6 +292,7 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
                 if (Vaisseau1.vie == 0) {
                     //fin du jeu 
                     gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+                    document.getElementById("restart").style.display ='inline';
                     explosion.mute(true);
                     shoot.mute(true);
                     swmusic1.pause();
@@ -364,6 +365,7 @@ function collisionTestAlienVaisseau(aliens, Vaisseau1) {
             if (Vaisseau1.vie == 0) {
                 //fin du jeu 
                 gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+                document.getElementById("restart").style.display ='inline';
                 explosion.mute(true);
                 shoot.mute(true);
                 swmusic1.pause();
