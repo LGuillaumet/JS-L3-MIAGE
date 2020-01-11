@@ -187,6 +187,10 @@ function init() {
     });
 
     //anime();
+    invincible = true;
+    setTimeout(() => {
+    invincible = false;
+    }, 1200);
 }
 
 
