@@ -345,6 +345,13 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
 function collisionTestBulletAlien(aliens, bulletsArray) {
     bulletsArray.forEach((b, index) => {
         if (rectangleCollide(aliens.boundingBox, b.boundingBox)) {
+            if(aliens.id==1){
+                createBasicExplosion(aliens.x,aliens.y,"#27c9ff"); 
+
+            }
+            else{
+                createBasicExplosion(aliens.x,aliens.y,"#DC143C"); 
+            }
             supprimerAliens(aliens);
             explosion.play();
             Vaisseau1.removeBullet(b);
