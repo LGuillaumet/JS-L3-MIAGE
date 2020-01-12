@@ -259,9 +259,10 @@ function slow() {
         Vaisseau1.setAngle(Vaisseau1.getAngle())
         //console.log(incrementX);
         incrementX -= 0.5;
-        setTimeout(slow, 150);
+        setTimeout(slow, 100);
     } else {
         slowcheck =false;
+        maxslow= true;
         incrementX = 0;
     }
 }
@@ -272,8 +273,8 @@ function boost() {
     if (incrementX < 4 && slowcheck ==false) {
         //console.log(incrementX);
         incrementX += 1 * 1.5;
-        setTimeout(boost, 200);
-    } else {
+        setTimeout(boost, 100);
+    } else if(maxslow == true) {
         maxboostcheck = true;
         incrementX = 5;
     }
