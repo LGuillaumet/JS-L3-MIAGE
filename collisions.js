@@ -224,12 +224,15 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
             //si on a un bouclier on perd pas de vie
             if (bouclier == false) {
                 Vaisseau1.vie--;
-                let element = document.getElementById("myCanvas");
-                element.classList.add("shake");
-                setTimeout(function(){ element.classList.remove("shake"); }, 100);
+                if(gameover == false){
+                    let element = document.getElementById("myCanvas");
+                    element.classList.add("shake");
+                    setTimeout(function(){ element.classList.remove("shake"); }, 100);1
+                    }
+    
             }
             if (bouclier == true) {
-                bouclier = falseS
+                bouclier = false
                 invincible = true;
                 setTimeout(() => {
                     invincible = false;
@@ -292,9 +295,12 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
                 if (bouclier == false) {
                     if(b.id == 0){
                         Vaisseau1.vie--;
-                        let element = document.getElementById("myCanvas");
-                        element.classList.add("shake");
-                        setTimeout(function(){ element.classList.remove("shake"); }, 100);
+                        if(gameover == false){
+                            let element = document.getElementById("myCanvas");
+                            element.classList.add("shake");
+                            setTimeout(function(){ element.classList.remove("shake"); }, 100);1
+                            }
+            
                         invincible = true;
                         setTimeout(() => {
                         invincible = false;
@@ -319,6 +325,7 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
                 if (Vaisseau1.vie == 0) {
                     //fin du jeu 
                     gameover = true; /*-------------------------------------------POUR AFFICHER LE GAME OVER--------------*/
+                    
                     document.getElementById("restart").style.display ='inline';
                     explosion.mute(true);
                     shoot.mute(true);
@@ -382,9 +389,11 @@ function collisionTestAlienVaisseau(aliens, Vaisseau1) {
 
             if (bouclier == false) {
                 Vaisseau1.vie--;
+                if(gameover == false){
                 let element = document.getElementById("myCanvas");
                 element.classList.add("shake");
-                setTimeout(function(){ element.classList.remove("shake"); }, 100);
+                setTimeout(function(){ element.classList.remove("shake"); }, 100);1
+                }
 
             }
 
