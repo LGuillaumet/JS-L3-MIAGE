@@ -3,7 +3,7 @@ var Vaisseau1;
 var lvl = 1;
 var aliencheck = false;
 var meteorecheck = false;
-
+var mutestart = false;
 var gameover = false;
 var mousepos = {
     x: 0,
@@ -49,7 +49,11 @@ var gameoverSound = new Howl({
 var gameoverVoice = new Howl({
     src: ['SoundEffect/gameOver_voice.wav']
 });
-var backgroundMusic = new Audio('SoundEffect/space_harrier_music_main_theme.mp3');
+
+var backgroundMusic = new Howl({
+    src: ['SoundEffect/space_harrier_music_main_theme.mp3']
+});
+
 
 var weow = new Howl({
     src: ['SoundEffect/weow.mp3'],
@@ -117,22 +121,22 @@ function init() {
         xsw = (Math.floor(Math.random() * 3));
         console.log(xsw);
         if (xsw == 0) {
-            swmusic1.play();
+            if(mutestart == false){
+                swmusic1.play();
+            }
         } else if (xsw == 1) {
-            swmusic2.play();
+            if(mutestart == false){
+                swmusic2.play();
+            }
         } else {
-            swmusic3.play();
+            if(mutestart == false){
+                swmusic3.play();
+            }
         }
     } else {
-        var promise = backgroundMusic.play();
-    }
-    if (promise !== undefined) {
-        promise.then(_ => {
-            // Autoplay started!
-        }).catch(error => {
-            // Autoplay was prevented.
-            // Show a "Play" button so that user can start playback.
-        });
+        if(mutestart == false){
+            backgroundMusic.play();
+        }
     }
 
 
@@ -512,6 +516,7 @@ function setvolume0() {
             swmusic1.pause();
         }
     }
+    mutestart = true;
     explosion.mute(true);
     gameoverSound.mute(true);
     gameoverVoice.mute(true);
