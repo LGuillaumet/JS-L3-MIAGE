@@ -31,7 +31,7 @@ var shoot = new Howl({
 });
 var explosion = new Howl({
     src: ['SoundEffect/explosion.wav'],
-    volume: 0.5
+    volume: 0.3
 });
 
 var priseBonus = new Howl({
@@ -69,17 +69,27 @@ var shrekwhat = new Howl({
 
 var start2 = new Howl({
     src: ['SoundEffect/start2.mp3'],
+    volume: 0.7
 });
 
 var tieson = new Howl({
     src: ['SoundEffect/tieson.mp3'],
 });
 
-var swmusic1 = new Audio('SoundEffect/swmusic1.mp3');
+var swmusic1 = new Howl({
+    src: ['SoundEffect/swmusic1.mp3'],
+    volume: 0.8
+});
 
-var swmusic2 = new Audio('SoundEffect/swmusic2.mp3');
+var swmusic2 = new Howl({
+    src: ['SoundEffect/swmusic2.mp3'],
+    volume: 0.5
+});
 
-var swmusic3 = new Audio('SoundEffect/swmusic3.mp3');
+var swmusic3 = new Howl({
+    src: ['SoundEffect/swmusic3.mp3'],
+    volume: 0.7
+});
 
 
 
@@ -101,18 +111,16 @@ function isInside(pos, rect) {
 function init() {
     if (swmode == true) {
         document.getElementById("gauche").src="gaucheSW.png";
-        document.getElementById("gauche").style.width = "24.7vw";
         document.getElementById("droite").src="droiteSW.png";
-        document.getElementById("myCanvas").style.zIndex="999";
-        document.getElementById("droite").style.width = "23vw";
 
         xsw = (Math.floor(Math.random() * 3));
+        console.log(xsw);
         if (xsw == 0) {
-            var promise = swmusic1.play();
+            swmusic1.play();
         } else if (xsw == 1) {
-            var promise = swmusic2.play();
+            swmusic2.play();
         } else {
-            var promise = swmusic3.play();
+            swmusic3.play();
         }
     } else {
         var promise = backgroundMusic.play();
