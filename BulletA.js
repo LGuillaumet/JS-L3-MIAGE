@@ -19,11 +19,18 @@ class BulletA {
         ctx.restore();
     }
     draw(ctx) {
-        this.drawBoundingBox(ctx);
+        if (afficher_bounding == true) {
+            this.drawBoundingBox(ctx);
+        }
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
-        ctx.fillStyle = 'yellow';
+        if(this.id ==0){
+            ctx.fillStyle = '#00FF00';
+        }
+        if(this.id == 1){
+            ctx.fillStyle = '#27c9ff';
+        }
         ctx.fillRect(-25, 0, 10, 2);
         ctx.restore();
     }
