@@ -48,7 +48,7 @@ function Particle() {
 
   };
 
-  this.draw = function (ctx, angle) {
+  this.draw = function (ctx, angle,idP) {
     // translating the 2D context to the particle coordinates
     ctx.save();
     ctx.translate(this.x, this.y);
@@ -62,20 +62,20 @@ function Particle() {
     ctx.arc(0, 0, this.radius, 0, Math.PI * 2, true);
     //ctx.closePath();
 
-    ctx.fillStyle = this.color;
-    ctx.fill();
-    /*if(this.idP==1){
+    /*ctx.fillStyle = this.color;
+    ctx.fill();*/
+     if(this.idP==0){
+      ctx.strokeStyle = this.color
+      ctx.stroke();
+    }
+    if(this.idP==1){
     ctx.fillStyle = this.color;
     ctx.fill();
     }
 
-    if(this.idP==0){
-      ctx.strokeStyle == this.color
-      ctx.stroke();
-    }*/
 
     ctx.restore();
-  };
+  }
 }
 
 /*
@@ -84,6 +84,7 @@ function Particle() {
  * Parameter : explosion center
  */
 function createBasicExplosion(x, y, color) {
+  this.idP = 1;
   // creating 4 particles that scatter at 0, 90, 180 and 270 degrees
   for (var angleParticle = 0; angleParticle < 360; angleParticle += 25) {
 
@@ -116,6 +117,7 @@ function createBasicExplosion(x, y, color) {
  * 	color - particles' color
  */
 function createExplosion(x, y, color, vAngle) {
+  this.idP = 0;
   var minSize = 10;
   var maxSize = 15;
   var count = 1;
