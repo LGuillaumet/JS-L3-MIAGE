@@ -224,9 +224,12 @@ function collisionTestAsteroidVaisseau(asteroid, Vaisseau1) {
             //si on a un bouclier on perd pas de vie
             if (bouclier == false) {
                 Vaisseau1.vie--;
+                let element = document.getElementById("myCanvas");
+                element.classList.add("shake");
+                setTimeout(function(){ element.classList.remove("shake"); }, 100);
             }
             if (bouclier == true) {
-                bouclier = false
+                bouclier = falseS
                 invincible = true;
                 setTimeout(() => {
                     invincible = false;
@@ -289,6 +292,9 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
                 if (bouclier == false) {
                     if(b.id == 0){
                         Vaisseau1.vie--;
+                        let element = document.getElementById("myCanvas");
+                        element.classList.add("shake");
+                        setTimeout(function(){ element.classList.remove("shake"); }, 100);
                         invincible = true;
                         setTimeout(() => {
                         invincible = false;
@@ -376,6 +382,10 @@ function collisionTestAlienVaisseau(aliens, Vaisseau1) {
 
             if (bouclier == false) {
                 Vaisseau1.vie--;
+                let element = document.getElementById("myCanvas");
+                element.classList.add("shake");
+                setTimeout(function(){ element.classList.remove("shake"); }, 100);
+
             }
 
             if (bouclier == true) {

@@ -61,6 +61,7 @@ var xwingexplose = new Howl({
 
 var swstart = new Howl({
     src: ['SoundEffect/swstart.mp3'],
+    volume: 0.7
 });
 
 var shrekwhat = new Howl({
@@ -69,7 +70,7 @@ var shrekwhat = new Howl({
 
 var start2 = new Howl({
     src: ['SoundEffect/start2.mp3'],
-    volume: 0.7
+    volume: 0.5
 });
 
 var tieson = new Howl({
