@@ -149,6 +149,7 @@ path.two {
     position: absolute;
     top: 28vw;
     left: 48vw;
+    z-index:9999;
 
 }
 

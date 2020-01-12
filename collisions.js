@@ -92,10 +92,10 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
             //PREMIERE DIVISION ------------------------------------------------------------------------------------------
             if (asteroid.id == 0) {
                 if(swmode== true){
-                createBasicExplosion(asteroid.x,asteroid.y,"#008000"); 
+                createBasicExplosion(asteroid.x,asteroid.y,"#DC143C"); 
                 }
                 else if(swmode == false) {
-                    createBasicExplosion(asteroid.x,asteroid.y,"#008000");
+                createBasicExplosion(asteroid.x,asteroid.y,"#008000");
                 }
                 AstArray.push(new Meteore(asteroid.x,
                     asteroid.y,
@@ -111,7 +111,13 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
             }
             //Deuxieme DIVISION ------------------------------------------------------------------------------------------
             if (asteroid.id == 1) {
-                createBasicExplosion(asteroid.x,asteroid.y,"#FF0000");
+                //createBasicExplosion(asteroid.x,asteroid.y,"#FF0000");
+                if(swmode== true){
+                    createBasicExplosion(asteroid.x,asteroid.y,"#DC143C"); 
+                    }
+                    else if(swmode == false) {
+                    createBasicExplosion(asteroid.x,asteroid.y,"#FF0000");
+                    }
                 // Create a meteore with random position and speed
                 AstArray.push(new Meteore(asteroid.x,
                     asteroid.y,
@@ -121,8 +127,13 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
             }
             //Deuxieme DIVISION ------------------------------------------------------------------------------------------
             if (asteroid.id == 2) {
-                createBasicExplosion(asteroid.x,asteroid.y,"#0000FF");
-
+                //createBasicExplosion(asteroid.x,asteroid.y,"#0080ff");
+                if(swmode== true){
+                    createBasicExplosion(asteroid.x,asteroid.y,"#DC143C"); 
+                    }
+                    else if(swmode == false) {
+                    createBasicExplosion(asteroid.x,asteroid.y,"#0080ff");
+                    }
                 AstArray.push(new Meteore(asteroid.x,
                     asteroid.y,
                     (2 * Math.random()) - 1,
@@ -130,7 +141,13 @@ function collisionTestAsteroidBullets(asteroid, bulletsArray) {
                     asteroid.id + 1));
             }
             if (asteroid.id ==3){
-                createBasicExplosion(asteroid.x,asteroid.y,"#FFA500");
+                if(swmode== true){
+                    createBasicExplosion(asteroid.x,asteroid.y,"#DC143C"); 
+                    }
+                    else if(swmode == false) {
+                    createBasicExplosion(asteroid.x,asteroid.y,"#FFA500");
+                    }
+                //createBasicExplosion(asteroid.x,asteroid.y,"#FFA500");
 
             }
             //console.log("COLLISION B/A")

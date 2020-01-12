@@ -23,15 +23,15 @@ function Particle() {
   this.color = "#000";
   this.velocityX = 0;
   this.velocityY = 0;
-  this.scaleSpeed = 0.5;
-  this.id = 0;
+  this.scaleSpeed = 0.8;
+  this.idP = 0;
 
 
   this.update = function (ms) {
     // shrinking
 
     this.scale -= this.scaleSpeed * ms / 1000.0;
-
+    
     if (this.scale <= 0) {
       // particle is dead, remove it
       removeFromArray(particles, this);
@@ -64,6 +64,15 @@ function Particle() {
 
     ctx.fillStyle = this.color;
     ctx.fill();
+    /*if(this.idP==1){
+    ctx.fillStyle = this.color;
+    ctx.fill();
+    }
+
+    if(this.idP==0){
+      ctx.strokeStyle == this.color
+      ctx.stroke();
+    }*/
 
     ctx.restore();
   };
@@ -76,7 +85,7 @@ function Particle() {
  */
 function createBasicExplosion(x, y, color) {
   // creating 4 particles that scatter at 0, 90, 180 and 270 degrees
-  for (var angleParticle = 0; angleParticle < 360; angleParticle += 90) {
+  for (var angleParticle = 0; angleParticle < 360; angleParticle += 25) {
 
 
     var particle = new Particle();
@@ -117,7 +126,7 @@ function createExplosion(x, y, color, vAngle) {
 
   for (var vAngle = 0; vAngle < count; vAngle += 1) {
     var particle = new Particle();
-    particle.id = 1;
+    particle.idP = 1;
     particle.x = x;
     particle.y = y;
 
@@ -150,7 +159,7 @@ function updateAndDrawParticules(delta) {
     var particle = particles[i];
 
     particle.update(delta);
-    if (particle.id == 1) {
+    if (particle.idP == 1) {
       particle.draw(ctx, Vaisseau1.angle);
 
     } else {

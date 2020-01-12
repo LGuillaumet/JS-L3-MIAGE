@@ -170,7 +170,7 @@ function Meteore(x, y, vx, vy, id) {
           ctx.restore();
         } else {
           ctx.beginPath();
-          ctx.strokeStyle = "blue";
+          ctx.strokeStyle = "#0080ff";
           ctx.lineWidth = 3;
           ctx.lineJoin = 'round';
           ctx.lineTo(this.x + 40, this.y + 10);
