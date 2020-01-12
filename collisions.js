@@ -56,7 +56,12 @@ function collisionTestVaisseauBonus(Vaisseau1, BonusArray) {
             } else if (bonus.id == 1) {
                 bouclier = true;
             } else if (bonus.id == 2) {
-                changeCadenceTir(25); // A changer
+                if(Vaisseau1.delayMinBetweenBullets>75){
+                    changeCadenceTir(25); // A changer
+                }
+                else{
+                    score = score + 200;
+                }
             } else if (bonus.id == 3) {
                 if (gameover == false) {
                     score = score + 1243;
@@ -260,7 +265,6 @@ function collisionTestBulletAVaisseau(bulletsAArray, Vaisseau1) {
     bulletsAArray.forEach((b, index) => {
         if (rectangleCollide(b.boundingBox, Vaisseau1.boundingBox)) {
             if (invincible == false) {
-                
 
                 explosion.play();
                 //aliens.removeBulletA(b);

@@ -154,7 +154,7 @@ function init() {
 
     // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
     // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
-    Vaisseau1 = new Vaisseau(600, 400, 0, 2, 200, 3);
+    Vaisseau1 = new Vaisseau(600, 400, 0, 2, 300, 3);
 
     canvas.addEventListener('mousemove', function (evt) {
         mousepos = getMousePos(canvas, evt);
