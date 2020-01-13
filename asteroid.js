@@ -589,6 +589,7 @@ function niveauSuivant() {
         /* Niveau petit metores --------------------------------*/
         if (lvl == 3) {
             if (swmode == true) {
+                document.getElementById("myCanvas").style.backgroundImage = "url('tatoine.jpg')";
                 tieson.play();
                 setTimeout(function () {
                     tieson.play();
@@ -616,6 +617,9 @@ function niveauSuivant() {
             currentNBAlien = NBAlien;
             createAlien(NBAlien);
             cunrrentNB = 0;
+            if (swmode == true) {
+                document.getElementById("myCanvas").style.backgroundImage = "url('backgroundsw.jpg')";
+            }
         } else if (lvl == 2) {
             NBAlien = 1;
             cunrrentNB = NbAst;
