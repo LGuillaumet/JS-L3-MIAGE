@@ -117,6 +117,9 @@ function init() {
     if (swmode == true) {
         document.getElementById("gauche").src="gaucheSW.png";
         document.getElementById("droite").src="droiteSW.png";
+        document.getElementById("gauche").style.width = "24.7vw";
+        document.getElementById("droite").style.width = "23vw"
+
 
         xsw = (Math.floor(Math.random() * 3));
         console.log(xsw);

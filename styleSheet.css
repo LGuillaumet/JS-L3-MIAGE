@@ -4,6 +4,8 @@
     display: none;
     margin-left: 2.5vw;
     background-color: black;
+    background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #myCanvas.shake{
